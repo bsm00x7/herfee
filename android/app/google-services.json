@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626727018916",
+    "project_id": "herfee-bfedb",
+    "storage_bucket": "herfee-bfedb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626727018916:android:f6b49d5669c93b3a7ca131",
+        "android_client_info": {
+          "package_name": "com.example.herfee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPSNCwnKM8fYNzOF7hOdJWA0UiENXrOgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
