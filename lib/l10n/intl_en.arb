@@ -3,5 +3,8 @@
   "homeScreenTitle": "herfee",
   "SearchForServices": "Search For Services",
   "PopularServices" : "Popular Services",
- " FeaturedProfessionals": "Featured Professionals"
+  "featuredProfessionals": "Featured Professionals",
+  "ProfessionalDetails" : "Professional Details",
+  "About" : "About",
+  "PostWork": "Past Work"
 }

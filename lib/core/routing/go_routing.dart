@@ -5,7 +5,9 @@ import '../../features/screen/chat/chat_screen.dart';
 import '../../features/screen/home/home_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
 import '../../features/screen/post_task_screen.dart';
+import '../../features/screen/profile/profile_info.dart';
 import '../../features/screen/profile/profile_screen.dart';
+import '../../service/model/user_model.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -18,5 +20,9 @@ final router = GoRouter(
     GoRoute(path: '/messages', builder: (context, state) => MessageScreen()),
     GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
     GoRoute(path: '/settings', builder: (context, state) => Setting()),
+    GoRoute(path: '/profileInfo', builder: (context, state){
+      final userModel = state.extra as UserModel;
+      return ProfileInfo(userModel: userModel);
+    }),
   ],
 );

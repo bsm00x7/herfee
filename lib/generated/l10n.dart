@@ -79,7 +79,35 @@ class S {
     );
   }
 
-  // skipped getter for the ' FeaturedProfessionals' key
+  /// `Featured Professionals`
+  String get featuredProfessionals {
+    return Intl.message(
+      'Featured Professionals',
+      name: 'featuredProfessionals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Professional Details`
+  String get ProfessionalDetails {
+    return Intl.message(
+      'Professional Details',
+      name: 'ProfessionalDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get About {
+    return Intl.message('About', name: 'About', desc: '', args: []);
+  }
+
+  /// `Past Work`
+  String get PostWork {
+    return Intl.message('Past Work', name: 'PostWork', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
