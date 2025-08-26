@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../chat/chat_screen.dart';
 import '../home/home_screen.dart';
+import '../post_task_screen.dart';
 import '../profile/profile_screen.dart';
 import '../search/search_screen.dart';
 class NavigatorButtom extends StatefulWidget {
@@ -17,7 +20,6 @@ class _NavigatorButtomState extends State<NavigatorButtom> {
     setState(() {
       _selectedIndex = index;
     });
-
   }
   Widget screen (int index ){
     switch(index){
@@ -26,12 +28,17 @@ class _NavigatorButtomState extends State<NavigatorButtom> {
       case 1:
         return SearchScreen();
       case 2:
+        return AddTaskScreen();
+        case 3:
+        return MessageScreen();
+      case 4:
         return ProfileScreen();
       default:
         return HomeScreen();
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
@@ -42,9 +49,11 @@ class _NavigatorButtomState extends State<NavigatorButtom> {
         onTap: (index) => _navScreen(index, context),
         type: BottomNavigationBarType.fixed,
         items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home) , label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search) , label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.person) , label: 'Settings'),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.house) , label: 'Home' ,),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.magnifyingGlass) , label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.circlePlus) , label: 'Post Task'),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.message) , label: 'Messages'),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user) , label: 'Profile'),
       ],
 
       ),

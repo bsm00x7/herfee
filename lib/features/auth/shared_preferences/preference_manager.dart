@@ -40,7 +40,7 @@ class PreferenceManager with ChangeNotifier {
   remove(String key){
     return _preferences.remove(key);
   }
-  bool? getbool (String key){
+  bool? getBool (String key){
     return _preferences.getBool(key) ;
   }
   void clear(){
