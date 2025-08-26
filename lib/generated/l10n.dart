@@ -53,6 +53,33 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `herfee`
+  String get homeScreenTitle {
+    return Intl.message('herfee', name: 'homeScreenTitle', desc: '', args: []);
+  }
+
+  /// `Search For Services`
+  String get SearchForServices {
+    return Intl.message(
+      'Search For Services',
+      name: 'SearchForServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popular Services`
+  String get PopularServices {
+    return Intl.message(
+      'Popular Services',
+      name: 'PopularServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the ' FeaturedProfessionals' key
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

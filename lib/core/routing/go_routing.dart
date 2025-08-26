@@ -1,7 +1,11 @@
 import 'package:go_router/go_router.dart';
-
+import 'package:herfee/features/screen/search/search_screen.dart';
+import 'package:herfee/features/screen/setting/setting.dart';
+import '../../features/screen/chat/chat_screen.dart';
 import '../../features/screen/home/home_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
+import '../../features/screen/post_task_screen.dart';
+import '../../features/screen/profile/profile_screen.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -9,5 +13,10 @@ final router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => NavigatorButtom()),
     GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+    GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
+    GoRoute(path: '/postTask', builder: (context, state) => AddTaskScreen()),
+    GoRoute(path: '/messages', builder: (context, state) => MessageScreen()),
+    GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
+    GoRoute(path: '/settings', builder: (context, state) => Setting()),
   ],
 );

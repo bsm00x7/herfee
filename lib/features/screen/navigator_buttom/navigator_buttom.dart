@@ -57,7 +57,10 @@ class _NavigatorButtomState extends State<NavigatorButtom> {
       ],
 
       ),
-      body:SafeArea(child: screen(_selectedIndex)),
+      body:SafeArea(child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: screen(_selectedIndex),
+      )),
     );
   }
 }

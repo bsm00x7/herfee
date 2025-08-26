@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// Enhanced Light Theme with Custom Fonts
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
+  fontFamily: 'Roboto',
 
   // Color Scheme
   colorScheme: const ColorScheme.light(
@@ -17,11 +19,11 @@ final ThemeData lightTheme = ThemeData(
     onPrimary: Color(0xFFFFFFFF),
     onSecondary: Color(0xFFFFFFFF),
     onSurface: Color(0xFF111827),
+    surfaceContainerHigh: Color(0xFF1F2937),
     onError: Color(0xFFFFFFFF),
     outline: Color(0xFFD1D5DB),
   ),
 
-  // Scaffold
   scaffoldBackgroundColor: const Color(0xFFFCFCFD),
 
   // AppBar Theme
@@ -31,11 +33,11 @@ final ThemeData lightTheme = ThemeData(
     elevation: 0,
     centerTitle: true,
     titleTextStyle: TextStyle(
+      fontFamily: 'Roboto',
       color: Color(0xFF111827),
       fontSize: 20,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
     ),
-    shadowColor: Color(0x0D000000),
   ),
 
   // Bottom Navigation Bar
@@ -43,90 +45,114 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: Color(0xFFFFFFFF),
     selectedItemColor: Color(0xFF6366F1),
     unselectedItemColor: Color(0xFF6B7280),
-    selectedIconTheme: IconThemeData(
-      color: Color(0xFF6366F1),
-      size: 24,
-    ),
-    unselectedIconTheme: IconThemeData(
-      color: Color(0xFF6B7280),
-      size: 24,
-    ),
     selectedLabelStyle: TextStyle(
-      color: Color(0xFF6366F1),
-      fontSize: 12,
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
+      fontSize: 12,
     ),
     unselectedLabelStyle: TextStyle(
-      color: Color(0xFF6B7280),
-      fontSize: 12,
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,
+      fontSize: 12,
     ),
-    showUnselectedLabels: true,
     type: BottomNavigationBarType.fixed,
     elevation: 8,
   ),
 
-  // Card Theme
-  cardTheme: const CardThemeData(
-    color: Color(0xFFFFFFFF),
-    shadowColor: Color(0x0D000000),
-    elevation: 4,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12)),
-    ),
-  ),
 
-  // Elevated Button Theme
+
+  // Button Themes
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: const Color(0xFF6366F1),
       foregroundColor: const Color(0xFFFFFFFF),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+      textStyle: const TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   ),
 
-  // Text Button Theme
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(
-      foregroundColor: const Color(0xFF6366F1),
-    ),
-  ),
-
-  // Text Theme
+  // Text Theme with Custom Font
   textTheme: const TextTheme(
-    headlineLarge: TextStyle(color: Color(0xFF111827), fontWeight: FontWeight.bold),
-    headlineMedium: TextStyle(color: Color(0xFF111827), fontWeight: FontWeight.w600),
-    titleLarge: TextStyle(color: Color(0xFF111827), fontWeight: FontWeight.w600),
-    bodyLarge: TextStyle(color: Color(0xFF374151)),
-    bodyMedium: TextStyle(color: Color(0xFF4B5563)),
-    bodySmall: TextStyle(color: Color(0xFF6B7280)),
-  ),
-
-  // Input Decoration Theme
-  inputDecorationTheme: const InputDecorationTheme(
-    filled: true,
-    fillColor: Color(0xFFF9FAFB),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Color(0xFFD1D5DB)),
+    headlineLarge: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w300,
+      fontSize: 32,
+      color: Color(0xFF111827),
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Color(0xFFD1D5DB)),
+    headlineMedium: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 28,
+      color: Color(0xFF111827),
     ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Color(0xFF6366F1), width: 2),
+    headlineSmall: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 24,
+      color: Color(0xFF111827),
+    ),
+    titleLarge: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
+      fontSize: 22,
+      color: Color(0xFF111827),
+    ),
+    titleMedium: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w700,
+      fontSize: 20,
+      color: Color(0xFF374151),
+    ),
+    titleSmall: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      color: Color(0xFF4B5563),
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: Color(0xFF374151),
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: Color(0xFF4B5563),
+    ),
+    bodySmall: TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      color: Color(0xFF6B7280),
     ),
   ),
-
-  // Divider Theme
-  dividerTheme: const DividerThemeData(
-    color: Color(0xFFE5E7EB),
-    thickness: 1,
-  ),
+  searchBarTheme: SearchBarThemeData(
+    hintStyle:WidgetStatePropertyAll(TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color:Color(0xFFFFFFFF).withValues(alpha: 0.4),
+    )) ,
+    textStyle:WidgetStatePropertyAll(TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color:Color(0xFFFFFFFF),
+    )) ,
+    padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 12)),
+    elevation: WidgetStatePropertyAll(0),
+    backgroundColor: WidgetStateProperty.resolveWith((state){
+      if (state.contains(WidgetState.focused)){
+        return  Color(0xFF111827);
+      }else{
+        return Color(0xFF111827);
+      }
+    }),
+  )
 );

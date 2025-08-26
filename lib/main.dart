@@ -11,7 +11,6 @@ import 'generated/controller/lang_local_controller.dart';
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
     return AdaptiveTheme(
       light: lightTheme,
       dark: darkTheme,
-      initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      initial: savedThemeMode ?? AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) =>
           MultiProvider(
             providers: [
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
             child: Consumer<LangController>(
               builder: (context, provider, child) {
                 return MaterialApp.router(
-                  locale: Locale(provider.locale ?? "fr"),
+                  locale: Locale(provider.locale ?? "en"),
                   localizationsDelegates: [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,
