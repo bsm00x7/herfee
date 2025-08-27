@@ -20,32 +20,21 @@ class Experience {
   }}
 
 class UserModel {
-  final String imageNetworkPath;
-
+  final String id;
+  final String imageId;
   final String userName;
   final String jobe;
-
   final String rating;
 
   final String reviwes;
   final String about;
   final List<JobModel> pastWork;
   final List<Experience> experience;
-
-  UserModel({
-    required this.imageNetworkPath,
-    required this.userName,
-    required this.jobe,
-    required this.rating,
-    required this.reviwes,
-    required this.about,
-    required this.pastWork,
-    required this.experience,
-  });
-
+  UserModel({required this.id ,required this.imageId , required this.userName , required this.jobe , required this.rating , required this.reviwes , required this.about , required this.pastWork , required this.experience});
   Map<String, dynamic> toMap() {
     return {
-      'imageNetworkPath': this.imageNetworkPath,
+      'id': this.id,
+      'imageId': this.imageId,
       'userName': this.userName,
       'jobe': this.jobe,
       'rating': this.rating,
@@ -58,7 +47,8 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      imageNetworkPath: map['imageNetworkPath'] as String,
+      id: map['id'] as String,
+      imageId: map['imageId'] as String,
       userName: map['userName'] as String,
       jobe: map['jobe'] as String,
       rating: map['rating'] as String,
@@ -68,4 +58,5 @@ class UserModel {
       experience: map['experience'] as List<Experience>,
     );
   }
+
 }

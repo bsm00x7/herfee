@@ -15,7 +15,8 @@ class HomeController extends ChangeNotifier {
 
   Future<UserModel> goToProfile(String userId) async {
     return UserModel(
-      imageNetworkPath: "imageNetworkPath",
+      id: 'fdssfsdfdsfeef 56d4f6d4f461dfdf',
+      imageId: "imageNetworkPath",
       userName: "userName",
       jobe: "jobe",
       rating: "4.7",

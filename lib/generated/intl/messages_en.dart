@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ProfessionalDetails": MessageLookupByLibrary.simpleMessage(
       "Professional Details",
     ),
+    "Profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "SearchForServices": MessageLookupByLibrary.simpleMessage(
       "Search For Services",
     ),

@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:herfee/service/auth/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/routing/go_routing.dart';
 import 'core/theme/lightTheme.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => HomeController(),
 
           ),
+          ChangeNotifierProvider(create: (_) => AuthNotifier()),
         ],
         child: Consumer<LangController>(
           builder: (context, provider, child) {
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              routerConfig: router,
+              routerConfig: createRouter(context),
               debugShowCheckedModeBanner: false,
               title: 'Her fee',
               theme: theme,

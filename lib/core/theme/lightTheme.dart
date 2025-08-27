@@ -28,7 +28,7 @@ final ThemeData lightTheme = ThemeData(
 
   // AppBar Theme
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFFFFFFFF),
+    backgroundColor:   Color(0xFFFCFCFD),
     foregroundColor: Color(0xFF111827),
     elevation: 0,
     centerTitle: true,

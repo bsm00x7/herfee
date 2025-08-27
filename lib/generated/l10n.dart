@@ -108,6 +108,11 @@ class S {
   String get PostWork {
     return Intl.message('Past Work', name: 'PostWork', desc: '', args: []);
   }
+
+  /// `Profile`
+  String get Profile {
+    return Intl.message('Profile', name: 'Profile', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
