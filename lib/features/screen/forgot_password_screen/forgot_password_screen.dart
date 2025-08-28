@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'controller/signin_controller.dart';
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+import 'controller/forgot_controller.dart';
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  late SignInController _controller;
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  late ForgotPasswordController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = SignInController();
+    _controller = ForgotPasswordController();
   }
 
   @override
@@ -32,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: ChangeNotifierProvider.value(
           value: _controller,
-          child: Consumer<SignInController>(
+          child: Consumer<ForgotPasswordController>(
             builder: (context, controller, child) {
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(24),
@@ -41,21 +41,39 @@ class _SignInPageState extends State<SignInPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: 40),
+
+                      // Back Button
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          onPressed: () => context.go('/login'),
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                      ),
                       const SizedBox(height: 60),
 
-                      // Logo or App Name
+                      // Icon
+                      const Icon(
+                        Icons.lock_reset,
+                        size: 80,
+                        color: Colors.blue,
+                      ),
+                      const SizedBox(height: 32),
+
+                      // Title
                       const Text(
-                        'Welcome Back',
+                        'Forgot Password?',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Text(
-                        'Sign in to your account',
+                        'Enter your email address and we\'ll send you a link to reset your password.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -70,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                         validator: controller.emailValidator,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Email Address',
                           prefixIcon: const Icon(Icons.email_outlined),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -79,40 +97,13 @@ class _SignInPageState extends State<SignInPage> {
                           fillColor: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
 
-                      // Password Field
-                      TextFormField(
-                        controller: controller.controllerPassword,
-                        validator: controller.passwordValidator,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-
-                      // Forgot Password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () => context.go('/forgot-password'),
-                          child: const Text('Forgot Password?'),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Sign In Button
+                      // Send Reset Link Button
                       ElevatedButton(
                         onPressed: controller.isLoading
                             ? null
-                            : () => controller.signIntoApp(context),
+                            : () => controller.sendResetEmail(context),
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 56),
                           shape: RoundedRectangleBorder(
@@ -125,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         )
                             : const Text(
-                          'Sign In',
+                          'Send Reset Link',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -135,29 +126,16 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Sign Up Link
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Don\'t have an account? ',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                            ),
+                      // Back to Login
+                      TextButton(
+                        onPressed: () => context.go('/login'),
+                        child: const Text(
+                          'Back to Login',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              context.push('/signup');
-                            },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),

@@ -1,77 +1,148 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../../core/utils/error/error.dart';
-import '../../../../core/utils/loding/loding_indicator.dart';
 import '../../../../service/auth/auth.dart';
+import '../account_confirmation_dialog.dart';
 
 class SignInController with ChangeNotifier {
   final TextEditingController controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String? emailValidator(String? p1) {
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-    final bool isValid = EmailValidator.validate(controllerEmail.text.trim());
-    if (controllerEmail.text.trim().isEmpty) {
+  void _setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
+  }
+
+  String? emailValidator(String? value) {
+    final email = value?.trim() ?? '';
+    if (email.isEmpty) {
       return 'Please enter an email address.';
-    } else if (!isValid) {
-      return 'Please Enter Corrected Email';
+    } else if (!EmailValidator.validate(email)) {
+      return 'Please enter a valid email address';
     }
     return null;
   }
 
-  String? passwordValidator(String? p1) {
-
-    if (p1 == null || p1.trim().isEmpty) {
-      return "Please Enter Your Password";
+  String? passwordValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please enter your password";
     }
-    if (p1.trim().length < 8) {
-      return "Password must be at least 8 characters long.";
+    if (value.trim().length < 8) {
+      return "Password must be at least 8 characters long";
     }
     return null;
   }
 
   Future<void> signIntoApp(BuildContext context) async {
-    if (formKey.currentState?.validate() ?? false) {
-      LoadingIndicator.setLoading(context, true); // Show loading indicator
+    if (formKey.currentState!.validate()) {
       try {
-        await AuthNotifier().signInWithAddressAndPassword(
-          email: controllerEmail.text.trim(), // Good practice to trim inputs
-          password: controllerPassword.text.trim(),
+        _setLoading(true);
+        final response = await AuthNotifier().signInWithAddressAndPassword(
+          email: controllerEmail.text.trim(),
+          password: controllerPassword.text,
         );
 
-        if (context.mounted) {
-          context.pushReplacement('/'); // Navigate on success
-        }
-      } on AuthException catch (e) {
-        String errorMessage;
+        final user = response.user;
 
-        switch (e.message) {
-          case "Invalid login credentials":
-            errorMessage = "Invalid email or password. Please check your credentials and try again.";
-            break;
-         case "Email not confirmed":
-           errorMessage = "Please confirm your email before signing in.";
-           break;
-          default:
-            debugPrint("SignIn AuthException: ${e.message} (Code: ${e.statusCode})"); // Supabase example
-            errorMessage = 'Sign-in failed. Please try again later.';
+        if (user == null) {
+          CustomErrorWidget.showError(context, "Login failed. Please try again.");
+          return;
         }
+
+        // 🚨 Check if email is confirmed
+        if (user.emailConfirmedAt == null) {
+          await showBottomSheetConfirmation(context);
+          return;
+        }
+
+        // 🎉 Success → navigate to home
         if (context.mounted) {
-          CustomErrorWidget.showError(context, errorMessage);
+
         }
+
+      } on AuthException catch (e) {
+        String errorMessage = _getErrorMessage(e.message);
+        CustomErrorWidget.showError(context, errorMessage);
       } catch (e) {
-        if (context.mounted) {
-          CustomErrorWidget.showError(context, 'An unexpected error occurred. Please try again.');
-        }
+        CustomErrorWidget.showError(context, "Something went wrong: $e");
       } finally {
-        if (context.mounted) {
-          LoadingIndicator.setLoading(context, false);
-        }
+        _setLoading(false);
       }
     }
+  }
+
+
+
+  /// Alternative: Show bottom sheet confirmation
+  Future<void> showBottomSheetConfirmation(BuildContext context) async {
+    await AccountConfirmationDialog.showBottomSheetConfirmation(
+      context,
+      email: controllerEmail.text.trim(),
+      onResendEmail: () => _resendConfirmationEmail(context),
+      onGoToLogin: () {
+        controllerEmail.clear();
+        controllerPassword.clear();
+      },
+    );
+  }
+
+
+
+  /// Resend confirmation email
+  Future<void> _resendConfirmationEmail(BuildContext context) async {
+    try {
+      await Supabase.instance.client.auth.resend(
+        type: OtpType.signup,
+        email: controllerEmail.text.trim(),
+      );
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Confirmation email sent successfully!'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        CustomErrorWidget.showError(
+          context,
+          "Failed to resend confirmation email. Please try again.",
+        );
+      }
+    }
+  }
+
+  /// Get user-friendly error messages
+  String _getErrorMessage(String message) {
+    switch (message.toLowerCase()) {
+      case "invalid login credentials":
+        return "The email or password you entered is incorrect. Please try again.";
+      case "email already registered":
+        return "This email is already registered. Try signing in instead.";
+      case "invalid password":
+        return "Invalid password. Please check and try again.";
+      case "invalid email":
+        return "Please enter a valid email address.";
+      case "too many requests":
+        return "Too many login attempts. Please wait a moment and try again.";
+      default:
+        return "Something went wrong. Please try again.";
+    }
+  }
+
+  @override
+  void dispose() {
+    controllerEmail.dispose();
+    controllerPassword.dispose();
+    super.dispose();
   }
 }

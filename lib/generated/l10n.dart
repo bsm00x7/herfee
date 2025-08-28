@@ -113,6 +113,41 @@ class S {
   String get Profile {
     return Intl.message('Profile', name: 'Profile', desc: '', args: []);
   }
+
+  /// `SignIn `
+  String get SignIn {
+    return Intl.message('SignIn ', name: 'SignIn', desc: '', args: []);
+  }
+
+  /// `Email`
+  String get Email {
+    return Intl.message('Email', name: 'Email', desc: '', args: []);
+  }
+
+  /// `Enter your email address`
+  String get EnterYourEmailAddress {
+    return Intl.message(
+      'Enter your email address',
+      name: 'EnterYourEmailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get Password {
+    return Intl.message('Password', name: 'Password', desc: '', args: []);
+  }
+
+  /// `Enter your password`
+  String get EnterYourPassword {
+    return Intl.message(
+      'Enter your password',
+      name: 'EnterYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

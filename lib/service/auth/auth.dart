@@ -14,11 +14,12 @@ class AuthNotifier extends ChangeNotifier {
 
 
 
-  Future <void> signInWithAddressAndPassword ({required String email, required String password})async{
-    await Supabase.instance.client.auth.signUp(
+  Future <AuthResponse> signInWithAddressAndPassword ({required String email, required String password})async{
+   final response = await Supabase.instance.client.auth.signInWithPassword(
         email: email.trim(),
         password: password.trim(),
     );
+   return response;
   }
 
 

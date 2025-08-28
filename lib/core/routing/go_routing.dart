@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:herfee/features/screen/forgot_password_screen/forgot_password_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/screen/chat/chat_screen.dart';
 import '../../features/screen/home/home_screen.dart';
+import '../../features/screen/login/login_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
 import '../../features/screen/post_task_screen.dart';
 import '../../features/screen/profile/profile_info.dart';
@@ -16,35 +18,98 @@ import '../../service/auth/auth.dart';
 import '../../service/model/user_model.dart';
 
 
+
 GoRouter createRouter(BuildContext context) {
   final authNotifier = Provider.of<AuthNotifier>(context, listen: false);
-
   return GoRouter(
     initialLocation: '/',
     refreshListenable: authNotifier,
-    redirect: (context, state) {
-      final isLoggedIn = authNotifier.isLoggedIn;
-      final loggingIn = state.matchedLocation == '/signin';
-      if (!isLoggedIn && !loggingIn) return '/signin';
-      if (isLoggedIn && loggingIn) return '/';
+    redirect: (BuildContext context, GoRouterState state) {
+      final bool isLoggedIn = authNotifier.isLoggedIn;
+
+      final bool isGoingToLogin = state.matchedLocation == '/signin';
+      final bool isGoingToSignup = state.matchedLocation ==
+          '/signup';
+      final bool isGoingToForgotPassword = state.matchedLocation ==
+          '/forgot';
+
+      if (!isLoggedIn && !isGoingToLogin && !isGoingToSignup &&
+          !isGoingToForgotPassword) {
+        debugPrint(
+            "Redirect: Not logged in, not going to auth pages. Redirecting to /signin");
+        return '/signin';
+      }
+
+
+      if (isLoggedIn && (isGoingToLogin || isGoingToSignup)) {
+        debugPrint(
+            "Redirect: Logged in, going to login/signup. Redirecting to /");
+        return '/';
+      }
+
+      debugPrint("Redirect: No redirect needed for ${state.matchedLocation}");
       return null;
     },
-    routes: [
-      GoRoute(path: '/', builder: (context, state) => NavigatorButtom()),
-      GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
-      GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
-      GoRoute(path: '/postTask', builder: (context, state) => AddTaskScreen()),
-      GoRoute(path: '/messages', builder: (context, state) => MessageScreen()),
-      GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
-      GoRoute(path: '/settings', builder: (context, state) => Setting()),
+    routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+
+        builder: (context, state) =>
+            NavigatorButtom(),
+      ),
+      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+      GoRoute(
+          path: '/search', builder: (context, state) => const SearchScreen()),
+      GoRoute(path: '/postTask',
+          builder: (context, state) => const AddTaskScreen()),
+      GoRoute(path: '/messages',
+          builder: (context, state) => const MessageScreen()),
+      GoRoute(
+          path: '/profile', builder: (context, state) => const ProfileScreen()),
+      GoRoute(path: '/settings', builder: (context, state) => const Setting()),
+      // Assuming Setting is SettingsScreen
       GoRoute(
         path: '/profileInfo',
         builder: (context, state) {
-          final userModel = state.extra as UserModel;
-          return ProfileInfo(userModel: userModel);
+          // Good practice to check if state.extra is actually a UserModel
+          if (state.extra is UserModel) {
+            final userModel = state.extra as UserModel;
+            return ProfileInfo(userModel: userModel);
+          }
+          // Handle cases where extra is not a UserModel or is null
+          debugPrint(
+              "Error: /profileInfo called without valid UserModel in extra. state.extra: ${state
+                  .extra}");
+          return Scaffold(body: Center(
+              child: Text("Error: User data missing."))); // Fallback
         },
       ),
-      GoRoute(path: '/signin', builder: (context, state) =>  SignInPage()),
+
+      // Auth Routes (accessible when not logged in, due to redirect logic)
+      GoRoute(
+        path: '/signin',
+        builder: (context, state) => const SignInPage(),
+      ),
+      GoRoute(
+        path: '/signup', // <<--- THE ROUTE FOR SIGNUP IS DEFINED HERE!
+        builder: (context, state) => const SignUpPage(),
+      ),
+      GoRoute(
+        path: '/forgot', // Assuming ForgotPasswordPage is correct
+        builder: (context, state) => const ForgotPasswordPage(),
+      ),
     ],
+    // It's good practice to add an error builder for routes not found.
+    errorBuilder: (context, state) {
+      debugPrint(
+          "GoRouter Error: No route defined for ${state.uri} from path ${state
+              .path} (matched: ${state.matchedLocation})");
+      return Scaffold(
+        appBar: AppBar(title: Text("Page Not Found")),
+        body: Center(
+            child: Text("Oops! The page at ${state.uri} was not found.")),
+      );
+    },
   );
 }
+

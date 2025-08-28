@@ -7,5 +7,10 @@
   "ProfessionalDetails" : "Professional Details",
   "About" : "About",
   "PostWork": "Past Work",
-  "Profile": "Profile"
+  "Profile": "Profile",
+  "SignIn": "SignIn ",
+  "Email": "Email",
+  "EnterYourEmailAddress": "Enter your email address",
+  "Password": "Password",
+  "EnterYourPassword": "Enter your password"
 }
