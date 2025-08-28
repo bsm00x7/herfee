@@ -103,7 +103,7 @@ class _SignInPageState extends State<SignInPage> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () => context.go('/forgot-password'),
-                          child: const Text('Forgot Password?'),
+                          child: GestureDetector( onTap: (){context.push("/forgot");}, child: const Text('Forgot Password?')),
                         ),
                       ),
                       const SizedBox(height: 24),

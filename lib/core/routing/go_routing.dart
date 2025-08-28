@@ -4,8 +4,8 @@ import 'package:herfee/features/screen/forgot_password_screen/forgot_password_sc
 import 'package:provider/provider.dart';
 
 import '../../features/screen/chat/chat_screen.dart';
+import '../../features/screen/forgot_password_screen/screen_otp.dart';
 import '../../features/screen/home/home_screen.dart';
-import '../../features/screen/login/login_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
 import '../../features/screen/post_task_screen.dart';
 import '../../features/screen/profile/profile_info.dart';
@@ -13,6 +13,7 @@ import '../../features/screen/profile/profile_screen.dart';
 import '../../features/screen/search/search_screen.dart';
 import '../../features/screen/setting/setting.dart';
 
+import '../../features/screen/sign_up/login_screen.dart';
 import '../../features/screen/signin/SignInPage.dart';
 import '../../service/auth/auth.dart';
 import '../../service/model/user_model.dart';
@@ -26,7 +27,6 @@ GoRouter createRouter(BuildContext context) {
     refreshListenable: authNotifier,
     redirect: (BuildContext context, GoRouterState state) {
       final bool isLoggedIn = authNotifier.isLoggedIn;
-
       final bool isGoingToLogin = state.matchedLocation == '/signin';
       final bool isGoingToSignup = state.matchedLocation ==
           '/signup';
@@ -71,12 +71,10 @@ GoRouter createRouter(BuildContext context) {
       GoRoute(
         path: '/profileInfo',
         builder: (context, state) {
-          // Good practice to check if state.extra is actually a UserModel
           if (state.extra is UserModel) {
             final userModel = state.extra as UserModel;
             return ProfileInfo(userModel: userModel);
           }
-          // Handle cases where extra is not a UserModel or is null
           debugPrint(
               "Error: /profileInfo called without valid UserModel in extra. state.extra: ${state
                   .extra}");
@@ -98,8 +96,11 @@ GoRouter createRouter(BuildContext context) {
         path: '/forgot', // Assuming ForgotPasswordPage is correct
         builder: (context, state) => const ForgotPasswordPage(),
       ),
+      GoRoute(
+        path: '/otp',
+        builder: (context, state) => const ScreenOtp(),
+      ),
     ],
-    // It's good practice to add an error builder for routes not found.
     errorBuilder: (context, state) {
       debugPrint(
           "GoRouter Error: No route defined for ${state.uri} from path ${state

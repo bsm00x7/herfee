@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/utils/error/error.dart';
 import '../../signin/account_confirmation_dialog.dart';
 class SignUpController with ChangeNotifier {
   final TextEditingController controllerEmail = TextEditingController();
@@ -78,7 +79,6 @@ class SignUpController with ChangeNotifier {
 
   Future<void> signUpUser(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
-
     _setLoading(true);
     clearError();
 
@@ -107,10 +107,10 @@ class SignUpController with ChangeNotifier {
 
     } on AuthException catch (e) {
       _errorMessage = _getSignUpErrorMessage(e.message);
-      _showErrorSnackBar(context, _errorMessage!);
+      CustomErrorWidget.showError(context, _errorMessage!);
     } catch (e) {
       _errorMessage = "Something went wrong. Please try again.";
-      _showErrorSnackBar(context, _errorMessage!);
+      CustomErrorWidget.showError(context, _errorMessage!);
     } finally {
       _setLoading(false);
     }
@@ -143,15 +143,6 @@ class SignUpController with ChangeNotifier {
     notifyListeners();
   }
 
-  void _showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
 
   @override
   void dispose() {

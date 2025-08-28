@@ -12,6 +12,9 @@ class AuthNotifier extends ChangeNotifier {
 
   bool get isLoggedIn => supabase.auth.currentSession != null;
 
+  Future<void> resetPassword ({required String email})async{
+     await supabase.auth.resetPasswordForEmail(email);
+  }
 
 
   Future <AuthResponse> signInWithAddressAndPassword ({required String email, required String password})async{
@@ -22,6 +25,17 @@ class AuthNotifier extends ChangeNotifier {
    return response;
   }
 
+
+  Future<AuthResponse> verifyCodeOtp({
+    required String otp,
+    required String email,
+  }) async {
+    return supabase.auth.verifyOTP(
+      type: OtpType.email,
+      email: email,
+      token: otp,
+    );
+  }
 
 
 

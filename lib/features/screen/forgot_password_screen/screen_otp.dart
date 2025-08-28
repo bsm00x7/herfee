@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/forgot_controller.dart';
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
+class ScreenOtp extends StatefulWidget {
+  const ScreenOtp({super.key});
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ScreenOtp> createState() => _ScreenOtpPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+class _ScreenOtpPageState extends State<ScreenOtp> {
   late ForgotPasswordController _controller;
 
   @override
@@ -37,7 +38,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(24),
                 child: Form(
-                  key: controller.formKey,
+                  key: controller.otpKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -47,7 +48,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: IconButton(
-                          onPressed: () => context.go('/login'),
+                          onPressed: () => context.pop(),
                           icon: const Icon(Icons.arrow_back),
                         ),
                       ),
@@ -55,7 +56,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                       // Icon
                       const Icon(
-                        Icons.lock_reset,
+                        Icons.verified_user_sharp,
                         size: 80,
                         color: Colors.blue,
                       ),
@@ -63,7 +64,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                       // Title
                       const Text(
-                        'Forgot Password?',
+                        'Verify Code',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 28,
@@ -73,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Enter your email address and we\'ll send you a link to reset your password.',
+                        'Enter your Code \'ll send you a Check is Verify code.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -85,11 +86,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       // Email Field
                       TextFormField(
                         controller: controller.controllerEmail,
-                        validator: controller.emailValidator,
-                        keyboardType: TextInputType.emailAddress,
+                        validator: controller.otpValidator,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'Email Address',
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          labelText: 'Code',
+                          prefixIcon: const Icon(FontAwesomeIcons.check),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -99,11 +100,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       const SizedBox(height: 32),
 
-                      // Send Reset Link Button
+                      // Verify bottom
                       ElevatedButton(
                         onPressed: controller.isLoading
                             ? null
-                            : () => controller.sendResetEmail(context: context),
+                            : () => controller.checkOtpCode(context: context),
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 56),
                           shape: RoundedRectangleBorder(
@@ -116,7 +117,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         )
                             : const Text(
-                          'Send Reset Link',
+                          'Verify',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
