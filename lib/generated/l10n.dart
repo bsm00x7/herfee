@@ -148,6 +148,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Please Enter Your Password`
+  String get PleaseEnterYourPassword {
+    return Intl.message(
+      'Please Enter Your Password',
+      name: 'PleaseEnterYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter an email address`
+  String get PleaseEnterAnEmailAddress {
+    return Intl.message(
+      'Please enter an email address',
+      name: 'PleaseEnterAnEmailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address`
+  String get PleaseEnterValidEmailAddress {
+    return Intl.message(
+      'Please enter a valid email address',
+      name: 'PleaseEnterValidEmailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No account found with this email.`
+  String get NoAccountFoundWithThisEmail {
+    return Intl.message(
+      'No account found with this email.',
+      name: 'NoAccountFoundWithThisEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm your email before resetting your password.`
+  String get PleaseConfirmYourEmail {
+    return Intl.message(
+      'Please confirm your email before resetting your password.',
+      name: 'PleaseConfirmYourEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Too many attempts. Please wait and try again.`
+  String get TooManyAttempts {
+    return Intl.message(
+      'Too many attempts. Please wait and try again.',
+      name: 'TooManyAttempts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your internet connection and try again.`
+  String get CheckYourInternet {
+    return Intl.message(
+      'Check your internet connection and try again.',
+      name: 'CheckYourInternet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again.`
+  String get SomethingWentWrong {
+    return Intl.message(
+      'Something went wrong. Please try again.',
+      name: 'SomethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -23,6 +23,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "About": MessageLookupByLibrary.simpleMessage("About"),
+    "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
+      "Check your internet connection and try again.",
+    ),
     "Email": MessageLookupByLibrary.simpleMessage("Email"),
     "EnterYourEmailAddress": MessageLookupByLibrary.simpleMessage(
       "Enter your email address",
@@ -30,7 +33,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "EnterYourPassword": MessageLookupByLibrary.simpleMessage(
       "Enter your password",
     ),
+    "NoAccountFoundWithThisEmail": MessageLookupByLibrary.simpleMessage(
+      "No account found with this email.",
+    ),
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
+    "PleaseConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
+      "Please confirm your email before resetting your password.",
+    ),
+    "PleaseEnterAnEmailAddress": MessageLookupByLibrary.simpleMessage(
+      "Please enter an email address",
+    ),
+    "PleaseEnterValidEmailAddress": MessageLookupByLibrary.simpleMessage(
+      "Please enter a valid email address",
+    ),
+    "PleaseEnterYourPassword": MessageLookupByLibrary.simpleMessage(
+      "Please Enter Your Password",
+    ),
     "PopularServices": MessageLookupByLibrary.simpleMessage("Popular Services"),
     "PostWork": MessageLookupByLibrary.simpleMessage("Past Work"),
     "ProfessionalDetails": MessageLookupByLibrary.simpleMessage(
@@ -41,6 +59,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Search For Services",
     ),
     "SignIn": MessageLookupByLibrary.simpleMessage("SignIn "),
+    "SomethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again.",
+    ),
+    "TooManyAttempts": MessageLookupByLibrary.simpleMessage(
+      "Too many attempts. Please wait and try again.",
+    ),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(
       "Featured Professionals",
     ),

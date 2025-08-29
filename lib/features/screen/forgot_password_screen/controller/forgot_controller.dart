@@ -7,11 +7,12 @@ import 'package:herfee/service/auth/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/utils/error/error.dart';
+import '../../../../generated/l10n.dart';
+import '../../reset_password_screen/reset_password_screen.dart';
 class ForgotPasswordController with ChangeNotifier {
+  final s = S.current;
   final TextEditingController controllerEmail = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-
 
   //Controller Otp Screen
   final TextEditingController controllerOtp = TextEditingController();
@@ -22,6 +23,13 @@ class ForgotPasswordController with ChangeNotifier {
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
+
+
+
+  // Controller Reset Password Screnn
+  final TextEditingController controllerPassword = TextEditingController();
+  final GlobalKey<FormState> resetKet = GlobalKey<FormState>();
+
 
   void _setLoading(bool loading) {
     _isLoading = loading;
@@ -36,9 +44,9 @@ class ForgotPasswordController with ChangeNotifier {
   String? emailValidator(String? value) {
     final email = value?.trim() ?? '';
     if (email.isEmpty) {
-      return 'Please enter an email address';
+      return s.PleaseEnterAnEmailAddress;
     } else if (!EmailValidator.validate(email)) {
-      return 'Please enter a valid email address';
+      return s.PleaseEnterValidEmailAddress;
     }
     return null;
   }
@@ -48,17 +56,17 @@ class ForgotPasswordController with ChangeNotifier {
   String _mapErrorMessage(String code) {
     switch (code) {
       case "invalid_email":
-        return "Please enter a valid email address.";
+        return s.PleaseEnterValidEmailAddress;
       case "user_not_found":
-        return "No account found with this email.";
+        return s.NoAccountFoundWithThisEmail;
       case "email_not_confirmed":
-        return "Please confirm your email before resetting your password.";
+        return s.PleaseConfirmYourEmail;
       case "too_many_requests":
-        return "Too many attempts. Please wait and try again.";
+        return s.TooManyAttempts;
       case "network_error":
-        return "Check your internet connection and try again.";
+        return s.CheckYourInternet;
       default:
-        return "Something went wrong. Please try again.";
+        return s.SomethingWentWrong;
     }
   }
 
@@ -99,6 +107,7 @@ class ForgotPasswordController with ChangeNotifier {
     }
   }
   String _mapOtpError(String code) {
+    debugPrint(code);
     switch (code) {
       case "otp_expired":
         return "This code has expired. Please request a new one.";
@@ -129,26 +138,26 @@ class ForgotPasswordController with ChangeNotifier {
 
     try {
       _setLoading(true);
-
+      debugPrint(controllerOtp.text);
       final response = await AuthNotifier().verifyCodeOtp(
         otp: controllerOtp.text.trim(),
         email: controllerEmail.text.trim(),
-      );
 
-      // ✅ Handle success
+      );
+      debugPrint(response.user.toString());
+
       if (response.session != null || response.user != null) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("OTP verified successfully!")),
           );
 
-          // Example: Navigate to reset password screen
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (_) => const ResetPasswordScreen(),
-          //   ),
-          // );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>  ResetPasswordScreen(),
+            ),
+          );
         }
       }
 
@@ -172,6 +181,19 @@ class ForgotPasswordController with ChangeNotifier {
     }
   }
 
+
+  String? validatorPassword(String? value){
+    if (value == null || value.trim().isEmpty){
+      return s.PleaseEnterYourPassword;
+    }
+    return null;
+  }
+
+  void restPassword ({required BuildContext context}) async {
+    _setLoading(true);
+     await AuthNotifier().updatePassword(newPassword: controllerPassword.text);
+    _setLoading(false);
+  }
 
 }
 

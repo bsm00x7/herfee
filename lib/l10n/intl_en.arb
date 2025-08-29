@@ -12,5 +12,13 @@
   "Email": "Email",
   "EnterYourEmailAddress": "Enter your email address",
   "Password": "Password",
-  "EnterYourPassword": "Enter your password"
+  "EnterYourPassword": "Enter your password",
+  "PleaseEnterYourPassword": "Please Enter Your Password",
+  "PleaseEnterAnEmailAddress": "Please enter an email address",
+  "PleaseEnterValidEmailAddress": "Please enter a valid email address",
+  "NoAccountFoundWithThisEmail": "No account found with this email.",
+  "PleaseConfirmYourEmail": "Please confirm your email before resetting your password.",
+  "TooManyAttempts":  "Too many attempts. Please wait and try again.",
+  "CheckYourInternet":  "Check your internet connection and try again.",
+  "SomethingWentWrong": "Something went wrong. Please try again."
 }

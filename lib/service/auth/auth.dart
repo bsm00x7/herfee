@@ -31,10 +31,20 @@ class AuthNotifier extends ChangeNotifier {
     required String email,
   }) async {
     return supabase.auth.verifyOTP(
-      type: OtpType.email,
+      type: OtpType.recovery,
       email: email,
       token: otp,
     );
+
+
+
+  }
+
+  Future <void> updatePassword({ required String newPassword})async{
+    await supabase.auth.updateUser(
+      UserAttributes(password: newPassword.trim()),
+    );
+
   }
 
 

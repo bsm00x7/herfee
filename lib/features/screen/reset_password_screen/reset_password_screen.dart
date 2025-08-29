@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../forgot_password_screen/controller/forgot_controller.dart';
 
-import 'controller/forgot_controller.dart';
-
-class ScreenOtp extends StatefulWidget {
-  const ScreenOtp({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ScreenOtp> createState() => _ScreenOtpPageState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenPageState();
 }
 
-class _ScreenOtpPageState extends State<ScreenOtp> {
+class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
 
   @override
   void initState() {
@@ -61,7 +60,7 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
 
                       // Title
                       const Text(
-                        'Verify Code',
+                        'New Password',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 28,
@@ -71,7 +70,7 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Enter your Code \'ll send you a Check is Verify code.',
+                        'Enter your New Password',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -81,12 +80,13 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                       const SizedBox(height: 48),
                       // Email Field
                       TextFormField(
-                        controller: controller.controllerOtp,
-                        validator: controller.otpValidator,
-                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                        controller: controller.controllerPassword,
+                        validator: controller.validatorPassword,
+                        keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
-                          labelText: 'Code',
-                          prefixIcon: const Icon(FontAwesomeIcons.check),
+                          labelText: 'Password',
+                          prefixIcon: const Icon(FontAwesomeIcons.code),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -114,7 +114,7 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                               Colors.white),
                         )
                             : const Text(
-                          'Verify',
+                          'Update',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
