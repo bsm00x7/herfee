@@ -124,6 +124,11 @@ class S {
     return Intl.message('Email', name: 'Email', desc: '', args: []);
   }
 
+  /// `Update`
+  String get Update {
+    return Intl.message('Update', name: 'Update', desc: '', args: []);
+  }
+
   /// `Enter your email address`
   String get EnterYourEmailAddress {
     return Intl.message(
@@ -137,6 +142,16 @@ class S {
   /// `Password`
   String get Password {
     return Intl.message('Password', name: 'Password', desc: '', args: []);
+  }
+
+  /// `New Password`
+  String get NewPassword {
+    return Intl.message(
+      'New Password',
+      name: 'NewPassword',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Enter your password`
@@ -224,6 +239,116 @@ class S {
     return Intl.message(
       'Something went wrong. Please try again.',
       name: 'SomethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset email sent successfully!`
+  String get PasswordResetEmail {
+    return Intl.message(
+      'Password reset email sent successfully!',
+      name: 'PasswordResetEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An unexpected error occurred. Please try again.`
+  String get AnUnexpected {
+    return Intl.message(
+      'An unexpected error occurred. Please try again.',
+      name: 'AnUnexpected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This code has expired. Please request a new one.`
+  String get otp_expired {
+    return Intl.message(
+      'This code has expired. Please request a new one.',
+      name: 'otp_expired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The code you entered is incorrect. Please try again.`
+  String get otp_incorrect {
+    return Intl.message(
+      'The code you entered is incorrect. Please try again.',
+      name: 'otp_incorrect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No account found with this email.`
+  String get user_not_found {
+    return Intl.message(
+      'No account found with this email.',
+      name: 'user_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid request. Please try again.`
+  String get invalid_request {
+    return Intl.message(
+      'Invalid request. Please try again.',
+      name: 'invalid_request',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OTP verification failed. Please try again.`
+  String get OTPFailed {
+    return Intl.message(
+      'OTP verification failed. Please try again.',
+      name: 'OTPFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter an OTP`
+  String get EnterOTP {
+    return Intl.message(
+      'Please enter an OTP',
+      name: 'EnterOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OTP must be 6 digits`
+  String get OTP6digits {
+    return Intl.message(
+      'OTP must be 6 digits',
+      name: 'OTP6digits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OTP verified successfully!`
+  String get OTPSuccessfully {
+    return Intl.message(
+      'OTP verified successfully!',
+      name: 'OTPSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to Login`
+  String get BackToLogin {
+    return Intl.message(
+      'Back to Login',
+      name: 'BackToLogin',
       desc: '',
       args: [],
     );

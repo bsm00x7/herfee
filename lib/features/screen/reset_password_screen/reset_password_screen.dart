@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../../../generated/l10n.dart';
 import '../forgot_password_screen/controller/forgot_controller.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final s= S.of(context);
     return ChangeNotifierProvider(
       create: (BuildContext context) => ForgotPasswordController(),
       child: Scaffold(
@@ -59,8 +61,8 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
                       const SizedBox(height: 32),
 
                       // Title
-                      const Text(
-                        'New Password',
+                       Text(
+                        s.NewPassword,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 28,
@@ -70,7 +72,7 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Enter your New Password',
+                        s.EnterYourPassword,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -85,7 +87,7 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
                         validator: controller.validatorPassword,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: s.Password,
                           prefixIcon: const Icon(FontAwesomeIcons.code),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -113,8 +115,8 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Colors.white),
                         )
-                            : const Text(
-                          'Update',
+                            :  Text(
+                         s.Update,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -127,8 +129,8 @@ class _ResetPasswordScreenPageState extends State<ResetPasswordScreen> {
                       // Back to Login
                       TextButton(
                         onPressed: () => context.go('/login'),
-                        child: const Text(
-                          'Back to Login',
+                        child:  Text(
+                          s.BackToLogin,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

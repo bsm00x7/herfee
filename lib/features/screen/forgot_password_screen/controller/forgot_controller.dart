@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:herfee/features/screen/forgot_password_screen/screen_otp.dart';
-import 'package:herfee/service/auth/auth.dart';
+import 'package:herfee/features/auth/domain/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/utils/error/error.dart';
@@ -26,7 +26,7 @@ class ForgotPasswordController with ChangeNotifier {
 
 
 
-  // Controller Reset Password Screnn
+  /// Controller Reset Password Screen
   final TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> resetKet = GlobalKey<FormState>();
 
@@ -82,9 +82,8 @@ class ForgotPasswordController with ChangeNotifier {
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Password reset email sent successfully!")),
+          SnackBar(content: Text(s.PasswordResetEmail)),
         );
-
         Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenOtp(),));
       }
 
@@ -96,7 +95,7 @@ class ForgotPasswordController with ChangeNotifier {
       }
 
     } catch (e) {
-      _errorMessage = "An unexpected error occurred. Please try again.";
+      _errorMessage =s.AnUnexpected;
       if (context.mounted) {
         CustomErrorWidget.showError(context, _errorMessage!);
       }
@@ -110,15 +109,15 @@ class ForgotPasswordController with ChangeNotifier {
     debugPrint(code);
     switch (code) {
       case "otp_expired":
-        return "This code has expired. Please request a new one.";
+        return s.otp_expired;
       case "otp_incorrect":
-        return "The code you entered is incorrect. Please try again.";
+        return s.otp_incorrect;
       case "user_not_found":
-        return "No account found with this email.";
+        return s.user_not_found;
       case "invalid_request":
-        return "Invalid request. Please try again.";
+        return s.invalid_request;
       default:
-        return "OTP verification failed. Please try again.";
+        return s.OTPFailed;
     }
   }
 
@@ -126,9 +125,9 @@ class ForgotPasswordController with ChangeNotifier {
   
   String? otpValidator(String? value) {
     if (value == null || value.trim().isEmpty ){
-      return 'Please enter an OTP';
+      return s.EnterOTP;
     }else if (value.length != 6){
-      return 'OTP must be 6 digits';
+      return s.OTP6digits;
     }
     return null;
     }
@@ -149,7 +148,7 @@ class ForgotPasswordController with ChangeNotifier {
       if (response.session != null || response.user != null) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("OTP verified successfully!")),
+            SnackBar(content: Text(s.OTPSuccessfully)),
           );
 
           Navigator.pushReplacement(
@@ -171,7 +170,7 @@ class ForgotPasswordController with ChangeNotifier {
       if (context.mounted) {
         CustomErrorWidget.showError(
           context,
-          "Something went wrong. Please try again.",
+         s.SomethingWentWrong,
         );
       }
 

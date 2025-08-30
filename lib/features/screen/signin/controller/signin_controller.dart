@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/utils/error/error.dart';
-import '../../../../service/auth/auth.dart';
+import '../../../auth/domain/auth.dart';
 import '../account_confirmation_dialog.dart';
 
 class SignInController with ChangeNotifier {
@@ -85,10 +85,12 @@ class SignInController with ChangeNotifier {
       context,
       email: controllerEmail.text.trim(),
       onResendEmail: () => _resendConfirmationEmail(context),
-      onGoToLogin: () {
-        controllerEmail.clear();
-        controllerPassword.clear();
-      },
+      onCheckConfirmation: () async{
+      controllerEmail.clear();
+      controllerPassword.clear();
+
+    },
+
     );
   }
 

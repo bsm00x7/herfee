@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:herfee/service/auth/auth.dart';
+import 'package:herfee/features/auth/domain/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/routing/go_routing.dart';
 import 'core/theme/lightTheme.dart';

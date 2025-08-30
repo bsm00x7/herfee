@@ -15,7 +15,7 @@ import '../../features/screen/setting/setting.dart';
 
 import '../../features/screen/sign_up/login_screen.dart';
 import '../../features/screen/signin/SignInPage.dart';
-import '../../service/auth/auth.dart';
+import '../../features/auth/domain/auth.dart';
 import '../../service/model/user_model.dart';
 
 

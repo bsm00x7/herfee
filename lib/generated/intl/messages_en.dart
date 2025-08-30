@@ -23,20 +23,36 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "About": MessageLookupByLibrary.simpleMessage("About"),
+    "AnUnexpected": MessageLookupByLibrary.simpleMessage(
+      "An unexpected error occurred. Please try again.",
+    ),
+    "BackToLogin": MessageLookupByLibrary.simpleMessage("Back to Login"),
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
     "Email": MessageLookupByLibrary.simpleMessage("Email"),
+    "EnterOTP": MessageLookupByLibrary.simpleMessage("Please enter an OTP"),
     "EnterYourEmailAddress": MessageLookupByLibrary.simpleMessage(
       "Enter your email address",
     ),
     "EnterYourPassword": MessageLookupByLibrary.simpleMessage(
       "Enter your password",
     ),
+    "NewPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "NoAccountFoundWithThisEmail": MessageLookupByLibrary.simpleMessage(
       "No account found with this email.",
     ),
+    "OTP6digits": MessageLookupByLibrary.simpleMessage("OTP must be 6 digits"),
+    "OTPFailed": MessageLookupByLibrary.simpleMessage(
+      "OTP verification failed. Please try again.",
+    ),
+    "OTPSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "OTP verified successfully!",
+    ),
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
+    "PasswordResetEmail": MessageLookupByLibrary.simpleMessage(
+      "Password reset email sent successfully!",
+    ),
     "PleaseConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Please confirm your email before resetting your password.",
     ),
@@ -65,9 +81,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "TooManyAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many attempts. Please wait and try again.",
     ),
+    "Update": MessageLookupByLibrary.simpleMessage("Update"),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(
       "Featured Professionals",
     ),
     "homeScreenTitle": MessageLookupByLibrary.simpleMessage("herfee"),
+    "invalid_request": MessageLookupByLibrary.simpleMessage(
+      "Invalid request. Please try again.",
+    ),
+    "otp_expired": MessageLookupByLibrary.simpleMessage(
+      "This code has expired. Please request a new one.",
+    ),
+    "otp_incorrect": MessageLookupByLibrary.simpleMessage(
+      "The code you entered is incorrect. Please try again.",
+    ),
+    "user_not_found": MessageLookupByLibrary.simpleMessage(
+      "No account found with this email.",
+    ),
   };
 }
