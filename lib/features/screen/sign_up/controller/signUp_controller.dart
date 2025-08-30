@@ -1,5 +1,7 @@
-import 'package:email_validator/email_validator.dart';
+import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/features/auth/domain/auth.dart';
 import 'package:herfee/service/model/user_model.dart';
@@ -27,13 +29,18 @@ class SignUpController with ChangeNotifier {
 
   // Private state variables
   bool _isLoading = false;
+  bool _isResendingEmail = false;
+  bool _isCheckingConfirmation = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String? _errorMessage;
   bool _emailConfirmationRequired = false;
+  Timer? _confirmationCheckTimer;
 
   // Getters
   bool get isLoading => _isLoading;
+  bool get isResendingEmail => _isResendingEmail;
+  bool get isCheckingConfirmation => _isCheckingConfirmation;
   bool get obscurePassword => _obscurePassword;
   bool get obscureConfirmPassword => _obscureConfirmPassword;
   String? get errorMessage => _errorMessage;
@@ -57,6 +64,16 @@ class SignUpController with ChangeNotifier {
 
   void _setLoading(bool value) {
     _isLoading = value;
+    notifyListeners();
+  }
+
+  void _setResendingEmail(bool value) {
+    _isResendingEmail = value;
+    notifyListeners();
+  }
+
+  void _setCheckingConfirmation(bool value) {
+    _isCheckingConfirmation = value;
     notifyListeners();
   }
 
@@ -143,7 +160,6 @@ class SignUpController with ChangeNotifier {
   }
 
   String _getSignUpErrorMessage(String message) {
-    // Enhanced error message mapping
     final lowerMessage = message.toLowerCase();
 
     if (lowerMessage.contains('duplicate') || lowerMessage.contains('already exists')) {
@@ -190,13 +206,16 @@ class SignUpController with ChangeNotifier {
 
   /// Main sign up method
   Future<void> signUpUser(BuildContext context) async {
+    // Validate first form
     if (!formKey.currentState!.validate()) return;
+
+    // Validate profile form if it exists
+    if (!compKey.currentState!.validate()) return;
 
     _setLoading(true);
     clearError();
 
     try {
-      // Attempt to sign up user
       final AuthResponse response = await AuthNotifier().singUpUser(
         email: controllerEmail.text.trim(),
         password: controllerPassword.text.trim(),
@@ -205,13 +224,15 @@ class SignUpController with ChangeNotifier {
 
       if (response.user == null) {
         _errorMessage = 'Failed to create account. Please try again.';
-        CustomErrorWidget.showError(context, _errorMessage!);
+        if (context.mounted) {
+          CustomErrorWidget.showError(context, _errorMessage!);
+        }
         return;
       }
 
       // Check if email confirmation is required
-      if (response.user!.confirmationSentAt != null) {
-        // Email confirmation required - show confirmation dialog
+      if (response.user!.confirmationSentAt != null &&
+          response.user!.emailConfirmedAt == null) {
         _setEmailConfirmationRequired(true);
 
         if (context.mounted) {
@@ -219,12 +240,14 @@ class SignUpController with ChangeNotifier {
             context,
             email: controllerEmail.text.trim(),
             onResendEmail: () => _resendConfirmationEmail(context),
-            onCheckConfirmation: () => _checkEmailConfirmation(context,response),
+            onCheckConfirmation: () => _checkEmailConfirmation(context, response.user!),
           );
         }
       } else {
-        // No email confirmation required - proceed with profile creation
-        await _completeSignUpProcess(context, response.user!);
+        // Email already confirmed or not required, complete signup
+        if (context.mounted) {
+          await _completeSignUpProcess(context, response.user!);
+        }
       }
     } on AuthException catch (e) {
       _errorMessage = _getSignUpErrorMessage(e.message);
@@ -242,36 +265,64 @@ class SignUpController with ChangeNotifier {
     }
   }
 
+  /// Check if email has been confirmed
+  Future<void> _checkEmailConfirmation(BuildContext context, User user) async {
+    try {
+      _setCheckingConfirmation(true);
+
+      // Get fresh user data to check confirmation status
+      final freshUser = Supabase.instance.client.auth.currentUser;
+
+      if (freshUser != null && freshUser.emailConfirmedAt != null) {
+        // Email confirmed, proceed with profile creation
+        if (context.mounted) {
+          Navigator.of(context).pop();
+          await _completeSignUpProcess(context, freshUser);
+        }
+      } else {
+        // Email not confirmed yet
+        if (context.mounted) {
+          CustomErrorWidget.showError(
+              context,
+              'Email not confirmed yet. Please check your inbox and click the confirmation link.'
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('Error checking email confirmation: $e');
+      if (context.mounted) {
+        CustomErrorWidget.showError(
+            context,
+            'Failed to check confirmation status. Please try again.'
+        );
+      }
+    } finally {
+      _setCheckingConfirmation(false);
+    }
+  }
+
   /// Complete the sign-up process with profile creation
   Future<void> _completeSignUpProcess(BuildContext context, User user) async {
-    // Validate complete profile form
-    if (!compKey.currentState!.validate()) {
-      _errorMessage = 'Please complete all required profile fields';
-      CustomErrorWidget.showError(context, _errorMessage!);
-      return;
-    }
-
-    _setLoading(true);
-    clearError();
-
     try {
+      _setLoading(true);
+
       // Create user profile
       final profileCreated = await _createUserProfile(user);
 
       if (profileCreated) {
-        // Show success dialog and navigate to login
+        // Show success dialog and navigate
         if (context.mounted) {
           await AccountConfirmationDialog.showAccountCreatedDialog(
             context,
             email: controllerEmail.text.trim(),
             onContinue: () {
+              _clearForm();
               if (context.mounted) {
                 context.go('/login');
               }
             },
           );
         }
-        _clearForm();
       } else {
         // Profile creation failed - clean up and show error
         await _cleanupFailedSignUp(user.id);
@@ -295,7 +346,7 @@ class SignUpController with ChangeNotifier {
   /// Resend confirmation email
   Future<void> _resendConfirmationEmail(BuildContext context) async {
     try {
-      _setLoading(true);
+      _setResendingEmail(true);
       clearError();
 
       await AuthNotifier().resendEmail(
@@ -307,8 +358,17 @@ class SignUpController with ChangeNotifier {
           const SnackBar(
             content: Text('Confirmation email sent successfully!'),
             backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
           ),
         );
+      }
+    } on AuthException catch (e) {
+      debugPrint('Error resending email: $e');
+      _errorMessage = e.message.contains('rate limit')
+          ? 'Too many attempts. Please wait a moment and try again.'
+          : 'Failed to resend confirmation email. Please try again.';
+      if (context.mounted) {
+        CustomErrorWidget.showError(context, _errorMessage!);
       }
     } catch (e) {
       debugPrint('Error resending email: $e');
@@ -317,48 +377,42 @@ class SignUpController with ChangeNotifier {
         CustomErrorWidget.showError(context, _errorMessage!);
       }
     } finally {
-      _setLoading(false);
+      _setResendingEmail(false);
     }
   }
-  /// Get user
-  /// Check if email has been confirmed
-  Future<void> _checkEmailConfirmation(BuildContext context, AuthResponse respone) async {
-    try {
-      _setLoading(true);
-      clearError();
 
-
-      final currentUser = respone.user;
-
-      if (currentUser != null && currentUser.emailConfirmedAt != null) {
-
-        Navigator.of(context).pop(); // Close confirmation dialog
-        await _completeSignUpProcess(context, currentUser);
-      } else {
-        // Email not confirmed yet
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Email not confirmed yet. Please check your email.'),
-              backgroundColor: Colors.orange,
-            ),
-          );
+  /// Start periodic checking for email confirmation
+  void startConfirmationCheck(BuildContext context, User user) {
+    _confirmationCheckTimer?.cancel();
+    _confirmationCheckTimer = Timer.periodic(
+      const Duration(seconds: 3),
+          (timer) async {
+        try {
+          final freshUser = Supabase.instance.client.auth.currentUser;
+          if (freshUser != null && freshUser.emailConfirmedAt != null) {
+            timer.cancel();
+            if (context.mounted) {
+              Navigator.of(context).pop(); // Close confirmation dialog
+              await _completeSignUpProcess(context, freshUser);
+            }
+          }
+        } catch (e) {
+          debugPrint('Error in confirmation check timer: $e');
         }
-      }
-    } catch (e) {
-      debugPrint('Error checking confirmation: $e');
-      _errorMessage = 'Failed to check confirmation status. Please try again.';
-      if (context.mounted) {
-        CustomErrorWidget.showError(context, _errorMessage!);
-      }
-    } finally {
-      _setLoading(false);
-    }
+      },
+    );
+  }
+
+  /// Stop checking for email confirmation
+  void stopConfirmationCheck() {
+    _confirmationCheckTimer?.cancel();
+    _confirmationCheckTimer = null;
   }
 
   /// Clean up failed sign up attempts
   Future<void> _cleanupFailedSignUp(String userId) async {
     try {
+      // Only delete if the user profile wasn't created successfully
       await AuthNotifier().deleterUser(id: userId);
     } catch (e) {
       debugPrint('Error cleaning up failed sign up: $e');
@@ -366,9 +420,10 @@ class SignUpController with ChangeNotifier {
     }
   }
 
-  /// Dispose method to clean up controllers
+  /// Dispose method to clean up controllers and timers
   @override
   void dispose() {
+    _confirmationCheckTimer?.cancel();
     controllerEmail.dispose();
     controllerPassword.dispose();
     controllerConfirmPassword.dispose();

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class AccountConfirmationDialog {
   /// Shows a success dialog after account creation
   static Future<void> showAccountCreatedDialog(
@@ -65,8 +66,6 @@ class AccountConfirmationDialog {
         required String email,
         required VoidCallback onResendEmail,
         required Future<void> Function() onCheckConfirmation,
-
-
       }) async {
     if (!context.mounted) return;
     return showModalBottomSheet<void>(
@@ -77,60 +76,60 @@ class AccountConfirmationDialog {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.mark_email_unread, color: Colors.blue, size: 64),
-              const SizedBox(height: 24),
-              const Text(
-                'Confirm Your Email',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'We\'ve sent a confirmation link to:',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                email,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.blue,
+        return Stack(
+          alignment: Alignment.topRight,
+         children: [Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              
+              children: [
+                const Icon(Icons.mark_email_unread, color: Colors.blue, size: 64),
+                const SizedBox(height: 24),
+                const Text(
+                  'Confirm Your Email',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(height: 32),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () async {
-                        await onCheckConfirmation();
-                      },
-                      style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 48)),
-                      child:  Text('Check '),
-                    ),
+                const SizedBox(height: 16),
+                Text(
+                  'We\'ve sent a confirmation link to:',
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  email,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue,
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        onResendEmail();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(0, 48)),
-                      child: const Text('Resend Email'),
+                ),
+                const SizedBox(height: 32),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          onResendEmail();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(0, 48)),
+                        child: const Text('Resend Email'),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
+         Padding(
+           padding: const EdgeInsets.only(top: 12, right: 12),
+           child: InkWell( onTap: ()async{
+            await onCheckConfirmation();
+             Navigator.pop(context);
+           }, child: Icon(FontAwesomeIcons.circleXmark ,color: Colors.red,)),
+         )],
         );
       },
     );
