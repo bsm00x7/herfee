@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:go_router/go_router.dart';
@@ -26,6 +25,7 @@ class SignUpController with ChangeNotifier {
   // Form Keys
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> compKey = GlobalKey<FormState>();
+   int numberOfCreationAccount =0 ;
 
   // Private state variables
   bool _isLoading = false;
@@ -221,7 +221,6 @@ class SignUpController with ChangeNotifier {
         password: controllerPassword.text.trim(),
         fullName: controllerName.text.trim(),
       );
-
       if (response.user == null) {
         _errorMessage = 'Failed to create account. Please try again.';
         if (context.mounted) {
@@ -229,6 +228,8 @@ class SignUpController with ChangeNotifier {
         }
         return;
       }
+      numberOfCreationAccount ++;
+      notifyListeners();
 
       // Check if email confirmation is required
       if (response.user!.confirmationSentAt != null &&
@@ -240,7 +241,7 @@ class SignUpController with ChangeNotifier {
             context,
             email: controllerEmail.text.trim(),
             onResendEmail: () => _resendConfirmationEmail(context),
-            onCheckConfirmation: () => _checkEmailConfirmation(context, response.user!),
+            onCheckConfirmation: () => checkEmailConfirmation(context, response.user!),
           );
         }
       } else {
@@ -266,10 +267,9 @@ class SignUpController with ChangeNotifier {
   }
 
   /// Check if email has been confirmed
-  Future<void> _checkEmailConfirmation(BuildContext context, User user) async {
+  Future<void> checkEmailConfirmation(BuildContext context, User user) async {
     try {
       _setCheckingConfirmation(true);
-
       // Get fresh user data to check confirmation status
       final freshUser = Supabase.instance.client.auth.currentUser;
 
@@ -300,7 +300,6 @@ class SignUpController with ChangeNotifier {
       _setCheckingConfirmation(false);
     }
   }
-
   /// Complete the sign-up process with profile creation
   Future<void> _completeSignUpProcess(BuildContext context, User user) async {
     try {

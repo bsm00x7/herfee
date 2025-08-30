@@ -444,12 +444,22 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ],
             )
-                : const Text(
+                :controller.numberOfCreationAccount==0? const Text(
               'Create Account',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
+              ),
+            ) : InkWell(
+              onTap:()=>controller.signUpUser(context) ,
+              child: Text(
+                'Check Verify',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
