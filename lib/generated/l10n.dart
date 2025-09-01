@@ -254,6 +254,16 @@ class S {
     );
   }
 
+  /// `Password is too weak. Please choose a stronger password.`
+  String get PasswordWeak {
+    return Intl.message(
+      'Password is too weak. Please choose a stronger password.',
+      name: 'PasswordWeak',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `An unexpected error occurred. Please try again.`
   String get AnUnexpected {
     return Intl.message(
@@ -349,6 +359,66 @@ class S {
     return Intl.message(
       'Back to Login',
       name: 'BackToLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This email is already registered. Please use a different email or try signing in.`
+  String get ThisEmailRegistered {
+    return Intl.message(
+      'This email is already registered. Please use a different email or try signing in.',
+      name: 'ThisEmailRegistered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network error. Please check your connection and try again.`
+  String get Network {
+    return Intl.message(
+      'Network error. Please check your connection and try again.',
+      name: 'Network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Your Email`
+  String get ConfirmYourEmail {
+    return Intl.message(
+      'Confirm Your Email',
+      name: 'ConfirmYourEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We/'ve sent a confirmation Code to:`
+  String get ConfirmationCode {
+    return Intl.message(
+      'We/\'ve sent a confirmation Code to:',
+      name: 'ConfirmationCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Email`
+  String get ResendEmail {
+    return Intl.message(
+      'Resend Email',
+      name: 'ResendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success Signup`
+  String get SuccessSignup {
+    return Intl.message(
+      'Success Signup',
+      name: 'SuccessSignup',
       desc: '',
       args: [],
     );

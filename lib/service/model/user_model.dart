@@ -88,4 +88,31 @@ class UserModel {
       experience: parsedExperience,
     );
   }
+
+  UserModel copyWith({
+    String? id,
+    String? imageId,
+    String? userName,
+    String? jobe,
+    String? rating,
+    String? reviwes,
+    String? about,
+    List<JobModel>? pastWork,
+    List<Experience>? experience,
+    List<JobModel>? parsedPastWork,
+    List<Experience>? parsedExperience,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      imageId: imageId ?? this.imageId,
+      userName: userName ?? this.userName,
+      jobe: jobe ?? this.jobe,
+      rating: rating ?? this.rating,
+      reviwes: reviwes ?? this.reviwes,
+      about: about ?? this.about,
+      pastWork: pastWork ?? this.pastWork,
+      experience: experience ?? this.experience,
+    );
+  }
+
 }

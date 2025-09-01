@@ -47,12 +47,12 @@ class AuthNotifier extends ChangeNotifier {
     );
   }
 
-  Future<AuthResponse> singUpUser({
+   Future<AuthResponse> singUpUser({
     required String email,
     required String password,
     required String fullName,
   }) async {
-    return  await Supabase.instance.client.auth.signUp(
+    return  await supabase.auth.signUp(
       email: email,
       password: password,
       data: {'full_name': fullName, 'display_name': fullName},
@@ -96,10 +96,33 @@ class AuthNotifier extends ChangeNotifier {
   }
 
 
-Future <void> resendEmail ({required String email})async{
-  await Supabase.instance.client.auth.resend(
+ Future <void> resendEmail ({required String email})async{
+  await supabase.auth.resend(
     email: email, type: OtpType.signup,
   );
 }
+  Future<bool> checkIfCorrectedOtp({
+    required String email,
+    required String codeOtp,
+  }) async {
+    try {
+      final response = await supabase.auth.verifyOTP(
+        type: OtpType.signup,
+        email: email,
+        tokenHash: codeOtp,
+      );
 
+      return response.session != null;
+    } on AuthApiException catch (e) {
+      debugPrint("Supabase Auth Error: ${e.message}");
+      return false;
+    } catch (e) {
+      debugPrint("Unexpected Error: $e");
+      return false;
+    }
+  }
+
+  Future<void> signOut() async {
+    await supabase.auth.signOut();
+  }                 
 }

@@ -82,10 +82,10 @@ class SignInController with ChangeNotifier {
   /// Alternative: Show bottom sheet confirmation
   Future<void> showBottomSheetConfirmation(BuildContext context) async {
     await AccountConfirmationDialog.showBottomSheetConfirmation(
-      context,
+      context: context,
       email: controllerEmail.text.trim(),
       onResendEmail: () => _resendConfirmationEmail(context),
-      onCheckConfirmation: () async{
+      onCheckConfirmation: (String code) async{
       controllerEmail.clear();
       controllerPassword.clear();
 

@@ -12,7 +12,6 @@ class HomeController extends ChangeNotifier {
     JobModel(imageSource: "assets/image/Painting.png", title: 'Painting'),
     JobModel(imageSource: "assets/image/Plumbing.png", title: 'Plumbing'),
   ];
-
   Future<UserModel> goToProfile(String userId) async {
     return UserModel(
       id: 'fdssfsdfdsfeef 56d4f6d4f461dfdf',

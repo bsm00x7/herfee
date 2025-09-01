@@ -13,7 +13,7 @@ import '../../features/screen/profile/profile_screen.dart';
 import '../../features/screen/search/search_screen.dart';
 import '../../features/screen/setting/setting.dart';
 
-import '../../features/screen/sign_up/login_screen.dart';
+import '../../features/screen/sign_up/signUp_screen.dart';
 import '../../features/screen/signin/SignInPage.dart';
 import '../../features/auth/domain/auth.dart';
 import '../../service/model/user_model.dart';

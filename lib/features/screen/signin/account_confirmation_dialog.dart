@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 class AccountConfirmationDialog {
   /// Shows a success dialog after account creation
   static Future<void> showAccountCreatedDialog(
@@ -62,13 +62,15 @@ class AccountConfirmationDialog {
 
   /// Shows bottom sheet to confirm email
   static Future<void> showBottomSheetConfirmation(
-      BuildContext context, {
+      {
+        required BuildContext context,
         required String email,
         required VoidCallback onResendEmail,
-        required Future<void> Function() onCheckConfirmation,
+        required Future<void> Function(String) onCheckConfirmation,
       }) async {
     if (!context.mounted) return;
     return showModalBottomSheet<void>(
+      useSafeArea: true,
       context: context,
       isDismissible: false,
       enableDrag: false,
@@ -82,7 +84,7 @@ class AccountConfirmationDialog {
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              
+
               children: [
                 const Icon(Icons.mark_email_unread, color: Colors.blue, size: 64),
                 const SizedBox(height: 24),
@@ -92,7 +94,7 @@ class AccountConfirmationDialog {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'We\'ve sent a confirmation link to:',
+                  'We\'ve sent a confirmation Code:',
                   style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 8),
@@ -105,6 +107,18 @@ class AccountConfirmationDialog {
                   ),
                 ),
                 const SizedBox(height: 32),
+                OtpTextField(
+                  numberOfFields: 6,
+                  borderColor: Color(0xFF512DA8),
+                  showFieldAsBox: true,
+
+                  onCodeChanged: (String code) {
+                    debugPrint('s');
+                  },
+
+                  onSubmit: (String verificationCode)=>onCheckConfirmation
+                ),
+                const SizedBox(height:  30),
                 Row(
                   children: [
                     Expanded(
@@ -122,14 +136,7 @@ class AccountConfirmationDialog {
                 const SizedBox(height: 16),
               ],
             ),
-          ),
-         Padding(
-           padding: const EdgeInsets.only(top: 12, right: 12),
-           child: InkWell( onTap: ()async{
-            await onCheckConfirmation();
-             Navigator.pop(context);
-           }, child: Icon(FontAwesomeIcons.circleXmark ,color: Colors.red,)),
-         )],
+          ),],
         );
       },
     );

@@ -24,6 +24,7 @@
   "CheckYourInternet":  "Check your internet connection and try again.",
   "SomethingWentWrong": "Something went wrong. Please try again.",
   "PasswordResetEmail" : "Password reset email sent successfully!",
+  "PasswordWeak": "Password is too weak. Please choose a stronger password.",
   "AnUnexpected" :  "An unexpected error occurred. Please try again.",
   "otp_expired" : "This code has expired. Please request a new one.",
   "otp_incorrect" : "The code you entered is incorrect. Please try again.",
@@ -33,6 +34,11 @@
   "EnterOTP": "Please enter an OTP",
   "OTP6digits": "OTP must be 6 digits",
   "OTPSuccessfully": "OTP verified successfully!",
-  "BackToLogin": "Back to Login"
-
+  "BackToLogin": "Back to Login",
+  "ThisEmailRegistered": "This email is already registered. Please use a different email or try signing in.",
+  "Network": "Network error. Please check your connection and try again.",
+  "ConfirmYourEmail": "Confirm Your Email",
+  "ConfirmationCode": "We\/'ve sent a confirmation Code to:",
+  "ResendEmail": "Resend Email",
+  "SuccessSignup": "Success Signup"
 }

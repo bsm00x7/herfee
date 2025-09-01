@@ -8,11 +8,11 @@ class LangController extends ChangeNotifier {
 
 
 
-  String? locale = PreferenceManager().getString(Storage.lang);
+  String? locale = PreferenceManager().getString(StorageLang.lang);
   void setLocale(String lang) {
     locale = lang;
     if (locale != null) {
-      PreferenceManager().setString(Storage.lang, locale!);
+      PreferenceManager().setString(StorageLang.lang, locale!);
       notifyListeners();
     }
     notifyListeners();

@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^2.2.0
   supabase_flutter: ^2.10.0
   email_validator: ^3.0.0
+  flutter_otp_text_field: ^1.5.1+1
 
 
 dev_dependencies:

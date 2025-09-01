@@ -30,6 +30,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
+    "ConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
+      "Confirm Your Email",
+    ),
+    "ConfirmationCode": MessageLookupByLibrary.simpleMessage(
+      "We/\'ve sent a confirmation Code to:",
+    ),
     "Email": MessageLookupByLibrary.simpleMessage("Email"),
     "EnterOTP": MessageLookupByLibrary.simpleMessage("Please enter an OTP"),
     "EnterYourEmailAddress": MessageLookupByLibrary.simpleMessage(
@@ -37,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "EnterYourPassword": MessageLookupByLibrary.simpleMessage(
       "Enter your password",
+    ),
+    "Network": MessageLookupByLibrary.simpleMessage(
+      "Network error. Please check your connection and try again.",
     ),
     "NewPassword": MessageLookupByLibrary.simpleMessage("New Password"),
     "NoAccountFoundWithThisEmail": MessageLookupByLibrary.simpleMessage(
@@ -52,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
     "PasswordResetEmail": MessageLookupByLibrary.simpleMessage(
       "Password reset email sent successfully!",
+    ),
+    "PasswordWeak": MessageLookupByLibrary.simpleMessage(
+      "Password is too weak. Please choose a stronger password.",
     ),
     "PleaseConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Please confirm your email before resetting your password.",
@@ -71,12 +83,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Professional Details",
     ),
     "Profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "ResendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
     "SearchForServices": MessageLookupByLibrary.simpleMessage(
       "Search For Services",
     ),
     "SignIn": MessageLookupByLibrary.simpleMessage("SignIn "),
     "SomethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again.",
+    ),
+    "SuccessSignup": MessageLookupByLibrary.simpleMessage("Success Signup"),
+    "ThisEmailRegistered": MessageLookupByLibrary.simpleMessage(
+      "This email is already registered. Please use a different email or try signing in.",
     ),
     "TooManyAttempts": MessageLookupByLibrary.simpleMessage(
       "Too many attempts. Please wait and try again.",
