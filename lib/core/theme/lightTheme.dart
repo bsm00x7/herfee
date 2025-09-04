@@ -14,7 +14,7 @@ final ThemeData lightTheme = ThemeData(
     secondaryContainer: Color(0xFFD1FAE5),
     surface: Color(0xFFFFFFFF),
     surfaceContainerHighest: Color(0xFFF9FAFB),
-    surfaceContainer: Color(0xFFFCFCFD),
+    surfaceContainer: Colors.grey,
     error: Color(0xFFEF4444),
     onPrimary: Color(0xFFFFFFFF),
     onSecondary: Color(0xFFFFFFFF),

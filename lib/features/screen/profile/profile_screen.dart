@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:herfee/service/model/user_model.dart';
 import '../../../generated/l10n.dart';
 import 'controller/profileController.dart';
@@ -16,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final s = S.of(context);
-
+    final size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (BuildContext context) => ProfileController(),
       builder: (context, child) {
@@ -85,21 +86,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             // Profile Image
                             Center(
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundImage:
-                                    (user.imageId != null &&
-                                        user.imageId!.isNotEmpty)
-                                    ? NetworkImage(user.imageId!)
-                                    : const AssetImage(
-                                            'assets/image/avatar.png',
-                                          )
-                                          as ImageProvider,
-                                child:
-                                    (user.imageId == null ||
-                                        user.imageId!.isEmpty)
-                                    ? const Icon(Icons.person, size: 60)
-                                    : null,
+                              child: InkWell(
+                                onTap: () {
+                                  showBottomSheet(
+                                    showDragHandle: true,
+                                    enableDrag: true,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadiusGeometry.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    backgroundColor: theme
+                                        .colorScheme
+                                        .surfaceContainer
+                                        .withValues(alpha: 0.4),
+                                    constraints: BoxConstraints(
+                                      maxHeight: size.height * 0.2,
+                                    ),
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Consumer<ProfileController>(
+                                          builder: (context, provider, child) {
+                                            return Column(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () =>
+                                                      provider.pickerFromCamera(
+                                                        context: context,
+                                                        firstTime:
+                                                            user.imageId ==
+                                                                null ||
+                                                            user.imageId == '',
+                                                      ),
+                                                  child: ListTile(
+                                                    leading: Icon(
+                                                      FontAwesomeIcons.camera,
+                                                    ),
+                                                    title: Text(
+                                                      s.Camera,
+                                                      style: theme
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Divider(),
+                                                InkWell(
+                                                  onTap: () {},
+                                                  child: ListTile(
+                                                    leading: Icon(
+                                                      FontAwesomeIcons
+                                                          .fileImage,
+                                                    ),
+                                                    title: Text(
+                                                      s.Gallery,
+                                                      style: theme
+                                                          .textTheme
+                                                          .titleMedium,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage:
+                                      (user.imageId != null &&
+                                          user.imageId!.isNotEmpty)
+                                      ? NetworkImage(user.imageId!)
+                                      : const AssetImage(
+                                              'assets/image/avatar.png',
+                                            )
+                                            as ImageProvider,
+                                  child:
+                                      (user.imageId == null ||
+                                          user.imageId!.isEmpty)
+                                      ? const Icon(Icons.person, size: 60)
+                                      : null,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 24),
@@ -118,7 +193,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             // Job Title
                             Center(
                               child: Text(
-                                user.jobe, // Note: might want to rename to 'job'
+                                user.jobe,
+                                // Note: might want to rename to 'job'
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   color: theme.colorScheme.primary,
                                 ),

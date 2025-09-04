@@ -40,5 +40,15 @@
   "ConfirmYourEmail": "Confirm Your Email",
   "ConfirmationCode": "We\/'ve sent a confirmation Code to:",
   "ResendEmail": "Resend Email",
-  "SuccessSignup": "Success Signup"
+  "SuccessSignup": "Success Signup",
+
+
+
+
+
+
+
+  "Camera": "Camera",
+  "Gallery": "Gallery",
+  "PermissionDenied": "Permission denied"
 }

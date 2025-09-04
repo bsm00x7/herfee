@@ -423,6 +423,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Camera`
+  String get Camera {
+    return Intl.message('Camera', name: 'Camera', desc: '', args: []);
+  }
+
+  /// `Gallery`
+  String get Gallery {
+    return Intl.message('Gallery', name: 'Gallery', desc: '', args: []);
+  }
+
+  /// `Permission denied`
+  String get PermissionDenied {
+    return Intl.message(
+      'Permission denied',
+      name: 'PermissionDenied',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

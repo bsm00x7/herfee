@@ -11,7 +11,7 @@ class AuthNotifier extends ChangeNotifier {
   }
 
   bool get isLoggedIn => supabase.auth.currentSession != null;
-
+  User? get user => supabase.auth.currentUser;
   Future<void> resetPassword({required String email}) async {
     await supabase.auth.resetPasswordForEmail(email);
   }

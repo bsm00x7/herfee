@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An unexpected error occurred. Please try again.",
     ),
     "BackToLogin": MessageLookupByLibrary.simpleMessage("Back to Login"),
+    "Camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "EnterYourPassword": MessageLookupByLibrary.simpleMessage(
       "Enter your password",
     ),
+    "Gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "Network": MessageLookupByLibrary.simpleMessage(
       "Network error. Please check your connection and try again.",
     ),
@@ -64,6 +66,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "PasswordWeak": MessageLookupByLibrary.simpleMessage(
       "Password is too weak. Please choose a stronger password.",
+    ),
+    "PermissionDenied": MessageLookupByLibrary.simpleMessage(
+      "Permission denied",
     ),
     "PleaseConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Please confirm your email before resetting your password.",

@@ -13,7 +13,7 @@ final ThemeData darkTheme = ThemeData(
     secondaryContainer: Color(0xFF059669),
     surface: Color(0xFF1F2937), // Gray-800
     surfaceContainerHighest: Color(0xFF374151), // Gray-700
-    surfaceContainer: Color(0xFF111827), // Gray-900
+    surfaceContainer: Colors.white, // Gray-900
     error: Color(0xFFEF4444),
     onPrimary: Color(0xFFFFFFFF),
     onSecondary: Color(0xFFFFFFFF),

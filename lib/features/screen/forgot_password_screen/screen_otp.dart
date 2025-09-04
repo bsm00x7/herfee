@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:herfee/features/auth/domain/auth.dart';
 import 'package:herfee/service/model/job_model.dart';
 import 'package:herfee/service/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -123,8 +124,7 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                           );
                           LoadingIndicator.setLoading(context, false);
                           if (response == true) {
-                            final user =
-                                Supabase.instance.client.auth.currentUser;
+                            final user = AuthNotifier().user;
                             if (user != null) {
                              await SupaBaseData().insertToDataBase(
                                 user: UserModel(
