@@ -45,7 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-
                   // Handle error state
                   if (snapshot.hasError) {
                     return Center(
@@ -115,13 +114,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             return Column(
                                               children: [
                                                 InkWell(
-                                                  onTap: () =>
+                                                  onTap: () async =>
                                                       provider.pickerFromCamera(
                                                         context: context,
-                                                        firstTime:
-                                                            user.imageId ==
-                                                                null ||
-                                                            user.imageId == '',
                                                       ),
                                                   child: ListTile(
                                                     leading: Icon(
@@ -159,21 +154,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     },
                                   );
                                 },
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundImage:
-                                      (user.imageId != null &&
-                                          user.imageId!.isNotEmpty)
-                                      ? NetworkImage(user.imageId!)
-                                      : const AssetImage(
-                                              'assets/image/avatar.png',
-                                            )
-                                            as ImageProvider,
-                                  child:
-                                      (user.imageId == null ||
-                                          user.imageId!.isEmpty)
-                                      ? const Icon(Icons.person, size: 60)
-                                      : null,
+                                child: Consumer<ProfileController>(
+                                  builder: (context, provider, child) {
+                                    return CircleAvatar(
+                                      radius: 60,
+                                      backgroundImage: !provider.haveImage
+                                          ? NetworkImage(user.imageId!)
+                                          : const AssetImage(
+                                                  'assets/image/avatar.png',
+                                                )
+                                                as ImageProvider,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
