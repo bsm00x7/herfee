@@ -1,14 +1,18 @@
 class JobModel {
-
-
   final String imageSource;
   final String title;
-  JobModel({required this.imageSource , required this.title});
+  final String description;
+  JobModel({
+    required this.imageSource,
+    required this.title,
+    this.description = '',
+  });
 
   Map<String, dynamic> toMap() {
     return {
       'imageSource': imageSource,
       'title': title,
+      'description': description,
     };
   }
 
@@ -16,5 +20,7 @@ class JobModel {
     return JobModel(
       imageSource: map['imageSource'] as String,
       title: map['title'] as String,
+      description: map['description'] as String? ?? '',
     );
-  }}
+  }
+}

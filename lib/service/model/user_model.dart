@@ -23,7 +23,7 @@ class Experience {
 
 class UserModel {
   final String id;
-  final String imageId;
+   final String? imageId;
   final String userName;
   final String jobe;
   final String rating;
@@ -34,7 +34,7 @@ class UserModel {
 
   UserModel({
     required this.id,
-    required this.imageId,
+    this.imageId,
     required this.userName,
     required this.jobe,
     required this.rating,

@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:herfee/core/utils/error/error.dart';
 
 import 'package:herfee/features/auth/domain/auth.dart';
-
-import 'package:herfee/service/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../../../core/utils/loding/loding_indicator.dart';
 import '../../../../generated/l10n.dart';
 import '../../forgot_password_screen/screen_otp.dart';
@@ -34,9 +34,11 @@ class SignUpController with ChangeNotifier {
   bool _obscureConfirmPassword = true;
   String? _errorMessage;
   bool _isResendEmail = false;
+
   // Getters
   bool get isLoading => _isLoading;
-  bool get isResendEmail =>_isResendEmail;
+
+  bool get isResendEmail => _isResendEmail;
 
   bool get obscurePassword => _obscurePassword;
 
@@ -64,6 +66,7 @@ class SignUpController with ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+
   void _setResendEmail(bool value) {
     _isResendEmail = true;
     notifyListeners();
@@ -134,51 +137,6 @@ class SignUpController with ChangeNotifier {
     return null;
   }
 
-  String _getSignUpErrorMessage(String message) {
-    final lowerMessage = message.toLowerCase();
-
-    if (lowerMessage.contains('duplicate') ||
-        lowerMessage.contains('already exists')) {
-      return s.ThisEmailRegistered;
-    }
-    if (lowerMessage.contains('invalid email')) {
-      return s.PleaseEnterValidEmailAddress;
-    }
-    if (lowerMessage.contains('weak password')) {
-      return s.PasswordWeak;
-    }
-    if (lowerMessage.contains('rate limit')) {
-      return s.TooManyAttempts;
-    }
-    if (lowerMessage.contains('network')) {
-      return s.Network;
-    }
-
-    return message.isNotEmpty ? message : s.SomethingWentWrong;
-  }
-
-  Future<bool> _createUserProfile(User supabaseUser) async {
-    try {
-      final user = UserModel(
-        id: supabaseUser.id,
-        imageId: '',
-        userName: controllerName.text.trim(),
-        jobe: controllerJob.text.trim(),
-        rating: '0',
-        reviwes: '0',
-        about: controllerAbout.text.trim(),
-        pastWork: null,
-        experience: null,
-      );
-
-      await AuthNotifier().insertToDataBase(user: user.toMap());
-      return true;
-    } catch (e) {
-      debugPrint('Error creating user profile: $e');
-      return false;
-    }
-  }
-
   // Signe Up [Create Account New User]
 
   Future<void> signUpUser(BuildContext context) async {
@@ -189,8 +147,16 @@ class SignUpController with ChangeNotifier {
       if (!compKey.currentState!.validate()) return;
     }
     _setLoading(true);
+    final emailToSignUp = controllerEmail.text.trim().toLowerCase();
+    debugPrint("Attempting to sign up with email: $emailToSignUp");
+
+    if (emailToSignUp.isEmpty) {
+      debugPrint("Error: Email is empty. Cannot sign up.");
+      _setLoading(false);
+      return;
+    }
     final response = await AuthNotifier().singUpUser(
-      email: controllerEmail.text.trim(),
+      email: emailToSignUp,
       password: controllerPassword.text.trim(),
       fullName: controllerName.text.trim(),
     );
@@ -201,7 +167,12 @@ class SignUpController with ChangeNotifier {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return ScreenOtp();
+              return ScreenOtp(
+                email: controllerEmail.text.trim(),
+                fullName: controllerName.text.trim(),
+                job: controllerJob.text.trim(),
+                about: controllerAbout.text.trim(),
+              );
             },
           ),
         );
@@ -211,11 +182,13 @@ class SignUpController with ChangeNotifier {
 
   Future<bool> onCheckConfirmation(
     String verificationCode,
-    BuildContext context,
-  ) async {
+    BuildContext context, {
+    required email,
+  }) async {
     LoadingIndicator.setLoading(context);
+
     final bool = await AuthNotifier().checkIfCorrectedOtp(
-      email: controllerEmail.text.trim(),
+      email: email,
       codeOtp: verificationCode,
     );
     if (bool) {
@@ -227,8 +200,29 @@ class SignUpController with ChangeNotifier {
 
   void onResendEmail(BuildContext context) async {
     _setResendEmail(true);
-    await AuthNotifier().resendEmail(email: controllerEmail.text.trim());
+    final emailToResend = controllerEmail.text.trim().toLowerCase();
+    try {
+      await AuthNotifier().resendEmail(email: emailToResend);
+    } on AuthException catch (e) {
+      CustomErrorWidget.showError(context, e.message);
+    }
     _setResendEmail(false);
+  }
+
+  void resetControllers() {
+    controllerEmail.clear();
+    controllerPassword.clear();
+    controllerConfirmPassword.clear();
+    controllerName.clear();
+    controllerJob.clear();
+    controllerAbout.clear();
+    _errorMessage = null;
+    _isResendEmail = false;
+    _isLoading = false;
+    _obscurePassword = true;
+    _obscureConfirmPassword = true;
+    numberOfCreationAccount = 0;
+    notifyListeners();
   }
 
   @override

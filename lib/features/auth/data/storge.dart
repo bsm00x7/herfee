@@ -17,7 +17,6 @@ class Storage {
       // Validate that the URL is not empty
       return url.isNotEmpty ? url : null;
     } catch (e) {
-      // Log the error (you might want to use a proper logging solution)
       print('Error getting image URL for id $id: $e');
       return null;
     }
@@ -39,7 +38,6 @@ class Storage {
       // Return the file name for future reference
       return uniqueFileName;
     } catch (e) {
-      print('Error uploading avatar: $e');
       return null;
     }
   }

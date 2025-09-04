@@ -37,7 +37,12 @@ class ProfileInfo extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 80,
-                      backgroundImage: NetworkImage(userModel.imageId),
+                      backgroundImage:
+                          (userModel.imageId != null &&
+                              userModel.imageId!.isNotEmpty)
+                          ? NetworkImage(userModel.imageId!)
+                          : const AssetImage('assets/image/avatar.png')
+                                as ImageProvider,
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -109,89 +114,95 @@ class ProfileInfo extends StatelessWidget {
                 height: size.height * 0.2,
                 child: userModel.pastWork.isEmpty
                     ? Center(
-                  child: Text(
-                    "No past work to display",
-                    style: theme.textTheme.bodyMedium!.copyWith(
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ),
-                )
+                        child: Text(
+                          "No past work to display",
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: theme.colorScheme.secondary,
+                          ),
+                        ),
+                      )
                     : ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: userModel.pastWork.length,
-                  itemBuilder: (context, index) {
-                    final job = userModel.pastWork[index];
-                    return Container(
-                      height: size.height * 0.1,
-                      width: 250,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withValues(alpha: 0.4),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: job.imageSource.startsWith('http')
-                                    ? Image.network(
-                                  job.imageSource,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: Colors.grey[300],
-                                      child: Icon(
-                                        Icons.image_not_supported,
-                                        color: Colors.grey[600],
-                                      ),
-                                    );
-                                  },
-                                )
-                                    : Image.asset(
-                                  "assets/image/Depth 5, Frame 0.png",
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: Colors.grey[300],
-                                      child: Icon(
-                                        Icons.image_not_supported,
-                                        color: Colors.grey[600],
-                                      ),
-                                    );
-                                  },
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: userModel.pastWork.length,
+                        itemBuilder: (context, index) {
+                          final job = userModel.pastWork[index];
+                          return Container(
+                            height: size.height * 0.1,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withValues(alpha: 0.4),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: job.imageSource.startsWith('http')
+                                          ? Image.network(
+                                              job.imageSource,
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                    return Container(
+                                                      color: Colors.grey[300],
+                                                      child: Icon(
+                                                        Icons
+                                                            .image_not_supported,
+                                                        color: Colors.grey[600],
+                                                      ),
+                                                    );
+                                                  },
+                                            )
+                                          : Image.asset(
+                                              "assets/image/Depth 5, Frame 0.png",
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                    return Container(
+                                                      color: Colors.grey[300],
+                                                      child: Icon(
+                                                        Icons
+                                                            .image_not_supported,
+                                                        color: Colors.grey[600],
+                                                      ),
+                                                    );
+                                                  },
+                                            ),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                const SizedBox(height: 4),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                    ),
+                                    child: Text(
+                                      job.title,
+                                      style: theme.textTheme.titleLarge,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                job.title,
-                                style: theme.textTheme.titleLarge,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(width: 10);
+                        },
                       ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(width: 10);
-                  },
-                ),
               ),
 
               // Experience Section
@@ -209,47 +220,48 @@ class ProfileInfo extends StatelessWidget {
               const SizedBox(height: 10),
               userModel.experience.isEmpty
                   ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "No experience to display",
-                    style: theme.textTheme.bodyMedium!.copyWith(
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ),
-                ),
-              )
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          "No experience to display",
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: theme.colorScheme.secondary,
+                          ),
+                        ),
+                      ),
+                    )
                   : Column(
-                children: userModel.experience
-                    .map((exp) => Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        exp.title,
-                        style: theme.textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        exp.periode,
-                        style: theme.textTheme.bodyMedium!.copyWith(
-                          color: theme.colorScheme.secondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ))
-                    .toList(),
-              ),
+                      children: userModel.experience
+                          .map(
+                            (exp) => Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(bottom: 12),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    exp.title,
+                                    style: theme.textTheme.titleMedium!
+                                        .copyWith(fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    exp.periode,
+                                    style: theme.textTheme.bodyMedium!.copyWith(
+                                      color: theme.colorScheme.secondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
 
               const SizedBox(height: 30),
             ],
@@ -258,5 +270,4 @@ class ProfileInfo extends StatelessWidget {
       ),
     );
   }
-
 }

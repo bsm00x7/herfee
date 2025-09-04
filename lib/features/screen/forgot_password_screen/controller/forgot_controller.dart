@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/utils/error/error.dart';
 import '../../../../generated/l10n.dart';
 import '../../reset_password_screen/reset_password_screen.dart';
+
 class ForgotPasswordController with ChangeNotifier {
   final s = S.current;
   final TextEditingController controllerEmail = TextEditingController();
@@ -24,12 +25,9 @@ class ForgotPasswordController with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-
-
   /// Controller Reset Password Screen
   final TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> resetKet = GlobalKey<FormState>();
-
 
   void _setLoading(bool loading) {
     _isLoading = loading;
@@ -50,8 +48,6 @@ class ForgotPasswordController with ChangeNotifier {
     }
     return null;
   }
-
-
 
   String _mapErrorMessage(String code) {
     switch (code) {
@@ -76,35 +72,40 @@ class ForgotPasswordController with ChangeNotifier {
     try {
       _setLoading(true);
 
-      await AuthNotifier().resetPassword(
-        email: controllerEmail.text.trim(),
-      );
+      await AuthNotifier().resetPassword(email: controllerEmail.text.trim());
 
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(s.PasswordResetEmail)),
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(s.PasswordResetEmail)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScreenOtp(
+              email: controllerEmail.text.trim(),
+              fullName: '',
+              job: '',
+              about: '',
+            ),
+          ),
         );
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenOtp(),));
       }
-
-
     } on AuthException catch (e) {
       _errorMessage = _mapErrorMessage(e.code!);
       if (context.mounted) {
         CustomErrorWidget.showError(context, _errorMessage!);
       }
-
     } catch (e) {
-      _errorMessage =s.AnUnexpected;
+      _errorMessage = s.AnUnexpected;
       if (context.mounted) {
         CustomErrorWidget.showError(context, _errorMessage!);
       }
-
     } finally {
       _setLoading(false);
       notifyListeners();
     }
   }
+
   String _mapOtpError(String code) {
     debugPrint(code);
     switch (code) {
@@ -121,79 +122,65 @@ class ForgotPasswordController with ChangeNotifier {
     }
   }
 
-
-  
   String? otpValidator(String? value) {
-    if (value == null || value.trim().isEmpty ){
+    if (value == null || value.trim().isEmpty) {
       return s.EnterOTP;
-    }else if (value.length != 6){
+    } else if (value.length != 6) {
       return s.OTP6digits;
     }
     return null;
-    }
+  }
 
   void checkOtpCode({required BuildContext context}) async {
     if (otpKey.currentState?.validate() != true) return;
-
     try {
       _setLoading(true);
       debugPrint(controllerOtp.text);
       final response = await AuthNotifier().verifyCodeOtp(
         otp: controllerOtp.text.trim(),
         email: controllerEmail.text.trim(),
-
       );
       debugPrint(response.user.toString());
 
       if (response.session != null || response.user != null) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(s.OTPSuccessfully)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(s.OTPSuccessfully)));
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-              builder: (_) =>  ResetPasswordScreen(),
-            ),
+            MaterialPageRoute(builder: (_) => ResetPasswordScreen()),
           );
         }
       }
-
     } on AuthException catch (e) {
       final friendlyMessage = _mapOtpError(e.code!);
       if (context.mounted) {
         CustomErrorWidget.showError(context, friendlyMessage);
       }
-
     } catch (e) {
       if (context.mounted) {
-        CustomErrorWidget.showError(
-          context,
-         s.SomethingWentWrong,
-        );
+        CustomErrorWidget.showError(context, s.SomethingWentWrong);
       }
-
     } finally {
       _setLoading(false);
       notifyListeners();
     }
   }
 
-
-  String? validatorPassword(String? value){
-    if (value == null || value.trim().isEmpty){
+  String? validatorPassword(String? value) {
+    if (value == null || value.trim().isEmpty) {
       return s.PleaseEnterYourPassword;
     }
     return null;
   }
 
-  void restPassword ({required BuildContext context}) async {
+  void restPassword({required BuildContext context}) async {
     _setLoading(true);
-     await AuthNotifier().updatePassword(newPassword: controllerPassword.text);
+    await AuthNotifier().updatePassword(newPassword: controllerPassword.text);
     _setLoading(false);
   }
-
 }
 
 

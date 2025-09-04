@@ -55,7 +55,6 @@ class SignInController with ChangeNotifier {
           return;
         }
 
-        // 🚨 Check if email is confirmed
         if (user.emailConfirmedAt == null) {
           await showBottomSheetConfirmation(context);
           return;

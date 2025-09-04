@@ -42,9 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 builder: (context, AsyncSnapshot<UserModel> snapshot) {
                   // Handle loading state
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   // Handle error state
@@ -89,10 +87,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Center(
                               child: CircleAvatar(
                                 radius: 60,
-                                backgroundImage: user.imageId.isNotEmpty
-                                    ? NetworkImage(user.imageId)
-                                    : null,
-                                child: user.imageId.isEmpty
+                                backgroundImage:
+                                    (user.imageId != null &&
+                                        user.imageId!.isNotEmpty)
+                                    ? NetworkImage(user.imageId!)
+                                    : const AssetImage(
+                                            'assets/image/avatar.png',
+                                          )
+                                          as ImageProvider,
+                                child:
+                                    (user.imageId == null ||
+                                        user.imageId!.isEmpty)
                                     ? const Icon(Icons.person, size: 60)
                                     : null,
                               ),
@@ -173,16 +178,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              ...user.experience.map((exp) => Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: Card(
-                                  child: ListTile(
-                                    title: Text(exp.title),
-                                    subtitle: Text(exp.periode),
-                                    leading: const Icon(Icons.work),
+                              ...user.experience.map(
+                                (exp) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: Card(
+                                    child: ListTile(
+                                      title: Text(exp.title),
+                                      subtitle: Text(exp.periode),
+                                      leading: const Icon(Icons.work),
+                                    ),
                                   ),
                                 ),
-                              )),
+                              ),
                               const SizedBox(height: 16),
                             ],
 
@@ -195,16 +202,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              ...user.pastWork.map((job) => Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Card(
-                                  child: ListTile(
-                                    title: Text(job.title ?? 'Untitled Job'),
-                                    subtitle: Text(job.title ?? ''),
-                                    leading: const Icon(Icons.assignment),
+                              ...user.pastWork.map(
+                                (job) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Card(
+                                    child: ListTile(
+                                      title: Text(job.title),
+                                      subtitle: Text(job.description),
+                                      leading: const Icon(Icons.assignment),
+                                    ),
                                   ),
                                 ),
-                              )),
+                              ),
                             ],
                           ],
                         ),
@@ -213,9 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }
 
                   // Handle case where data is null
-                  return const Center(
-                    child: Text('No user data available'),
-                  );
+                  return const Center(child: Text('No user data available'));
                 },
               ),
             ],

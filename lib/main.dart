@@ -8,6 +8,7 @@ import 'core/theme/lightTheme.dart';
 import 'core/theme/darkTheme.dart';
 import 'features/auth/shared_preferences/preference_manager.dart';
 import 'features/screen/home/controller/home_controller.dart';
+import 'features/screen/sign_up/controller/signUp_controller.dart';
 import 'generated/controller/lang_local_controller.dart';
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart';
@@ -39,13 +40,12 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (BuildContext context) => LangController(),
-
           ),
           ChangeNotifierProvider(
             create: (BuildContext context) => HomeController(),
-
           ),
           ChangeNotifierProvider(create: (_) => AuthNotifier()),
+          ChangeNotifierProvider(create: (_) => SignUpController()),
         ],
         child: Consumer<LangController>(
           builder: (context, provider, child) {

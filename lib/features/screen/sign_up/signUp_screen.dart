@@ -12,32 +12,29 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  late SignUpController _controller;
   int _currentStep = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = SignUpController();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
   void _nextStep() {
     if (_currentStep == 0) {
       // Validate account info
-      if (_controller.formKey.currentState!.validate()) {
+      if (context.read<SignUpController>().formKey.currentState!.validate()) {
         setState(() {
           _currentStep = 1;
         });
       }
     } else {
       // Submit everything
-      _controller.signUpUser(context);
+      context.read<SignUpController>().signUpUser(context);
     }
   }
 
@@ -47,6 +44,9 @@ class _SignUpPageState extends State<SignUpPage> {
         _currentStep--;
       });
     } else {
+      context
+          .read<SignUpController>()
+          .resetControllers(); // Reset controllers when navigating to login
       context.go('/login');
     }
   }
@@ -56,59 +56,58 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SafeArea(
-        child: ChangeNotifierProvider.value(
-          value: _controller,
-          child: Consumer<SignUpController>(
-            builder: (context, controller, child) {
-              return Column(
-                children: [
-                  // Progress Indicator
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: _previousStep,
-                              icon: const Icon(Icons.arrow_back),
-                            ),
-                            Expanded(
-                              child: LinearProgressIndicator(
-                                value: (_currentStep + 1) / 2,
-                                backgroundColor: Colors.grey[300],
-                                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                                minHeight: 4,
-                              ),
-                            ),
-                            const SizedBox(width: 48),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Step ${_currentStep + 1} of 2',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 14,
+        child: Consumer<SignUpController>(
+          builder: (context, controller, child) {
+            return Column(
+              children: [
+                // Progress Indicator
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: _previousStep,
+                            icon: const Icon(Icons.arrow_back),
                           ),
-                        ),
-                      ],
-                    ),
+                          Expanded(
+                            child: LinearProgressIndicator(
+                              value: (_currentStep + 1) / 2,
+                              backgroundColor: Colors.grey[300],
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                Colors.blue,
+                              ),
+                              minHeight: 4,
+                            ),
+                          ),
+                          const SizedBox(width: 48),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Step ${_currentStep + 1} of 2',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      ),
+                    ],
                   ),
+                ),
 
-                  // Form Content
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(24),
-                      child: _currentStep == 0
-                          ? _buildAccountInfoStep(controller)
-                          : _buildProfileInfoStep(controller),
-                    ),
+                // Form Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: _currentStep == 0
+                        ? _buildAccountInfoStep(controller)
+                        : _buildProfileInfoStep(controller),
                   ),
-                ],
-              );
-            },
-          ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -120,7 +119,6 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Title
           const Text(
             'Create Account',
             textAlign: TextAlign.center,
@@ -134,10 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Text(
             'Enter your account information',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           const SizedBox(height: 48),
 
@@ -206,10 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
               fillColor: Colors.white,
               errorMaxLines: 2,
               helperText: 'Must contain uppercase, lowercase, and number',
-              helperStyle: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
+              helperStyle: TextStyle(fontSize: 12, color: Colors.grey[600]),
             ),
           ),
           const SizedBox(height: 16),
@@ -266,11 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(width: 8),
-                Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                Icon(Icons.arrow_forward, color: Colors.white, size: 20),
               ],
             ),
           ),
@@ -282,9 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
             children: [
               Text(
                 'Already have an account? ',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(color: Colors.grey[600]),
               ),
               GestureDetector(
                 onTap: () => context.go('/login'),
@@ -323,10 +309,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Text(
             'Tell us about yourself',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           const SizedBox(height: 48),
 
@@ -358,7 +341,8 @@ class _SignUpPageState extends State<SignUpPage> {
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               labelText: 'About You',
-              hintText: 'Tell us about your skills, experience, and what you\'re looking for...',
+              hintText:
+                  'Tell us about your skills, experience, and what you\'re looking for...',
               alignLabelWithHint: true,
               prefixIcon: const Padding(
                 padding: EdgeInsets.only(bottom: 80),
@@ -392,10 +376,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Expanded(
                     child: Text(
                       controller.errorMessage!,
-                      style: TextStyle(
-                        color: Colors.red[700],
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.red[700], fontSize: 14),
                     ),
                   ),
                   IconButton(
@@ -423,45 +404,49 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             child: controller.isLoading
                 ? const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    strokeWidth: 2,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Text(
+                        'Creating Account...',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  )
+                : controller.numberOfCreationAccount == 0
+                ? const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  )
+                : InkWell(
+                    onTap: () => controller.signUpUser(context),
+                    child: Text(
+                      'Check Verify',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(width: 12),
-                Text(
-                  'Creating Account...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            )
-                :controller.numberOfCreationAccount==0? const Text(
-              'Create Account',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ) : InkWell(
-              onTap:()=>controller.signUpUser(context) ,
-              child: Text(
-                'Check Verify',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            ),
           ),
           const SizedBox(height: 16),
 
@@ -470,10 +455,7 @@ class _SignUpPageState extends State<SignUpPage> {
             onPressed: controller.isLoading ? null : _previousStep,
             child: const Text(
               '← Back to Account Info',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
           ),
           const SizedBox(height: 24),
@@ -482,10 +464,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Text(
             'By creating an account, you agree to our\nTerms of Service and Privacy Policy',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
         ],
       ),
