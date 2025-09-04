@@ -1,11 +1,10 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../service/model/job_model.dart';
 import '../../../service/model/user_model.dart';
-
 class SupaBaseData {
   final _instance = Supabase.instance.client;
 
+  /// get user data [user name , image profile , about ..]
   Future<UserModel> user() async {
     final currentLoginUser = Supabase.instance.client.auth.currentUser!.id;
     final response = await _instance
@@ -16,6 +15,7 @@ class SupaBaseData {
     return UserModel.fromMap(response);
   }
 
+  /// add New user to database
   Future<AuthResponse> insertToDataBase({
     required Map<String, dynamic> user,
   }) async {
@@ -29,7 +29,7 @@ class SupaBaseData {
       'about': user['about'],
     });
   }
-
+/// insert experience to database [using  user id ]
   Future<AuthResponse> insertExperience({
     required String userId,
     required Experience experience,
@@ -40,7 +40,7 @@ class SupaBaseData {
       'periode': experience.periode,
     });
   }
-
+/// Insert user job [using user is ]
   Future<void> insertJob({
     required String userId,
     required JobModel job,
@@ -52,8 +52,10 @@ class SupaBaseData {
       'imageJob': job.imageSource,
     });
   }
-
+/// deleter  user from data base
   Future<void> deleterUser({required String id}) async {
     await _instance.auth.admin.deleteUser(id);
+    await _instance.from('pastWork').delete().eq('id', id);
+    await _instance.from('experiences').delete().eq('id', id);
   }
 }
