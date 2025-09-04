@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:herfee/core/utils/error/error.dart';
@@ -14,7 +14,15 @@ import '../../../auth/data/storge.dart';
 class ProfileController with ChangeNotifier {
   final  s = S.current;
   bool _isloading = false;
+  bool _haveImage = false;
+  bool get haveImage =>_haveImage;
   bool get isLoading => _isloading;
+  final userId =  AuthNotifier().user!.id;
+  final ImagePicker _picker = ImagePicker();
+  void setImage(bool value){
+    _haveImage = value;
+    notifyListeners();
+  }
   void setLoading(bool value) {
     _isloading = value;
     notifyListeners();
@@ -22,28 +30,25 @@ class ProfileController with ChangeNotifier {
   Future<UserModel> getUser() async {
     final userData = await SupaBaseData().user();
     String? imageUrl;
-    imageUrl = await Storage().getUrlImage(id: '${userData.id}.jpg');
+    imageUrl = await Storage().getUrlImage(id: userData.id);
     return userData.copyWith(imageId: imageUrl);
   }
 
-  void pickerFromCamera({required BuildContext context , required bool firstTime}) async{
+  void pickerFromCamera({required BuildContext context }) async{
     PermissionStatus status = await Permission.camera.request();
-    final ImagePicker _picker = ImagePicker();
     final XFile? imageFromCamera = await _picker.pickImage(source: ImageSource.camera);
     if (status.isGranted) {
-      // Either the permission was already granted before or the user just granted it.
       if (imageFromCamera != null) {
-        final userId = AuthNotifier().user!.id;
+        if (haveImage==false){
+          await Storage().uploadAvatar(id:userId, image: File(imageFromCamera.path));
+        }else{
 
-        Uint8List fileBytes = await imageFromCamera!.readAsBytes();
-        if (firstTime == true){
-          Storage().uploadAvatar(fileBytes: fileBytes, userId: userId);
+          await Storage().updateAvatar(id:userId, image: File(imageFromCamera.path));
         }
+
       }
     }else if (status.isDenied) {
-      // The permission was denied, but not permanently. You can show a dialog or something.
       CustomErrorWidget.showError(context, s.PermissionDenied);
-
       openAppSettings();
     }
     else if (status.isPermanentlyDenied){
@@ -53,4 +58,13 @@ class ProfileController with ChangeNotifier {
 
 
   }
+
+ Future<void> isExistsImage() async{
+    final response = await Storage().existsImage(id: userId);
+    if (response == true){
+      setImage(true);
+    }else{
+      setImage(false);
+    }
+ }
 }
