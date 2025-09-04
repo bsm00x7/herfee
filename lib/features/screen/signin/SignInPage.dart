@@ -69,6 +69,7 @@ class _SignInPageState extends State<SignInPage> {
                         controller: controller.controllerEmail,
                         validator: controller.emailValidator,
                         keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           prefixIcon: const Icon(Icons.email_outlined),
@@ -86,6 +87,7 @@ class _SignInPageState extends State<SignInPage> {
                         controller: controller.controllerPassword,
                         validator: controller.passwordValidator,
                         obscureText: true,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           prefixIcon: const Icon(Icons.lock_outline),
