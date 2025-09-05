@@ -28,6 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "BackToLogin": MessageLookupByLibrary.simpleMessage("Back to Login"),
     "Camera": MessageLookupByLibrary.simpleMessage("Camera"),
+    "CameraPermissionPermanentlyDenied": MessageLookupByLibrary.simpleMessage(
+      "Camera permission permanently denied. Please enable it in settings.",
+    ),
+    "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
@@ -36,6 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "ConfirmationCode": MessageLookupByLibrary.simpleMessage(
       "We/\'ve sent a confirmation Code to:",
+    ),
+    "DeleteImageError": MessageLookupByLibrary.simpleMessage(
+      "Failed to delete image. Please try again.",
     ),
     "Email": MessageLookupByLibrary.simpleMessage("Email"),
     "EnterOTP": MessageLookupByLibrary.simpleMessage("Please enter an OTP"),
@@ -46,6 +53,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter your password",
     ),
     "Gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+    "GalleryPermissionPermanentlyDenied": MessageLookupByLibrary.simpleMessage(
+      "Gallery permission permanently denied. Please enable it in settings.",
+    ),
+    "ImagePickError": MessageLookupByLibrary.simpleMessage(
+      "Failed to pick image. Please try again.",
+    ),
     "Network": MessageLookupByLibrary.simpleMessage(
       "Network error. Please check your connection and try again.",
     ),
@@ -104,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many attempts. Please wait and try again.",
     ),
     "Update": MessageLookupByLibrary.simpleMessage("Update"),
+    "UserNotFound": MessageLookupByLibrary.simpleMessage("User not found"),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(
       "Featured Professionals",
     ),

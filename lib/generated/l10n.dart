@@ -453,6 +453,61 @@ class S {
       args: [],
     );
   }
+
+  /// `User not found`
+  String get UserNotFound {
+    return Intl.message(
+      'User not found',
+      name: 'UserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get Cancel {
+    return Intl.message('Cancel', name: 'Cancel', desc: '', args: []);
+  }
+
+  /// `Camera permission permanently denied. Please enable it in settings.`
+  String get CameraPermissionPermanentlyDenied {
+    return Intl.message(
+      'Camera permission permanently denied. Please enable it in settings.',
+      name: 'CameraPermissionPermanentlyDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gallery permission permanently denied. Please enable it in settings.`
+  String get GalleryPermissionPermanentlyDenied {
+    return Intl.message(
+      'Gallery permission permanently denied. Please enable it in settings.',
+      name: 'GalleryPermissionPermanentlyDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to pick image. Please try again.`
+  String get ImagePickError {
+    return Intl.message(
+      'Failed to pick image. Please try again.',
+      name: 'ImagePickError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to delete image. Please try again.`
+  String get DeleteImageError {
+    return Intl.message(
+      'Failed to delete image. Please try again.',
+      name: 'DeleteImageError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

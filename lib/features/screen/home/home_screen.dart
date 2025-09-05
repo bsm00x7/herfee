@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: SizedBox(
                                   width: double.infinity,
                                   child: Image.asset(
-                                    job.imageSource,
+                                    job.imageJob!,
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
                                   child: Text(
-                                    job.title.capitalize(),
+                                    job.jobTitle.capitalize(),
                                     style: theme.textTheme.titleMedium,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

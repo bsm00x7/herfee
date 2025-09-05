@@ -140,7 +140,7 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                              await SupaBaseData().insertJob(
                                   userId: user.id,
                                   job: JobModel(
-                                      imageSource: '', title: widget.job,
+                                      imageJob: '', jobTitle: widget.job,
                                       description:''));
                               }
                                   provider

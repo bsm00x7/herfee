@@ -23,7 +23,7 @@ class Experience {
 
 class UserModel {
   final String id;
-   final String? imageId;
+   final String imageId;
   final String userName;
   final String jobe;
   final String rating;
@@ -35,7 +35,7 @@ class UserModel {
 
   UserModel({
     required this.id,
-    this.imageId,
+    required this.imageId,
     required this.userName,
     required this.jobe,
     required this.rating,
@@ -103,8 +103,6 @@ class UserModel {
     String? about,
     List<JobModel>? pastWork,
     List<Experience>? experience,
-    List<JobModel>? parsedPastWork,
-    List<Experience>? parsedExperience,
     bool? isActive,
   }) {
     return UserModel(

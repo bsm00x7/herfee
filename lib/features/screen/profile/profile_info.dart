@@ -146,9 +146,9 @@ class ProfileInfo extends StatelessWidget {
                                     ),
                                     child: SizedBox(
                                       width: double.infinity,
-                                      child: job.imageSource.startsWith('http')
+                                      child: job.imageJob !=null
                                           ? Image.network(
-                                              job.imageSource,
+                                              job.imageJob!,
                                               fit: BoxFit.cover,
                                               errorBuilder:
                                                   (context, error, stackTrace) {
@@ -188,7 +188,7 @@ class ProfileInfo extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                     child: Text(
-                                      job.title,
+                                      job.jobTitle,
                                       style: theme.textTheme.titleLarge,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,

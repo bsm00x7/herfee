@@ -1,26 +1,30 @@
 class JobModel {
-  final String imageSource;
-  final String title;
+
+  final String jobTitle;
   final String description;
+  final String? imageJob;
   JobModel({
-    required this.imageSource,
-    required this.title,
-    this.description = '',
+
+     required this.jobTitle,
+    this.description = '',  this.imageJob,
+
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'imageSource': imageSource,
-      'title': title,
+
+      'title': jobTitle,
       'description': description,
+      'imageSource': imageJob,
     };
   }
 
   factory JobModel.fromMap(Map<String, dynamic> map) {
     return JobModel(
-      imageSource: map['imageSource'] as String,
-      title: map['title'] as String,
+
+      jobTitle: map['title'] as String,
       description: map['description'] as String? ?? '',
+      imageJob: map['imageJob'] as String?,
     );
   }
 }

@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           'Loading Profile...',
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.7),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
                         ),
                       ],
@@ -589,7 +589,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.2),
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Row(
@@ -612,7 +612,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  job.title,
+                  job.jobTitle,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: theme.colorScheme.onSurface,
@@ -722,7 +722,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      s.Camera ?? 'Camera',
+                                      s.Camera ,
                                       style: theme.textTheme.titleMedium?.copyWith(
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -730,7 +730,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Text(
                                       'Take a new photo',
                                       style: theme.textTheme.bodySmall?.copyWith(
-                                        color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                                       ),
                                     ),
                                   ],
@@ -739,7 +739,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 16,
-                                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                               ),
                             ],
                           ),
@@ -750,7 +750,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                       ),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
@@ -788,7 +788,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Text(
                                       'Choose from existing photos',
                                       style: theme.textTheme.bodySmall?.copyWith(
-                                        color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                                       ),
                                     ),
                                   ],
@@ -797,7 +797,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Icon(
                                 Icons.arrow_forward_ios,
                                 size: 16,
-                                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                               ),
                             ],
                           ),
