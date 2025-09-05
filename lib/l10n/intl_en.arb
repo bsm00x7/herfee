@@ -57,6 +57,7 @@
   "CameraPermissionPermanentlyDenied":"Camera permission permanently denied. Please enable it in settings.",
   "GalleryPermissionPermanentlyDenied": "Gallery permission permanently denied. Please enable it in settings.",
   "ImagePickError": "Failed to pick image. Please try again.",
-  "DeleteImageError": "Failed to delete image. Please try again."
+  "DeleteImageError": "Failed to delete image. Please try again.",
+  "UserInfo": "User Info"
 
 }

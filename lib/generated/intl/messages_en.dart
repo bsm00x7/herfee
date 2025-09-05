@@ -117,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many attempts. Please wait and try again.",
     ),
     "Update": MessageLookupByLibrary.simpleMessage("Update"),
+    "UserInfo": MessageLookupByLibrary.simpleMessage("User Info"),
     "UserNotFound": MessageLookupByLibrary.simpleMessage("User not found"),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(
       "Featured Professionals",
