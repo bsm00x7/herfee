@@ -117,6 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "otp_incorrect": MessageLookupByLibrary.simpleMessage(
       "The code you entered is incorrect. Please try again.",
     ),
+    "selectImageSource": MessageLookupByLibrary.simpleMessage(
+      "select Image Source",
+    ),
     "user_not_found": MessageLookupByLibrary.simpleMessage(
       "No account found with this email.",
     ),

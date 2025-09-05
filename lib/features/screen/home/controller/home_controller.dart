@@ -22,7 +22,7 @@ class HomeController extends ChangeNotifier {
       reviwes: "172",
       about: "Ethan is a highly skilled plumber with over 10 years of experience in the industry. He specializes in residential plumbing and is known for his attention to detail and excellent customer service.",
       pastWork: [JobModel(imageSource: "imageSource", title: "title")],
-      experience: [Experience(title: 'title', periode: 'periode')],
+      experience: [Experience(title: 'title', periode: 'periode')], isActive: true,
     );
   }
 }

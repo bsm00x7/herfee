@@ -31,6 +31,7 @@ class UserModel {
   final String about;
   final List<JobModel> pastWork;
   final List<Experience> experience;
+  final bool isActive;
 
   UserModel({
     required this.id,
@@ -42,6 +43,8 @@ class UserModel {
     required this.about,
     List<JobModel>? pastWork,
     List<Experience>? experience,
+    required this.isActive
+
   })  : pastWork = pastWork ?? [],
         experience = experience ?? [];
 
@@ -86,6 +89,7 @@ class UserModel {
       about: map['about'] as String? ?? '',
       pastWork: parsedPastWork,
       experience: parsedExperience,
+      isActive: map["isActive"]
     );
   }
 
@@ -101,6 +105,7 @@ class UserModel {
     List<Experience>? experience,
     List<JobModel>? parsedPastWork,
     List<Experience>? parsedExperience,
+    bool? isActive,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -112,6 +117,7 @@ class UserModel {
       about: about ?? this.about,
       pastWork: pastWork ?? this.pastWork,
       experience: experience ?? this.experience,
+      isActive: isActive ?? this.isActive
     );
   }
 

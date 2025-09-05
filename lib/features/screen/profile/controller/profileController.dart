@@ -42,10 +42,8 @@ class ProfileController with ChangeNotifier {
         if (haveImage==false){
           await Storage().uploadAvatar(id:userId, image: File(imageFromCamera.path));
         }else{
-
           await Storage().updateAvatar(id:userId, image: File(imageFromCamera.path));
         }
-
       }
     }else if (status.isDenied) {
       CustomErrorWidget.showError(context, s.PermissionDenied);

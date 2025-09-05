@@ -50,5 +50,6 @@
 
   "Camera": "Camera",
   "Gallery": "Gallery",
-  "PermissionDenied": "Permission denied"
+  "PermissionDenied": "Permission denied",
+  "selectImageSource": "select Image Source"
 }

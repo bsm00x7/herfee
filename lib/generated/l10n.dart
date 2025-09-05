@@ -443,6 +443,16 @@ class S {
       args: [],
     );
   }
+
+  /// `select Image Source`
+  String get selectImageSource {
+    return Intl.message(
+      'select Image Source',
+      name: 'selectImageSource',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
