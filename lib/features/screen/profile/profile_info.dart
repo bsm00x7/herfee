@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:herfee/common_widgets/container_decoration.dart';
 
+import '../../../common_widgets/experience_card.dart';
+import '../../../common_widgets/header_title.dart';
+import '../../../common_widgets/info_card.dart';
+import '../../../common_widgets/job_title.dart';
+import '../../../common_widgets/rating_card.dart';
+import '../../../common_widgets/verifier_account.dart';
+import '../../../common_widgets/work_Card.dart';
 import '../../../generated/l10n.dart';
 import '../../../service/model/user_model.dart';
 
 class ProfileInfo extends StatelessWidget {
-  final UserModel userModel;
+  final UserModel user;
 
-  const ProfileInfo({super.key, required this.userModel});
+  const ProfileInfo({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -16,258 +25,212 @@ class ProfileInfo extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          s.ProfessionalDetails,
-          style: theme.textTheme.headlineLarge!.copyWith(fontSize: 24),
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(s.ProfessionalDetails,
+          style: theme.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: theme.colorScheme.onSurface,
+          ),
         ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface.withValues(alpha: 0.9),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+              ),
+            ),
+            child: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: theme.colorScheme.onSurface,
+              size: 18,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface.withValues(alpha: 0.9),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                ),
+              ),
+              child: Icon(
+                Icons.more_vert_rounded,
+                color: theme.colorScheme.onSurface,
+                size: 20,
+              ),
+            ),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 16),
+        ],
       ),
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: Padding(
+      body: ContainerDecoration(theme: theme,
+          child:
+      Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              // Profile Header Section
-              SizedBox(
-                height: size.height * 0.3,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(24, 120, 24, 32),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 80,
-                      backgroundImage:
-                          (
-                              userModel.imageId.isNotEmpty)
-                          ? NetworkImage(userModel.imageId)
-                          : const AssetImage('assets/image/avatar.png')
-                                as ImageProvider,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      userModel.userName,
-                      style: theme.textTheme.titleMedium!.copyWith(
-                        fontSize: 24,
+
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: [
+                            theme.colorScheme.primary.withValues(alpha: 0.3),
+                            theme.colorScheme.secondary.withValues(alpha: 0.3),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(4),
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 64,
+                            backgroundColor: theme.colorScheme.surfaceContainer,
+                            backgroundImage: user.imageId.isNotEmpty
+                                ? NetworkImage(user.imageId)
+                                :null,
+                            child: Icon(Icons.person ,size: 40,color: theme.colorScheme.onSurface,),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.primary,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: theme.colorScheme.surface,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.camera_alt_rounded,
+                                color: theme.colorScheme.onPrimary,
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 24),
+
+                    // User Name with Badge
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          userModel.rating,
-                          style: theme.textTheme.headlineSmall!.copyWith(
-                            fontSize: 20,
-                            color: theme.colorScheme.primary,
+                        Flexible(
+                          child: Text(
+                            user.userName,
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: theme.colorScheme.onSurface,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          "(${userModel.reviwes} reviews)",
-                          style: theme.textTheme.headlineSmall!.copyWith(
-                            fontSize: 20,
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
+                        /// Verifier Account
+                        VerifierIcon(isVerifier: user.isActive,theme: theme,),
                       ],
                     ),
+                    const SizedBox(height: 8),
+
+                    // Job Title with Enhanced Styling
+                    JobTitle(theme: theme,jobName: user.jobe,),
+                    const SizedBox(height: 8),
+
+                    JobTitle(theme: theme,jobName: user.role,),
+                    const SizedBox(height: 20),
+
+                    // Enhanced Rating Card
+                    RatingCard(theme: theme,rating: user.rating,reviwes: user.reviews,),
                   ],
                 ),
               ),
+            ),
 
-              // About Section
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  s.About,
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  userModel.about,
-                  style: theme.textTheme.headlineMedium!.copyWith(fontSize: 18),
-                ),
-              ),
-
-              // Past Work Section
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  s.PostWork,
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: size.height * 0.2,
-                child: userModel.pastWork.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No past work to display",
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            color: theme.colorScheme.secondary,
-                          ),
+            // Content Sections
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // About Section
+                    if (user.about.isNotEmpty) ...[
+                      HeaderTitle(theme: theme, title: 'About',icon:  FontAwesomeIcons.user),
+                      const SizedBox(height: 12),
+                      InfoCard(theme: theme,child:Text(
+                        user.about,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          height: 1.6,
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                         ),
-                      )
-                    : ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: userModel.pastWork.length,
-                        itemBuilder: (context, index) {
-                          final job = userModel.pastWork[index];
-                          return Container(
-                            height: size.height * 0.1,
-                            width: 250,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withValues(alpha: 0.4),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                    ),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: job.imageJob !=null
-                                          ? Image.network(
-                                              job.imageJob!,
-                                              fit: BoxFit.cover,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                    return Container(
-                                                      color: Colors.grey[300],
-                                                      child: Icon(
-                                                        Icons
-                                                            .image_not_supported,
-                                                        color: Colors.grey[600],
-                                                      ),
-                                                    );
-                                                  },
-                                            )
-                                          : Image.asset(
-                                              "assets/image/Depth 5, Frame 0.png",
-                                              fit: BoxFit.cover,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                    return Container(
-                                                      color: Colors.grey[300],
-                                                      child: Icon(
-                                                        Icons
-                                                            .image_not_supported,
-                                                        color: Colors.grey[600],
-                                                      ),
-                                                    );
-                                                  },
-                                            ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Text(
-                                      job.jobTitle,
-                                      style: theme.textTheme.titleLarge,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(width: 10);
-                        },
-                      ),
-              ),
+                      ) ,),
 
-              // Experience Section
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Experience",
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              userModel.experience.isEmpty
-                  ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text(
-                          "No experience to display",
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            color: theme.colorScheme.secondary,
-                          ),
+                      const SizedBox(height: 32),
+                    ],
+
+                    // Experience Section
+
+                    if (user.experience.isNotEmpty) ...[
+                      HeaderTitle(theme:theme, title: 'Experience',icon:  FontAwesomeIcons.briefcase),
+                      const SizedBox(height: 16),
+                      ...user.experience.map(
+                            (exp) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: ExperienceCard(theme: theme,exp: exp,),
                         ),
                       ),
-                    )
-                  : Column(
-                      children: userModel.experience
-                          .map(
-                            (exp) => Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    exp.title,
-                                    style: theme.textTheme.titleMedium!
-                                        .copyWith(fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    exp.periode,
-                                    style: theme.textTheme.bodyMedium!.copyWith(
-                                      color: theme.colorScheme.secondary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                      const SizedBox(height: 32),
+                    ],
 
-              const SizedBox(height: 30),
-            ],
-          ),
+                    // Past Work Section
+                    if (user.pastWork.isNotEmpty) ...[
+                      HeaderTitle(theme: theme,title:  'Past Work',icon:  FontAwesomeIcons.folderOpen),
+                      const SizedBox(height: 16),
+                      ...user.pastWork.map(
+                            (job) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: WorkCard(theme: theme,job:  job),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      ),
+      )),
     );
   }
 }

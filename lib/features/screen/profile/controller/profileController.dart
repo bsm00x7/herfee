@@ -29,35 +29,7 @@ class ProfileController with ChangeNotifier {
     notifyListeners();
   }
   Future<UserModel> getUser() async {
-    var userData = await SupaBaseData().user();
-    if (userData.imageId.isEmpty){
-      String? imageUrl;
-      imageUrl = await Storage().getUrlImage(id: userData.id);
-      if (imageUrl !=null){
-        SupaBaseData().updateUser(id: userId,image: imageUrl );
-      }
-      userData= userData.copyWith(imageId: imageUrl);
-    }
-    // Fetch additional user data in parallel for better performance
-    final results = await Future.wait([
-        SupaBaseData().getExperience(userId: userId),
-        SupaBaseData().getJob(userId: userId),
-    ]);
-
-    final List<Experience> listOfExperience = results[0] as List<Experience>;
-    final List<JobModel> listOfJob = results[1] as List<JobModel>;
-
-    // Update userData with experience and jobs if available
-    if (listOfExperience.isNotEmpty) {
-      userData = userData.copyWith(experience: listOfExperience);
-    }
-
-    if (listOfJob.isNotEmpty) {
-      userData = userData.copyWith(pastWork: listOfJob);
-    }
-
-
-    return userData;
+    return  await SupaBaseData().user();
 
   }
 

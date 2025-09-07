@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+import 'package:herfee/features/auth/data/storge.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../service/model/job_model.dart';
 import '../../../service/model/user_model.dart';
@@ -7,14 +9,39 @@ class SupaBaseData {
   final _instance = Supabase.instance.client;
 
   /// get user data [user name , image profile , about ..]
-  Future<UserModel> user() async {
+  Future<UserModel> user([String id='']) async {
     final currentLoginUser = Supabase.instance.client.auth.currentUser!.id;
     final response = await _instance
         .from('users')
         .select()
-        .eq('id', currentLoginUser)
+        .eq('id', id.isEmpty? currentLoginUser : id)
         .single();
-    return UserModel.fromMap(response);
+    var userData = UserModel.fromMap(response);
+    if (userData.imageId.isEmpty){
+      String? imageUrl;
+      imageUrl = await Storage().getUrlImage(id: userData.id);
+      if (imageUrl !=null){
+        SupaBaseData().updateUser(id:id.isEmpty? currentLoginUser : id,image: imageUrl );
+      }
+      userData= userData.copyWith(imageId: imageUrl);
+    }
+    // Fetch additional user data in parallel for better performance
+    final results = await Future.wait([
+      SupaBaseData().getExperience(userId: id.isEmpty? currentLoginUser : id),
+      SupaBaseData().getJob(userId: id.isEmpty? currentLoginUser : id),
+    ]);
+    final List<Experience> listOfExperience = results[0] as List<Experience>;
+    final List<JobModel> listOfJob = results[1] as List<JobModel>;
+
+    // Update userData with experience and jobs if available
+    if (listOfExperience.isNotEmpty) {
+      userData = userData.copyWith(experience: listOfExperience);
+    }
+
+    if (listOfJob.isNotEmpty) {
+      userData = userData.copyWith(pastWork: listOfJob);
+    }
+    return userData;
   }
 
   /// add New user to database
@@ -91,4 +118,12 @@ class SupaBaseData {
           }
           ).toList();
         }
+
+
+  Future < List<UserModel> >listUsers()async{
+    final response = await _instance.from('users').select().neq('id', Supabase.instance.client.auth.currentUser!.id).order('reviews',ascending: false).range(0, 10);
+    return response.map((e) => UserModel.fromMap(e)).toList();
+  }
+
+
         }

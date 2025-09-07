@@ -18,7 +18,6 @@ class SignInController with ChangeNotifier {
     _isLoading = loading;
     notifyListeners();
   }
-
   String? emailValidator(String? value) {
     final email = value?.trim() ?? '';
     if (email.isEmpty) {
@@ -75,8 +74,6 @@ class SignInController with ChangeNotifier {
       }
     }
   }
-
-
 
   /// Alternative: Show bottom sheet confirmation
   Future<void> showBottomSheetConfirmation(BuildContext context) async {

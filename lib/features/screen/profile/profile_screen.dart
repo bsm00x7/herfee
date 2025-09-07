@@ -33,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-
+            surfaceTintColor: Colors.transparent,
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(s.Profile,
@@ -43,24 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             centerTitle: true,
-            leading: IconButton(
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: theme.colorScheme.onSurface,
-                  size: 18,
-                ),
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
+
             actions: [
               IconButton(
                 icon: Container(
@@ -181,6 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // Enhanced Success State
               if (snapshot.hasData && snapshot.data != null) {
                 final user = snapshot.data!;
+
                 return CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
@@ -188,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: const EdgeInsets.fromLTRB(24, 120, 24, 32),
                         child: Column(
                           children: [
-
                             GestureDetector(
                               onTap: () => _showImagePicker(context, theme, s, size),
                               child: Consumer<ProfileController>(
@@ -218,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           backgroundColor: theme.colorScheme.surfaceContainer,
                                           backgroundImage: !provider.haveImage
                                               ? NetworkImage(user.imageId)
-                                              : const AssetImage('assets/image/avatar.png') as ImageProvider,
+                                              : const Icon(Icons.percent) as ImageProvider,
                                         ),
                                         Positioned(
                                           bottom: 0,
@@ -264,17 +247,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(width: 8),
                                 /// Verifier Account
-                                VerifierIcon(isVerifier: false,theme: theme,),
+                                VerifierIcon(isVerifier: user.isActive,theme: theme,),
                               ],
                             ),
                             const SizedBox(height: 8),
 
                             // Job Title with Enhanced Styling
                             JobTitle(theme: theme,jobName: user.jobe,),
+                            const SizedBox(height: 8),
+
+                            JobTitle(theme: theme,jobName: user.role,),
                             const SizedBox(height: 20),
 
                             // Enhanced Rating Card
-                            RatingCard(theme: theme,rating: user.rating,reviwes: user.reviwes,),
+                            RatingCard(theme: theme,rating: user.rating,reviwes: user.reviews,),
                           ],
                         ),
                       ),

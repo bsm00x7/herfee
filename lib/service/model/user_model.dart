@@ -27,11 +27,14 @@ class UserModel {
   final String userName;
   final String jobe;
   final String rating;
-  final String reviwes;
+  final String reviews;
   final String about;
   final List<JobModel> pastWork;
   final List<Experience> experience;
   final bool isActive;
+
+  final bool verifer_account;
+  final String role;
 
   UserModel({
     required this.id,
@@ -39,57 +42,59 @@ class UserModel {
     required this.userName,
     required this.jobe,
     required this.rating,
-    required this.reviwes,
+    required this.reviews,
     required this.about,
-    List<JobModel>? pastWork,
+    List<JobModel>? pastWork ,
     List<Experience>? experience,
-    required this.isActive
+    required this.isActive,
+     this.verifer_account =false,
+    required this.role,
+
 
   })  : pastWork = pastWork ?? [],
         experience = experience ?? [];
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'imageId': imageId,
-      'userName': userName,
-      'jobe': jobe,
-      'rating': rating,
-      'reviwes': reviwes,
-      'about': about,
-      'pastWork': pastWork.map((job) => job.toMap()).toList(),
-      'experience': experience.map((exp) => exp.toMap()).toList(),
+      'id': this.id,
+      'imageId': this.imageId,
+      'userName': this.userName,
+      'jobe': this.jobe,
+      'rating': this.rating,
+      'reviwes': this.reviews,
+      'about': this.about,
+      'pastWork': this.pastWork,
+      'experience': this.experience,
+      'isActive': this.isActive,
+      'verifer_account': this.verifer_account,
+      'role': this.role,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    // Convert pastWork safely
-    List<JobModel> parsedPastWork = [];
-    if (map['pastWork'] != null && map['pastWork'] is List) {
-      parsedPastWork = List<JobModel>.from(
-        (map['pastWork'] as List).map((x) => JobModel.fromMap(x)),
-      );
+    List<T> parseList<T>(dynamic listData, T Function(Map<String, dynamic>) fromMap) {
+      if (listData is List) {
+        return listData.map((item) => fromMap(item as Map<String, dynamic>)).toList();
+      }
+      return []; // Return empty list if data is null or not a list
     }
-
-    // Convert experience safely
-    List<Experience> parsedExperience = [];
-    if (map['experience'] != null && map['experience'] is List) {
-      parsedExperience = List<Experience>.from(
-        (map['experience'] as List).map((x) => Experience.fromMap(x)),
-      );
-    }
-
     return UserModel(
-      id: map['id'] as String? ?? '',
-      imageId: map['imageId'] as String? ?? '',
-      userName: map['userName'] as String? ?? '',
-      jobe: map['jobe'] as String? ?? '',
-      rating: map['rating'] as String? ?? '0',
-      reviwes: map['reviwes'] as String? ?? '0',
-      about: map['about'] as String? ?? '',
-      pastWork: parsedPastWork,
-      experience: parsedExperience,
-      isActive: map["isActive"]
+      id: map['id'] as String,
+      imageId: map['imageId'] as String,
+      userName: map['userName'] as String,
+      jobe: map['jobe'] as String,
+      rating: map['rating'] as String,
+      reviews: map['reviews'] as String,
+      about: map['about'] as String,
+      pastWork: map.containsKey('pastWork') && map['pastWork'] != null
+          ? (map['pastWork'] as List).map((i) => JobModel.fromMap(i as Map<String, dynamic>)).toList()
+          : [],
+      experience: map.containsKey('experience') && map['experience'] != null
+          ? (map['experience'] as List).map((i) => Experience.fromMap(i as Map<String, dynamic>)).toList()
+          : [],
+      isActive: map['isActive'] as bool,
+      verifer_account: map['verifer_account'] as bool,
+      role: map['role'] as String,
     );
   }
 
@@ -104,6 +109,8 @@ class UserModel {
     List<JobModel>? pastWork,
     List<Experience>? experience,
     bool? isActive,
+    bool? verifer_account,
+    String? role,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -111,11 +118,13 @@ class UserModel {
       userName: userName ?? this.userName,
       jobe: jobe ?? this.jobe,
       rating: rating ?? this.rating,
-      reviwes: reviwes ?? this.reviwes,
+      reviews: reviwes ?? this.reviews,
       about: about ?? this.about,
       pastWork: pastWork ?? this.pastWork,
       experience: experience ?? this.experience,
-      isActive: isActive ?? this.isActive
+      isActive: isActive ?? this.isActive,
+      verifer_account: verifer_account ?? this.verifer_account,
+      role: role ?? this.role,
     );
   }
 

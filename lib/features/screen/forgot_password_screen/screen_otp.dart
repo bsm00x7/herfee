@@ -132,9 +132,9 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                                   userName: widget.fullName,
                                   jobe: widget.job,
                                   rating: '0',
-                                  reviwes: '0',
+                                  reviews: '0',
                                   about: widget.about,
-                                  isActive: true
+                                  isActive: true, role: '', verifer_account: false
                                 ).toMap(),
                               );
                              await SupaBaseData().insertJob(

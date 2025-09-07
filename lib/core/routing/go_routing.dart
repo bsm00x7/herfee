@@ -75,7 +75,7 @@ GoRouter createRouter(BuildContext context) {
         builder: (context, state) {
           if (state.extra is UserModel) {
             final userModel = state.extra as UserModel;
-            return ProfileInfo(userModel: userModel);
+            return ProfileInfo(user: userModel);
           }
           debugPrint(
             "Error: /profileInfo called without valid UserModel in extra. state.extra: ${state.extra}",
