@@ -313,12 +313,12 @@ class CustomAccountConfirmationDialog extends StatelessWidget {
   final bool isLoading;
 
   const CustomAccountConfirmationDialog({
-    Key? key,
+    super.key,
     required this.email,
     this.onResendEmail,
     this.onGoToLogin,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
