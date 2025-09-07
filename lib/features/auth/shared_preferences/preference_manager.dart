@@ -13,19 +13,19 @@ class PreferenceManager with ChangeNotifier {
   }
 
   PreferenceManager._internal();
-  setString (String key , String value)async{
+  Future<void> setString (String key , String value)async{
     await _preferences.setString(key, value);
   }
-  setBool (String key , bool value)async{
+  Future<void> setBool (String key , bool value)async{
     await _preferences.setBool(key, value);
   }
   String? getString (String key){
     return _preferences.getString(key) ;
   }
-  setDouble (String key, double value)async{
+  Future<void> setDouble (String key, double value)async{
     await _preferences.setDouble(key, value);
   }
-  setInt (String key, int value)async{
+  Future<void> setInt (String key, int value)async{
      await _preferences.setInt(key, value);
   }
   int? getInt (String key){
@@ -46,7 +46,6 @@ class PreferenceManager with ChangeNotifier {
   void clear(){
     _preferences.clear();
   }
-
 
 
 }

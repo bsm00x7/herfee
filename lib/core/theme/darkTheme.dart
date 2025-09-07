@@ -102,7 +102,7 @@ final ThemeData darkTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: const Color(0xFF3B82F6),
       foregroundColor: const Color(0xFFFFFFFF),
-      shadowColor: const Color(0xFF3B82F6).withOpacity(0.4),
+      shadowColor: const Color(0xFF3B82F6).withValues(alpha: 0.4),
       elevation: 3,
       textStyle: const TextStyle(
         fontFamily: 'Roboto',
@@ -377,9 +377,9 @@ final ThemeData darkTheme = ThemeData(
     // Dark theme shadow colors for better depth
     shadowColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF3B82F6).withOpacity(0.3); // Blue glow when focused
+        return const Color(0xFF3B82F6).withValues(alpha: 0.3); // Blue glow when focused
       }
-      return const Color(0xFF000000).withOpacity(0.4); // Stronger shadow for dark mode
+      return const Color(0xFF000000).withValues(alpha: 0.4); // Stronger shadow for dark mode
     }),
 
     // Surface tint for Material 3 dark design
@@ -388,10 +388,10 @@ final ThemeData darkTheme = ThemeData(
     // Overlay color for press states in dark mode
     overlayColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.pressed)) {
-        return const Color(0xFF60A5FA).withOpacity(0.15); // Brighter overlay for dark mode
+        return const Color(0xFF60A5FA).withValues(alpha: 0.15); // Brighter overlay for dark mode
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF3B82F6).withOpacity(0.1);
+        return const Color(0xFF3B82F6).withValues(alpha: 0.1);
       }
       return Colors.transparent;
     }),
@@ -406,7 +406,7 @@ final ThemeData darkTheme = ThemeData(
     color: const Color(0xFF1E293B),
     surfaceTintColor: const Color(0xFF3B82F6),
     elevation: 2,
-    shadowColor: const Color(0xFF000000).withOpacity(0.3),
+    shadowColor: const Color(0xFF000000).withValues(alpha: 0.3),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     margin: const EdgeInsets.all(8),
   ),

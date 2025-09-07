@@ -102,7 +102,7 @@ final ThemeData lightTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: const Color(0xFF2563EB),
       foregroundColor: const Color(0xFFFFFFFF),
-      shadowColor: const Color(0xFF2563EB).withOpacity(0.3),
+      shadowColor: const Color(0xFF2563EB).withValues(alpha: 0.3),
       elevation: 2,
       textStyle: const TextStyle(
         fontFamily: 'Roboto',
@@ -377,9 +377,9 @@ final ThemeData lightTheme = ThemeData(
     // Optional: Add shadow color for better depth perception
     shadowColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF2563EB).withOpacity(0.2); // Blue shadow when focused
+        return const Color(0xFF2563EB).withValues(alpha: 0.2); // Blue shadow when focused
       }
-      return const Color(0xFF000000).withOpacity(0.1); // Subtle black shadow
+      return const Color(0xFF000000).withValues(alpha: 0.1); // Subtle black shadow
     }),
 
     // Optional: Surface tint for Material 3 design
@@ -388,10 +388,10 @@ final ThemeData lightTheme = ThemeData(
     // Optional: Overlay color for press states
     overlayColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.pressed)) {
-        return const Color(0xFF2563EB).withOpacity(0.1);
+        return const Color(0xFF2563EB).withValues(alpha: 0.1);
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF2563EB).withOpacity(0.05);
+        return const Color(0xFF2563EB).withValues(alpha: 0.05);
       }
       return Colors.transparent;
     }),
@@ -402,7 +402,7 @@ final ThemeData lightTheme = ThemeData(
     color: const Color(0xFFFFFFFF),
     surfaceTintColor: const Color(0xFF2563EB),
     elevation: 1,
-    shadowColor: const Color(0xFF2563EB).withOpacity(0.1),
+    shadowColor: const Color(0xFF2563EB).withValues(alpha: 0.1),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     margin: const EdgeInsets.all(8),
   ),

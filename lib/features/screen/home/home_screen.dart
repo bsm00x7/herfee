@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withOpacity(0.1),
+                        color: theme.colorScheme.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: IconButton(
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(15),
                               boxShadow: [
                                 BoxShadow(
-                                  color: theme.colorScheme.primary.withOpacity(0.1),
+                                  color: theme.colorScheme.primary.withValues(alpha: 0.1),
                                   blurRadius: 12,
                                   offset: const Offset(0, 4),
                                 ),
@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 4,
                                               height: 4,
                                               decoration: BoxDecoration(
-                                                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -302,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Text(
                                               '230 reviews',
                                               style: theme.textTheme.bodySmall?.copyWith(
-                                                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                                               ),
                                             ),
                                           ],

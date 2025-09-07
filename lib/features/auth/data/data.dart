@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../service/model/job_model.dart';
 import '../../../service/model/user_model.dart';

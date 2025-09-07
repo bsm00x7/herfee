@@ -38,9 +38,9 @@ class ProfileInfo extends StatelessWidget {
                     CircleAvatar(
                       radius: 80,
                       backgroundImage:
-                          (userModel.imageId != null &&
-                              userModel.imageId!.isNotEmpty)
-                          ? NetworkImage(userModel.imageId!)
+                          (
+                              userModel.imageId.isNotEmpty)
+                          ? NetworkImage(userModel.imageId)
                           : const AssetImage('assets/image/avatar.png')
                                 as ImageProvider,
                     ),
