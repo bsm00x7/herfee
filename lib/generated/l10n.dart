@@ -513,6 +513,11 @@ class S {
   String get UserInfo {
     return Intl.message('User Info', name: 'UserInfo', desc: '', args: []);
   }
+
+  /// `Booking`
+  String get Booking {
+    return Intl.message('Booking', name: 'Booking', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

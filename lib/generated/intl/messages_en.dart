@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An unexpected error occurred. Please try again.",
     ),
     "BackToLogin": MessageLookupByLibrary.simpleMessage("Back to Login"),
+    "Booking": MessageLookupByLibrary.simpleMessage("Booking"),
     "Camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "CameraPermissionPermanentlyDenied": MessageLookupByLibrary.simpleMessage(
       "Camera permission permanently denied. Please enable it in settings.",
