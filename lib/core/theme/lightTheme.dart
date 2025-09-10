@@ -205,7 +205,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       fontSize: 16,
-      color: Colors.white,
+      color:  Color(0xFF475569),
       letterSpacing: 0.1,
       height: 1.4,
     ),

@@ -1,33 +1,37 @@
 
 import 'package:herfee/features/auth/data/storge.dart';
+import 'package:herfee/service/model/message_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../service/model/job_model.dart';
 import '../../../service/model/user_model.dart';
 
 class SupaBaseData {
   final _instance = Supabase.instance.client;
-  String get currentLoginUser =>  Supabase.instance.client.auth.currentUser!.id;
+
+  String get currentLoginUser => Supabase.instance.client.auth.currentUser!.id;
+
   /// get user data [user name , image profile , about ..]
-  Future<UserModel> user([String id='']) async {
+  Future<UserModel> user([String id = '']) async {
     final currentLoginUser = Supabase.instance.client.auth.currentUser!.id;
     final response = await _instance
         .from('users')
         .select()
-        .eq('id', id.isEmpty? currentLoginUser : id)
+        .eq('id', id.isEmpty ? currentLoginUser : id)
         .single();
     var userData = UserModel.fromMap(response);
-    if (userData.imageId.isEmpty){
+    if (userData.imageId.isEmpty) {
       String? imageUrl;
       imageUrl = await Storage().getUrlImage(id: userData.id);
-      if (imageUrl !=null){
-        SupaBaseData().updateUser(id:id.isEmpty? currentLoginUser : id,image: imageUrl );
+      if (imageUrl != null) {
+        SupaBaseData().updateUser(
+            id: id.isEmpty ? currentLoginUser : id, image: imageUrl);
       }
-      userData= userData.copyWith(imageId: imageUrl);
+      userData = userData.copyWith(imageId: imageUrl);
     }
     // Fetch additional user data in parallel for better performance
     final results = await Future.wait([
-      SupaBaseData().getExperience(userId: id.isEmpty? currentLoginUser : id),
-      SupaBaseData().getJob(userId: id.isEmpty? currentLoginUser : id),
+      SupaBaseData().getExperience(userId: id.isEmpty ? currentLoginUser : id),
+      SupaBaseData().getJob(userId: id.isEmpty ? currentLoginUser : id),
     ]);
     final List<Experience> listOfExperience = results[0] as List<Experience>;
     final List<JobModel> listOfJob = results[1] as List<JobModel>;
@@ -113,16 +117,43 @@ class SupaBaseData {
             "title": e["job_title"],
             "description": e["description"],
             "imageJob": e["imageJob"]
-            });
-          }
-          ).toList();
+          });
         }
-
-
-  Future < List<UserModel> >listUsers()async{
-    final response = await _instance.from('users').select().neq('id', Supabase.instance.client.auth.currentUser!.id).order('reviews',ascending: false).range(0, 10);
-    return response.map((e) => UserModel.fromMap(e)).toList();
+    ).toList();
   }
 
 
-        }
+  Future <List<UserModel>> listUsers() async {
+    final response = await _instance.from('users').select().neq(
+        'id', Supabase.instance.client.auth.currentUser!.id).order(
+        'reviews', ascending: false).range(0, 10);
+    return response.map((e) => UserModel.fromMap(e)).toList();
+  }
+
+  Future<void> sendMessage({ required Map<String, dynamic> message}) async {
+    await _instance.from('message').insert(message);
+  }
+
+  // Stream messages for real-time updates
+  Stream<List<MessageModel>> messageStream(
+      {required String currentUserId, required String otherUserId}) {
+    return _instance
+        .from('messages')
+        .stream(primaryKey: ['id'])
+        .inFilter('sendId', [currentUserId, otherUserId])
+        .order('createdAt', ascending: true)
+        .map((data) =>
+        data
+            .where((json) =>
+        (json['sendId'] == currentUserId && json['recvId'] == otherUserId) ||
+            (json['sendId'] == otherUserId && json['recvId'] == currentUserId))
+            .map((json) => MessageModel.fromMap(json))
+            .toList());
+  }
+
+  Future<void> checkHaveMessage(
+      {required String currentUserId, required String otherUserId}) async {
+    _instance.from('message').select().eq('sendId', currentUserId).eq(
+        'recvId', otherUserId).single();
+  }
+}
