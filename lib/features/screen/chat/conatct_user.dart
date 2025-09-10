@@ -380,7 +380,7 @@ class ContactUser extends StatelessWidget {
                                     ? theme.colorScheme.primary
                                     : theme.colorScheme.surfaceVariant,
                                 size: size,
-                                message: message.content ?? '',
+                                message: message.content,
                               );
                             },
                             separatorBuilder: (BuildContext context, int index) {

@@ -131,7 +131,7 @@ class SupaBaseData {
   }
 
   Future<void> sendMessage({ required Map<String, dynamic> message}) async {
-    await _instance.from('message').insert(message);
+     await _instance.from('messages').insert(message);
   }
 
   // Stream messages for real-time updates

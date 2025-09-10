@@ -28,8 +28,7 @@ class ControllerContact extends ChangeNotifier {
 
       };
 
-      await SupaBaseData().sendMessage(message: messageData);
-
+     final response = await SupaBaseData().sendMessage(message: messageData);
       // Clear the message input after successful send
       messageController.clear();
     } catch (e) {
