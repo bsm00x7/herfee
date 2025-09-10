@@ -1,9 +1,9 @@
 
 class MessageModel {
-  final String id;
+  final int id;
   final String sendId;
   final String content;
-  final DateTime createdAt;
+  final String createdAt;
   final String recvId;
 
   MessageModel({required this.id,required  this.sendId,required this.content,  required this.createdAt,required this.recvId});
@@ -17,13 +17,12 @@ class MessageModel {
       'recvId': this.recvId,
     };
   }
-
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       sendId: map['sendId'] as String,
       content: map['content'] as String,
-      createdAt: map['createdAt'] as DateTime,
+      createdAt: map['createdAt'] as String,
       recvId: map['recvId'] as String,
     );
   }

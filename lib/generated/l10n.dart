@@ -528,6 +528,21 @@ class S {
   String get Offline {
     return Intl.message('Offline', name: 'Offline', desc: '', args: []);
   }
+
+  /// `Setting`
+  String get Setting {
+    return Intl.message('Setting', name: 'Setting', desc: '', args: []);
+  }
+
+  /// `Update Languages`
+  String get UpdateLanguages {
+    return Intl.message(
+      'Update Languages',
+      name: 'UpdateLanguages',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

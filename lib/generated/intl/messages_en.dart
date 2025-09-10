@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "SearchForServices": MessageLookupByLibrary.simpleMessage(
       "Search For Services",
     ),
+    "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
     "SignIn": MessageLookupByLibrary.simpleMessage("SignIn "),
     "SomethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again.",
@@ -120,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many attempts. Please wait and try again.",
     ),
     "Update": MessageLookupByLibrary.simpleMessage("Update"),
+    "UpdateLanguages": MessageLookupByLibrary.simpleMessage("Update Languages"),
     "UserInfo": MessageLookupByLibrary.simpleMessage("User Info"),
     "UserNotFound": MessageLookupByLibrary.simpleMessage("User not found"),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(

@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:herfee/features/auth/data/storge.dart';
 import 'package:herfee/service/model/message_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,6 +12,7 @@ class SupaBaseData {
   String get currentLoginUser => Supabase.instance.client.auth.currentUser!.id;
 
   /// get user data [user name , image profile , about ..]
+
   Future<UserModel> user([String id = '']) async {
     final currentLoginUser = Supabase.instance.client.auth.currentUser!.id;
     final response = await _instance
@@ -98,6 +100,9 @@ class SupaBaseData {
   Future<void> updateUser({required String id, required String image }) async {
     await _instance.from('users').update({"image_id": image}).eq('id', id);
   }
+  Future<void> updateUserStatus({ required bool value }) async {
+    await _instance.from('users').update({"isActive": value}).eq('id', currentLoginUser);
+  }
 
 
   /// Get user experience from data base <<<<[using user id ]>>>>>>>>
@@ -137,11 +142,11 @@ class SupaBaseData {
   // Stream messages for real-time updates
   Stream<List<MessageModel>> messageStream(
       {required String currentUserId, required String otherUserId}) {
-    return _instance
+    final response = _instance
         .from('messages')
         .stream(primaryKey: ['id'])
-        .inFilter('sendId', [currentUserId, otherUserId])
-        .order('createdAt', ascending: true)
+        .inFilter('sendId', [currentUserId,otherUserId])
+        .order('createdAt', ascending: false)
         .map((data) =>
         data
             .where((json) =>
@@ -149,11 +154,8 @@ class SupaBaseData {
             (json['sendId'] == otherUserId && json['recvId'] == currentUserId))
             .map((json) => MessageModel.fromMap(json))
             .toList());
-  }
-
-  Future<void> checkHaveMessage(
-      {required String currentUserId, required String otherUserId}) async {
-    _instance.from('message').select().eq('sendId', currentUserId).eq(
-        'recvId', otherUserId).single();
+    return response;
   }
 }
+
+

@@ -61,6 +61,9 @@
   "UserInfo": "User Info",
   "Booking": "Booking",
   "Online": "Online",
-  "Offline": "Offline"
+  "Offline": "Offline",
+  "Setting" : "Setting",
+  "UpdateLanguages": "Update Languages",
+
 
 }

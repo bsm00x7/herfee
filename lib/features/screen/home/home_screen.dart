@@ -28,6 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(s.homeScreenTitle, style: theme.textTheme.headlineLarge),
+        surfaceTintColor: Colors.transparent,
+        foregroundColor: theme.appBarTheme.foregroundColor,
+        backgroundColor: theme.appBarTheme.backgroundColor,
+        iconTheme: theme.appBarTheme.iconTheme,
+        actionsIconTheme: theme.appBarTheme.actionsIconTheme,
+        elevation: theme.appBarTheme.elevation,
         actions: [
           IconButton(
             icon: const Icon(FontAwesomeIcons.gear),
@@ -44,49 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const SizedBox(height: 20),
-              // Search Bar
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: SearchBar(
-                  hintText: s.SearchForServices,
-                  leading: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: FaIcon(
-                      FontAwesomeIcons.magnifyingGlass,
-                      color: theme.colorScheme.primary,
-                      size: 18,
-                    ),
-                  ),
-                  trailing: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.sliders,
-                          color: theme.colorScheme.primary,
-                          size: 16,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
-                  onTap: () {},
-                ),
-              ),
+
               const SizedBox(height: 20),
               Align(
                 alignment: Alignment.topLeft,

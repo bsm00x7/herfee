@@ -5,6 +5,7 @@ import 'package:herfee/service/model/user_model.dart';
 import '../../../common_widgets/container_message.dart';
 import '../../../common_widgets/verifier_account.dart';
 import '../../../generated/l10n.dart';
+import '../../../service/model/message_model.dart';
 import '../profile/profile_info.dart';
 import 'controller/controller_contact.dart';
 import 'package:provider/provider.dart';
@@ -296,12 +297,12 @@ class ContactUser extends StatelessWidget {
               Expanded(
                 child: Consumer<ControllerContact>(
                   builder: (context, provider, child) {
-                    return StreamBuilder(
+                    return StreamBuilder<List<MessageModel>>(
                       stream: SupaBaseData().messageStream(
                         currentUserId: provider.currentLoginUserId,
                         otherUserId: user.id,
                       ),
-                      builder: (context, snapshot) {
+                      builder: (context, AsyncSnapshot<List<MessageModel>> snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const Center(child: CircularProgressIndicator());
                         }
@@ -362,7 +363,6 @@ class ContactUser extends StatelessWidget {
                         }
 
                         final messages = snapshot.data!;
-
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: ListView.separated(
@@ -370,15 +370,14 @@ class ContactUser extends StatelessWidget {
                             itemCount: messages.length,
                             itemBuilder: (context, index) {
                               final message = messages[index];
-                              final isFromCurrentUser = message.sendId == provider.currentLoginUserId;
-
+                              final isFromCurrentUser = message.sendId== provider.currentLoginUserId;
                               return ContainerMessage(
                                 alignment: isFromCurrentUser
                                     ? Alignment.centerRight
                                     : Alignment.centerLeft,
                                 color: isFromCurrentUser
                                     ? theme.colorScheme.primary
-                                    : theme.colorScheme.surfaceVariant,
+                                    : theme.colorScheme.surfaceContainerHighest,
                                 size: size,
                                 message: message.content,
                               );
@@ -389,6 +388,7 @@ class ContactUser extends StatelessWidget {
                           ),
                         );
                       },
+
                     );
                   },
                 ),
