@@ -3,13 +3,12 @@ class Assets {
   Assets._();
 
   static const String imageCleaning = 'assets/image/Cleaning.png';
-  static const String imageDepth 5, Frame 0 = 'assets/image/Depth 5, Frame 0.png';
   static const String imageElectrical = 'assets/image/Electrical.png';
   static const String imageGardening = 'assets/image/Gardening.png';
   static const String imageHandyMan = 'assets/image/HandyMan.png';
   static const String imagePainting = 'assets/image/Painting.png';
   static const String imagePlumbing = 'assets/image/Plumbing.png';
-  static const String lottiesBokkinglotties = 'assets/lotties/bokkinglotties.json';
+  static const String lottiesBookingLotties = 'assets/lotties/booking_lotties.json';
   static const String staticRobotoBold = 'assets/font/static/Roboto-Bold.ttf';
   static const String staticRobotoLight = 'assets/font/static/Roboto-Light.ttf';
   static const String staticRobotoMedium = 'assets/font/static/Roboto-Medium.ttf';

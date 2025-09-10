@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../../service/model/job_model.dart';
 import '../../../auth/data/data.dart';
 import '../../../auth/data/storge.dart';
 

@@ -190,7 +190,7 @@ final ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w500,
       fontSize: 20,
       color: Color(0xFF1E293B),
-      letterSpacing: -0.1,
+      letterSpacing: 0.2,
       height: 1.4,
     ),
     titleLarge: TextStyle(
@@ -205,7 +205,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       fontSize: 16,
-      color: Color(0xFF334155),
+      color: Colors.white,
       letterSpacing: 0.1,
       height: 1.4,
     ),

@@ -59,6 +59,8 @@
   "ImagePickError": "Failed to pick image. Please try again.",
   "DeleteImageError": "Failed to delete image. Please try again.",
   "UserInfo": "User Info",
-  "Booking": "Booking"
+  "Booking": "Booking",
+  "Online": "Online",
+  "Offline": "Offline"
 
 }

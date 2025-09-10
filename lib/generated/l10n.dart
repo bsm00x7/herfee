@@ -518,6 +518,16 @@ class S {
   String get Booking {
     return Intl.message('Booking', name: 'Booking', desc: '', args: []);
   }
+
+  /// `Online`
+  String get Online {
+    return Intl.message('Online', name: 'Online', desc: '', args: []);
+  }
+
+  /// `Offline`
+  String get Offline {
+    return Intl.message('Offline', name: 'Offline', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

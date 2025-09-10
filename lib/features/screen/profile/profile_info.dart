@@ -275,7 +275,7 @@ class ProfileInfo extends StatelessWidget {
               bottom: 50,
               left: 0,
               right: 0,
-              child: BookingButton(userName: user.userName,)),
+              child: BookingButton(user: user,)),
         ],
       ),
     );

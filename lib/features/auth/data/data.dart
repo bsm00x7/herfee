@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:herfee/features/auth/data/storge.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../service/model/job_model.dart';
@@ -7,7 +6,7 @@ import '../../../service/model/user_model.dart';
 
 class SupaBaseData {
   final _instance = Supabase.instance.client;
-
+  String get currentLoginUser =>  Supabase.instance.client.auth.currentUser!.id;
   /// get user data [user name , image profile , about ..]
   Future<UserModel> user([String id='']) async {
     final currentLoginUser = Supabase.instance.client.auth.currentUser!.id;

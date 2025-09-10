@@ -74,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "OTPSuccessfully": MessageLookupByLibrary.simpleMessage(
       "OTP verified successfully!",
     ),
+    "Offline": MessageLookupByLibrary.simpleMessage("Offline"),
+    "Online": MessageLookupByLibrary.simpleMessage("Online"),
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
     "PasswordResetEmail": MessageLookupByLibrary.simpleMessage(
       "Password reset email sent successfully!",

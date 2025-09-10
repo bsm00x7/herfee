@@ -1,30 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:lottie/lottie.dart';
-import 'package:slider_button/slider_button.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../service/model/user_model.dart';
+import '../../chat/conatct_user.dart';
 
 class BookingButton extends StatelessWidget {
-  final String userName;
-
-  const BookingButton({super.key, required this.userName});
+  final UserModel  user;
+  const BookingButton({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
-    return Center(
-      child: SliderButton(
-        action: () async {
-          Lottie.asset("assets/lotties/bokkinglotties.json");
-          Future.delayed(Duration(seconds: 2));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: FloatingActionButton.extended(
+        elevation: 1,
+        onPressed: () async{
+          await showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => Center(
+              child: Lottie.asset(
+                Assets.lottiesBookingLotties,
+                repeat: false,
+                onLoaded: (composition) async {
+                  await Future.delayed(composition.duration);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          );
+         Navigator.push(context, MaterialPageRoute(builder: (context) {
+           return ContactUser(user: user);
+         },));
         },
-        label: Text(
-          "Slide to Contact $userName",
-          style: theme.textTheme.titleMedium,
-        ),
-        icon: Icon(FontAwesomeIcons.check, color: theme.colorScheme.primary),
+        foregroundColor: theme.colorScheme.onSecondary,
+        backgroundColor: theme.colorScheme.primary,
+        label:  Text("Click to Contact ${user.userName}",style: theme.textTheme.titleMedium,),
       ),
     );
   }
