@@ -25,10 +25,9 @@ class ControllerContact extends ChangeNotifier {
         'sendId': currentLoginUserId,
         'content': messageController.text.trim(),
         'recvId': recvId,
-
       };
 
-     final response = await SupaBaseData().sendMessage(message: messageData);
+      await SupaBaseData().sendMessage(message: messageData);
       // Clear the message input after successful send
       messageController.clear();
     } catch (e) {

@@ -63,7 +63,8 @@
   "Online": "Online",
   "Offline": "Offline",
   "Setting" : "Setting",
-  "UpdateLanguages": "Update Languages"
+  "UpdateLanguages": "Update Languages",
+  "DeleteAccounte" : "Delete Accounte"
 
 
 }

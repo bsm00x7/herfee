@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:herfee/features/auth/data/storge.dart';
 import 'package:herfee/service/model/message_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,7 +24,9 @@ class SupaBaseData {
       imageUrl = await Storage().getUrlImage(id: userData.id);
       if (imageUrl != null) {
         SupaBaseData().updateUser(
-            id: id.isEmpty ? currentLoginUser : id, image: imageUrl);
+          id: id.isEmpty ? currentLoginUser : id,
+          image: imageUrl,
+        );
       }
       userData = userData.copyWith(imageId: imageUrl);
     }
@@ -97,65 +97,77 @@ class SupaBaseData {
   }
 
   /// update user information
-  Future<void> updateUser({required String id, required String image }) async {
+  Future<void> updateUser({required String id, required String image}) async {
     await _instance.from('users').update({"image_id": image}).eq('id', id);
   }
-  Future<void> updateUserStatus({ required bool value }) async {
-    await _instance.from('users').update({"isActive": value}).eq('id', currentLoginUser);
+
+  Future<void> updateUserStatus({required bool value}) async {
+    await _instance
+        .from('users')
+        .update({"isActive": value})
+        .eq('id', currentLoginUser);
   }
 
-
   /// Get user experience from data base <<<<[using user id ]>>>>>>>>
-  Future <List<Experience>> getExperience({required String userId}) async {
-    final response = await _instance.from('experiences').select().eq(
-        'user_id', userId);
+  Future<List<Experience>> getExperience({required String userId}) async {
+    final response = await _instance
+        .from('experiences')
+        .select()
+        .eq('user_id', userId);
     return response.map((e) => Experience.fromMap(e)).toList();
   }
 
   /// Get user job from data base <<<<[using user id ]>>>>>>>>
   Future<List<JobModel>> getJob({required String userId}) async {
-    final response = await _instance.from('pastWork').select().eq(
-        'user_id', userId);
-    return response.map(
-            (e) {
-          return JobModel.fromMap({
-            "title": e["job_title"],
-            "description": e["description"],
-            "imageJob": e["imageJob"]
-          });
-        }
-    ).toList();
+    final response = await _instance
+        .from('pastWork')
+        .select()
+        .eq('user_id', userId);
+    return response.map((e) {
+      return JobModel.fromMap({
+        "title": e["job_title"],
+        "description": e["description"],
+        "imageJob": e["imageJob"],
+      });
+    }).toList();
   }
 
-
-  Future <List<UserModel>> listUsers() async {
-    final response = await _instance.from('users').select().neq(
-        'id', Supabase.instance.client.auth.currentUser!.id).order(
-        'reviews', ascending: false).range(0, 10);
+  Future<List<UserModel>> listUsers() async {
+    final response = await _instance
+        .from('users')
+        .select()
+        .neq('id', Supabase.instance.client.auth.currentUser!.id)
+        .order('reviews', ascending: false)
+        .range(0, 10);
     return response.map((e) => UserModel.fromMap(e)).toList();
   }
 
-  Future<void> sendMessage({ required Map<String, dynamic> message}) async {
-     await _instance.from('messages').insert(message);
+  Future<void> sendMessage({required Map<String, dynamic> message}) async {
+    await _instance.from('messages').insert(message);
   }
 
   // Stream messages for real-time updates
-  Stream<List<MessageModel>> messageStream(
-      {required String currentUserId, required String otherUserId}) {
+  Stream<List<MessageModel>> messageStream({
+    required String currentUserId,
+    required String otherUserId,
+  }) {
     final response = _instance
         .from('messages')
         .stream(primaryKey: ['id'])
-        .inFilter('sendId', [currentUserId,otherUserId])
+        .inFilter('sendId', [currentUserId, otherUserId])
         .order('createdAt', ascending: false)
-        .map((data) =>
-        data
-            .where((json) =>
-        (json['sendId'] == currentUserId && json['recvId'] == otherUserId) ||
-            (json['sendId'] == otherUserId && json['recvId'] == currentUserId))
-            .map((json) => MessageModel.fromMap(json))
-            .toList());
+        .map(
+          (data) => data
+              .where(
+                (json) =>
+                    (json['sendId'] == currentUserId &&
+                        json['recvId'] == otherUserId) ||
+                    (json['sendId'] == otherUserId &&
+                        json['recvId'] == currentUserId),
+              )
+              .map((json) => MessageModel.fromMap(json))
+              .toList(),
+        );
     return response;
   }
 }
-
-

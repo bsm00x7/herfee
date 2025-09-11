@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
 import 'package:herfee/features/auth/shared_preferences/preference_manager.dart';
 import 'package:herfee/features/screen/setting/setting_controller.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
@@ -78,7 +79,7 @@ class Setting extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        "assets/image/Flag_of_Tunisia.svg.png",
+                                        Assets.imageFlagOfTunisia,
                                         width: 24,
                                         height: 24,
                                       ),
@@ -156,6 +157,63 @@ class Setting extends StatelessWidget {
                   ),
                   style: theme.listTileTheme.style,
                   leading: Icon(Icons.language),
+                ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return SizedBox(
+                          height: 200,
+                          width: size.width,
+
+                          child: Padding(
+                            padding: EdgeInsetsGeometry.symmetric(
+                              horizontal: 20,
+                              vertical: 16,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Are You sure For \n deleting your Account ?",
+                                  style: theme.textTheme.titleMedium!.copyWith(
+                                    fontSize: 20,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("Cancel"),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("Confirme"),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: ListTile(
+                    leading: Icon(FontAwesome.trash_can, color: Colors.red),
+                    title: Text(
+                      "Deleter Account",
+                      style: theme.textTheme.titleMedium!.copyWith(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
