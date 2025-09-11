@@ -15,5 +15,6 @@ class Assets {
   static const String staticRobotoLight = 'assets/font/static/Roboto-Light.ttf';
   static const String staticRobotoMedium = 'assets/font/static/Roboto-Medium.ttf';
   static const String staticRobotoRegular = 'assets/font/static/Roboto-Regular.ttf';
-
+  static const String   mageFlagOfEnglish  = 'assets/image/Flag_of_Englsih.png';
+  static const String  mageFlagOfFrench  = "assets/image/Flag_of_French.png";
 }

@@ -64,7 +64,9 @@
   "Offline": "Offline",
   "Setting" : "Setting",
   "UpdateLanguages": "Update Languages",
-  "DeleteAccounte" : "Delete Accounte"
+  "DeleteAccount" : "Delete Account",
+  "deletingAccount":   "Are You sure For \nDeleting your Account ?",
+  "Confirm": "Confirm"
 
 
 }

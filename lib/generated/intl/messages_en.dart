@@ -36,12 +36,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
+    "Confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "ConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Confirm Your Email",
     ),
     "ConfirmationCode": MessageLookupByLibrary.simpleMessage(
       "We/\'ve sent a confirmation Code to:",
     ),
+    "DeleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "DeleteImageError": MessageLookupByLibrary.simpleMessage(
       "Failed to delete image. Please try again.",
     ),
@@ -124,6 +126,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "UpdateLanguages": MessageLookupByLibrary.simpleMessage("Update Languages"),
     "UserInfo": MessageLookupByLibrary.simpleMessage("User Info"),
     "UserNotFound": MessageLookupByLibrary.simpleMessage("User not found"),
+    "deletingAccount": MessageLookupByLibrary.simpleMessage(
+      "Are You sure For \nDeleting your Account ?",
+    ),
     "featuredProfessionals": MessageLookupByLibrary.simpleMessage(
       "Featured Professionals",
     ),

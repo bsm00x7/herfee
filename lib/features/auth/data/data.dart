@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:herfee/features/auth/data/storge.dart';
 import 'package:herfee/service/model/message_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../core/utils/error/error.dart';
 import '../../../service/model/job_model.dart';
 import '../../../service/model/user_model.dart';
 
@@ -90,10 +92,13 @@ class SupaBaseData {
   }
 
   /// deleter  user from data base
-  Future<void> deleterUser({required String id}) async {
-    await _instance.auth.admin.deleteUser(id);
-    await _instance.from('pastWork').delete().eq('id', id);
-    await _instance.from('experiences').delete().eq('id', id);
+  Future<void> deleterUser({required String id, required BuildContext context}) async {
+    await _instance.auth.admin.deleteUser(id).onError((error, stackTrace) => CustomErrorWidget.showError(context, "Try In Anthor time "),);
+    await _instance.from('users').delete().eq('id', id);
+    await _instance.from('experiences').delete().eq('user_id', id);
+    await _instance.from('pastWork').delete().eq('user_id', id);
+    await _instance.from('messages').delete().eq('sendId', id);
+    await _instance.from('messages').delete().eq('recvId', id);
   }
 
   /// update user information

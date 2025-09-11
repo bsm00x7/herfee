@@ -28,4 +28,8 @@ class ControllerSetting with ChangeNotifier {
   void init() async {
     await SupaBaseData().updateUserStatus(value: true);
   }
+  Future<void>deleterCurrentUser (context)async{
+    final String _currentUserId =  SupaBaseData().currentLoginUser;
+    await SupaBaseData().deleterUser(id: _currentUserId,context: context);
+  }
 }

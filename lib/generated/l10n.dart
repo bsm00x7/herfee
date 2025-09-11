@@ -543,6 +543,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete Account`
+  String get DeleteAccount {
+    return Intl.message(
+      'Delete Account',
+      name: 'DeleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are You sure For \nDeleting your Account ?`
+  String get deletingAccount {
+    return Intl.message(
+      'Are You sure For \nDeleting your Account ?',
+      name: 'deletingAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get Confirm {
+    return Intl.message('Confirm', name: 'Confirm', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

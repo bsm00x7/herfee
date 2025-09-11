@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
-import 'package:herfee/features/auth/shared_preferences/preference_manager.dart';
 import 'package:herfee/features/screen/setting/setting_controller.dart';
+import 'package:herfee/features/screen/sign_up/signUp_screen.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
-
 import '../../../generated/assets.dart';
 import '../../../generated/controller/lang_local_controller.dart';
 import '../../../generated/l10n.dart';
@@ -71,7 +70,7 @@ class Setting extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  LangController().setLocale('ar');
+                                  LangController().setLocale("ar");
                                 },
                                 child: SizedBox(
                                   height: 40,
@@ -96,7 +95,7 @@ class Setting extends StatelessWidget {
                               Divider(),
                               InkWell(
                                 onTap: () {
-                                  LangController().setLocale('fr');
+                                  LangController().setLocale("fr");
                                 },
                                 child: SizedBox(
                                   height: 40,
@@ -104,7 +103,7 @@ class Setting extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        "assets/image/Flag_of_French.png",
+                                        Assets.mageFlagOfFrench,
                                         width: 24,
                                         height: 24,
                                       ),
@@ -121,7 +120,7 @@ class Setting extends StatelessWidget {
                               Divider(),
                               InkWell(
                                 onTap: () {
-                                  LangController().setLocale('en');
+                                  LangController().setLocale("en");
                                 },
                                 child: SizedBox(
                                   height: 40,
@@ -129,7 +128,7 @@ class Setting extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        "assets/image/Flag_of_Englsih.png",
+                                        Assets.mageFlagOfEnglish,
                                         width: 24,
                                         height: 24,
                                       ),
@@ -158,62 +157,76 @@ class Setting extends StatelessWidget {
                   style: theme.listTileTheme.style,
                   leading: Icon(Icons.language),
                 ),
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return SizedBox(
-                          height: 200,
-                          width: size.width,
-
-                          child: Padding(
-                            padding: EdgeInsetsGeometry.symmetric(
-                              horizontal: 20,
-                              vertical: 16,
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Are You sure For \n deleting your Account ?",
-                                  style: theme.textTheme.titleMedium!.copyWith(
-                                    fontSize: 20,
-                                    color: Colors.red,
-                                  ),
+                Consumer<ControllerSetting>(
+                  builder: (context, provider, child) {
+                    return InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return SizedBox(
+                              height: 200,
+                              width: size.width,
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.symmetric(
+                                  horizontal: 20,
+                                  vertical: 16,
                                 ),
-                                SizedBox(height: 20),
-                                Row(
+                                child: Column(
                                   children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Cancel"),
+                                    Text(
+                                      textAlign: TextAlign.start,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      s.deletingAccount,
+                                      style: theme.textTheme.titleMedium!
+                                          .copyWith(
+                                            fontSize: 20,
+                                            color: Colors.red,
+                                          ),
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Confirme"),
+                                    SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(s.Cancel),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () async{
+                                            await provider.deleterCurrentUser(context);
+                                            if (context.mounted){
+                                              Navigator.pop(context);
+
+                                            }
+
+                                          },
+                                          child: Text(s.Confirm),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         );
                       },
+                      child: ListTile(
+                        leading: Icon(FontAwesome.trash_can, color: Colors.red),
+                        title: Text(
+                          s.DeleteAccount,
+                          style: theme.textTheme.titleMedium!.copyWith(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     );
                   },
-                  child: ListTile(
-                    leading: Icon(FontAwesome.trash_can, color: Colors.red),
-                    title: Text(
-                      "Deleter Account",
-                      style: theme.textTheme.titleMedium!.copyWith(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
