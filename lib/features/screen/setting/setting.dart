@@ -4,6 +4,7 @@ import 'package:herfee/features/auth/shared_preferences/preference_manager.dart'
 import 'package:herfee/features/screen/setting/setting_controller.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/assets.dart';
 import '../../../generated/controller/lang_local_controller.dart';
 import '../../../generated/l10n.dart';
 
@@ -102,7 +103,7 @@ class Setting extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        "assets/image/Flag_of_Tunisia.svg.png",
+                                        "assets/image/Flag_of_French.png",
                                         width: 24,
                                         height: 24,
                                       ),
@@ -127,7 +128,7 @@ class Setting extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        "assets/image/Flag_of_Tunisia.svg.png",
+                                        "assets/image/Flag_of_Englsih.png",
                                         width: 24,
                                         height: 24,
                                       ),

@@ -1,63 +1,63 @@
 import 'package:flutter/material.dart';
 
-/// Enhanced Light Theme with Blue & White Color Scheme
+/// Enhanced Light Theme with Blue & Light Color Scheme
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   fontFamily: 'Roboto',
 
-  // Enhanced Blue & White Color Scheme
+  // Enhanced Blue & Light Color Scheme
   colorScheme: const ColorScheme.light(
-    // Primary Blues - Main brand color
+    // Primary Blues - Vibrant for light mode
     primary: Color(0xFF2563EB), // Blue-600
-    primaryContainer: Color(0xFFEBF4FF), // Blue-50
-    onPrimary: Color(0xFFFFFFFF),
-    onPrimaryContainer: Color(0xFF1E40AF), // Blue-700
+    primaryContainer: Color(0xFFBFDBFE), // Blue-100
+    onPrimary: Color(0xFFFFFFFF), // White text on blue
+    onPrimaryContainer: Color(0xFF1E3A8A), // Blue-800
 
-    // Secondary Blues - Accent colors
-    secondary: Color(0xFF0EA5E9), // Sky-500
-    secondaryContainer: Color(0xFFE0F2FE), // Sky-50
+    // Secondary Blues - Sky variants
+    secondary: Color(0xFF0284C7), // Sky-600
+    secondaryContainer: Color(0xFFB2EBF2), // Sky-100
     onSecondary: Color(0xFFFFFFFF),
-    onSecondaryContainer: Color(0xFF0369A1), // Sky-700
+    onSecondaryContainer: Color(0xFF01579B), // Sky-800
 
-    // Tertiary - Complementary blue
+    // Tertiary - Soft blue
     tertiary: Color(0xFF3B82F6), // Blue-500
-    tertiaryContainer: Color(0xFFF0F9FF), // Sky-50
+    tertiaryContainer: Color(0xFFDBEAFE), // Blue-100
     onTertiary: Color(0xFFFFFFFF),
-    onTertiaryContainer: Color(0xFF1E3A8A), // Blue-800
+    onTertiaryContainer: Color(0xFF1E40AF), // Blue-800
 
-    // Surfaces - Clean whites and light blues
-    surface: Color(0xFFFFFFFF), // Pure white
-    surfaceContainer: Color(0xFFF8FAFC), // Slate-50
-    surfaceContainerHigh: Color(0xFFF1F5F9), // Slate-100
-    surfaceContainerHighest: Color(0xFFE2E8F0), // Slate-200
-    surfaceContainerLow: Color(0xFFFCFCFD), // Almost white
+    // Light Surfaces with subtle blue tints
+    surface: Color(0xFFF8FAFC), // Slate-50
+    surfaceContainer: Color(0xFFE2E8F0), // Slate-100
+    surfaceContainerHigh: Color(0xFFCBD5E1), // Slate-200
+    surfaceContainerHighest: Color(0xFFB4BCC8), // Slate-300
+    surfaceContainerLow: Color(0xFFF1F5F9), // Slate-25
     surfaceContainerLowest: Color(0xFFFFFFFF), // Pure white
     onSurface: Color(0xFF0F172A), // Slate-900
     onSurfaceVariant: Color(0xFF475569), // Slate-600
 
-    // Error colors
-    error: Color(0xFFDC2626), // Red-600
-    errorContainer: Color(0xFFFEF2F2), // Red-50
+    // Error colors for light mode
+    error: Color(0xFFEF4444), // Red-500
+    errorContainer: Color(0xFFFFB4AB), // Red-200
     onError: Color(0xFFFFFFFF),
-    onErrorContainer: Color(0xFFB91C1C), // Red-700
+    onErrorContainer: Color(0xFFB91C1C), // Red-800
 
-    // Outline and borders
-    outline: Color(0xFFCBD5E1), // Slate-300
-    outlineVariant: Color(0xFFE2E8F0), // Slate-200
+    // Outline and borders - subtle in light mode
+    outline: Color(0xFF94A3B8), // Slate-400
+    outlineVariant: Color(0xFFCBD5E1), // Slate-200
 
     // Inverse colors
-    inverseSurface: Color(0xFF1E293B), // Slate-800
+    inverseSurface: Color(0xFF0F172A), // Slate-900
     onInverseSurface: Color(0xFFF8FAFC), // Slate-50
     inversePrimary: Color(0xFF93C5FD), // Blue-300
   ),
 
-  // Clean white scaffold
-  scaffoldBackgroundColor: const Color(0xFFFAFAFA), // Neutral-50
+  // Light scaffold with subtle blue tint
+  scaffoldBackgroundColor: const Color(0xFFF1F5F9), // Slate-25
 
-  // Modern AppBar with subtle blue tint
+  // Light AppBar with blue accents
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFFFFFFFF),
+    backgroundColor: Color(0xFFF8FAFC),
     surfaceTintColor: Color(0xFF2563EB),
     foregroundColor: Color(0xFF0F172A),
     elevation: 0,
@@ -76,9 +76,9 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
-  // Enhanced Bottom Navigation with blue accents
+  // Light Bottom Navigation with blue accents
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: Color(0xFFFFFFFF),
+    backgroundColor: Color(0xFFF8FAFC),
     selectedItemColor: Color(0xFF2563EB), // Blue-600
     unselectedItemColor: Color(0xFF64748B), // Slate-500
     selectedLabelStyle: TextStyle(
@@ -97,13 +97,13 @@ final ThemeData lightTheme = ThemeData(
     elevation: 8,
   ),
 
-  // Modern button themes with blue gradients
+  // Light button themes
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: const Color(0xFF2563EB),
       foregroundColor: const Color(0xFFFFFFFF),
       shadowColor: const Color(0xFF2563EB).withValues(alpha: 0.3),
-      elevation: 2,
+      elevation: 3,
       textStyle: const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w600,
@@ -143,7 +143,7 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
 
-  // Enhanced Text Theme with better hierarchy
+  // Enhanced Light Text Theme
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       fontFamily: 'Roboto',
@@ -190,7 +190,7 @@ final ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w500,
       fontSize: 20,
       color: Color(0xFF1E293B),
-      letterSpacing: 0.2,
+      letterSpacing: -0.1,
       height: 1.4,
     ),
     titleLarge: TextStyle(
@@ -205,7 +205,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       fontSize: 16,
-      color:  Color(0xFF475569),
+      color: Color(0xFF475569),
       letterSpacing: 0.1,
       height: 1.4,
     ),
@@ -213,7 +213,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       fontSize: 14,
-      color: Color(0xFF475569),
+      color: Color(0xFF64748B),
       letterSpacing: 0.1,
       height: 1.4,
     ),
@@ -221,7 +221,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,
       fontSize: 16,
-      color: Color(0xFF334155),
+      color: Color(0xFF475569),
       letterSpacing: 0.1,
       height: 1.5,
     ),
@@ -229,7 +229,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,
       fontSize: 14,
-      color: Color(0xFF475569),
+      color: Color(0xFF64748B),
       letterSpacing: 0.1,
       height: 1.5,
     ),
@@ -237,7 +237,7 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,
       fontSize: 12,
-      color: Color(0xFF64748B),
+      color: Color(0xFF94A3B8),
       letterSpacing: 0.2,
       height: 1.5,
     ),
@@ -245,35 +245,35 @@ final ThemeData lightTheme = ThemeData(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
       fontSize: 14,
-      color: Color(0xFF334155),
+      color: Color(0xFF475569),
       letterSpacing: 0.2,
     ),
     labelMedium: TextStyle(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       fontSize: 12,
-      color: Color(0xFF475569),
+      color: Color(0xFF64748B),
       letterSpacing: 0.3,
     ),
     labelSmall: TextStyle(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       fontSize: 10,
-      color: Color(0xFF64748B),
+      color: Color(0xFF94A3B8),
       letterSpacing: 0.4,
     ),
   ),
 
-  // Modern Search Bar with blue accents
+  // Light Search Bar with blue accents
   searchBarTheme: SearchBarThemeData(
-    // Hint text styling - placeholder text
+    // Hint text styling - placeholder text for light theme
     hintStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           fontSize: 16,
-          color: Color(0xFF64748B), // Slate-500 - more visible when focused
+          color: Color(0xFF94A3B8), // Slate-400 - visible on light background
           letterSpacing: 0.1,
         );
       }
@@ -281,19 +281,19 @@ final ThemeData lightTheme = ThemeData(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
         fontSize: 16,
-        color: Color(0xFFFFFFFF), // White hint text on blue background
+        color: Color(0xFFCBD5E1), // Lighter gray hint
         letterSpacing: 0.1,
       );
     }),
 
-    // Input text styling - actual typed text
+    // Input text styling - actual typed text for light theme
     textStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
           fontSize: 16,
-          color: Color(0xFF0F172A), // Dark text on white background
+          color: Color(0xFF0F172A), // Dark text on light background
           letterSpacing: 0.1,
         );
       }
@@ -301,7 +301,7 @@ final ThemeData lightTheme = ThemeData(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
         fontSize: 16,
-        color: Color(0xFFFFFFFF), // White text on blue background
+        color: Color(0xFF1E293B), // Slightly lighter text
         letterSpacing: 0.1,
       );
     }),
@@ -311,53 +311,53 @@ final ThemeData lightTheme = ThemeData(
       EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     ),
 
-    // Subtle elevation for depth
+    // Subtle elevation for depth in light mode
     elevation: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return 4.0; // More elevation when focused
+        return 4.0; // Slightly lower elevation for light mode
       }
       if (states.contains(WidgetState.hovered)) {
-        return 2.0; // Slight elevation on hover
+        return 2.0; // Noticeable elevation on hover
       }
-      return 1.0; // Default subtle elevation
+      return 1.0; // Default elevation for light surfaces
     }),
 
-    // Smart background color transitions
+    // Light theme background colors with blue accents
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFFFFFFFF); // Pure white when focused
+        return const Color(0xFFF1F5F9); // Light slate when focused
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF3B82F6); // Lighter blue on hover
+        return const Color(0xFFDBEAFE); // Light blue on hover
       }
       if (states.contains(WidgetState.disabled)) {
-        return const Color(0xFF94A3B8); // Gray when disabled
+        return const Color(0xFFE2E8F0); // Light gray when disabled
       }
-      return const Color(0xFF2563EB); // Default blue
+      return const Color(0xFFFFFFFF); // Pure white default
     }),
 
-    // Enhanced border with smooth transitions
+    // Enhanced border for light theme visibility
     side: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const BorderSide(
-          color: Color(0xFF2563EB), // Blue border when focused
-          width: 2, // Slightly thicker for emphasis
+          color: Color(0xFF2563EB), // Bright blue border when focused
+          width: 2,
         );
       }
       if (states.contains(WidgetState.hovered)) {
         return const BorderSide(
-          color: Color(0xFF3B82F6), // Lighter blue on hover
+          color: Color(0xFF3B82F6), // Medium blue on hover
           width: 1.5,
         );
       }
       if (states.contains(WidgetState.error)) {
         return const BorderSide(
-          color: Color(0xFFEF4444), // Red border for errors
+          color: Color(0xFFEF4444), // Red for errors in light mode
           width: 2,
         );
       }
       return const BorderSide(
-        color: Color(0xFF1E40AF), // Darker blue for subtle outline
+        color: Color(0xFFCBD5E1), // Subtle gray for outline
         width: 1,
       );
     }),
@@ -374,65 +374,65 @@ final ThemeData lightTheme = ThemeData(
       );
     }),
 
-    // Optional: Add shadow color for better depth perception
+    // Light theme shadow colors for depth
     shadowColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF2563EB).withValues(alpha: 0.2); // Blue shadow when focused
+        return const Color(0xFF2563EB).withValues(alpha: 0.2); // Blue glow when focused
       }
-      return const Color(0xFF000000).withValues(alpha: 0.1); // Subtle black shadow
+      return const Color(0xFF000000).withValues(alpha: 0.1); // Subtle shadow for light mode
     }),
 
-    // Optional: Surface tint for Material 3 design
+    // Surface tint for Material 3 light design
     surfaceTintColor: const WidgetStatePropertyAll(Color(0xFF2563EB)),
 
-    // Optional: Overlay color for press states
+    // Overlay color for press states in light mode
     overlayColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.pressed)) {
-        return const Color(0xFF2563EB).withValues(alpha: 0.1);
+        return const Color(0xFF2563EB).withValues(alpha: 0.1); // Light overlay for light mode
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF2563EB).withValues(alpha: 0.05);
+        return const Color(0xFF3B82F6).withValues(alpha: 0.05);
       }
       return Colors.transparent;
     }),
   ),
 
-  // Card Theme with subtle blue tint
+  // Light Card Theme
   cardTheme: CardThemeData(
     color: const Color(0xFFFFFFFF),
     surfaceTintColor: const Color(0xFF2563EB),
-    elevation: 1,
-    shadowColor: const Color(0xFF2563EB).withValues(alpha: 0.1),
+    elevation: 2,
+    shadowColor: const Color(0xFF000000).withValues(alpha: 0.1),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     margin: const EdgeInsets.all(8),
   ),
 
-  // Chip Theme with blue variants
+  // Light Chip Theme
   chipTheme: ChipThemeData(
-    backgroundColor: const Color(0xFFF1F5F9),
+    backgroundColor: const Color(0xFFE2E8F0),
     selectedColor: const Color(0xFF2563EB),
-    disabledColor: const Color(0xFFE2E8F0),
+    disabledColor: const Color(0xFFF1F5F9),
     labelStyle: const TextStyle(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
       fontSize: 14,
-      color: Color(0xFF334155),
+      color: Color(0xFF0F172A),
     ),
-    side: const BorderSide(color: Color(0xFFE2E8F0)),
+    side: const BorderSide(color: Color(0xFFCBD5E1)),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   ),
 
-  // Input Decoration with blue accents
+  // Light Input Decoration
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: const Color(0xFFF8FAFC),
+    fillColor: const Color(0xFFF1F5F9),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+      borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+      borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -440,21 +440,21 @@ final ThemeData lightTheme = ThemeData(
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(color: Color(0xFFDC2626)),
+      borderSide: const BorderSide(color: Color(0xFFEF4444)),
     ),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     hintStyle: const TextStyle(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w400,
-      color: Color(0xFF64748B),
+      color: Color(0xFF94A3B8),
     ),
   ),
 
-  // Floating Action Button
+  // Light Floating Action Button
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color(0xFF2563EB),
     foregroundColor: Color(0xFFFFFFFF),
-    elevation: 4,
+    elevation: 6,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
     ),
