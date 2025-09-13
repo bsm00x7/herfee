@@ -125,29 +125,33 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                           if (response == true) {
                             final user = AuthNotifier().user;
                             if (user != null) {
-                             await SupaBaseData().insertToDataBase(
+
+                             final responseInsert =await SupaBaseData().insertToDataBase(
                                 user: UserModel(
                                   id: user.id,
                                   imageId: '',
                                   userName: widget.fullName,
                                   jobe: widget.job,
                                   rating: '0',
-                                  reviews: '0',
+                                    reviews: '0',
                                   about: widget.about,
-                                  isActive: true, role: '', verifer_account: false
+                                  isActive: true, role: 'user', verifer_account: false
                                 ).toMap(),
                               );
-                             await SupaBaseData().insertJob(
-                                  userId: user.id,
-                                  job: JobModel(
-                                      imageJob: '', jobTitle: widget.job,
-                                      description:''));
+                             if (responseInsert.user != null){
+                               await SupaBaseData().insertJob(
+                                   userId: user.id,
+                                   job: JobModel(
+                                       imageJob: '', jobTitle: widget.job,
+                                       description:''));
+                             }else{
+                               debugPrint(responseInsert.session!.user.toString());
+                             }
+
                               }
-                                  provider
-                                  .resetControllers
-                                  (); // Reset controllers after successful OTP
-                              context.go(
-                                  '/'); // Navigate to home using GoRouter
+
+                            provider.resetControllers(); // Reset controllers after successful OTP
+                              context.go('/'); // Navigate to home using GoRouter
                               CustomSuccessWidget.showSuccess(
                                 context,
                                 s.SuccessSignup,

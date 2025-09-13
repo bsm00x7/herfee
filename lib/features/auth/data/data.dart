@@ -32,6 +32,7 @@ class SupaBaseData {
       }
       userData = userData.copyWith(imageId: imageUrl);
     }
+
     // Fetch additional user data in parallel for better performance
     final results = await Future.wait([
       SupaBaseData().getExperience(userId: id.isEmpty ? currentLoginUser : id),
@@ -55,14 +56,18 @@ class SupaBaseData {
   Future<AuthResponse> insertToDataBase({
     required Map<String, dynamic> user,
   }) async {
+    debugPrint(user.toString());
     return await _instance.from('users').insert({
       'id': user['id'],
-      'image_id': user['imageId'],
+      'imageId': user['imageId'],
       'userName': user['userName'],
       'jobe': user['jobe'],
       'rating': user["rating"],
-      'reviews': user['reviwes'],
+      'reviews': user['reviews'],
       'about': user['about'],
+      'isActive':user['isActive'],
+      'verifer_account':user['verifer_account'],
+      "role":user["role"]
     });
   }
 
@@ -79,11 +84,11 @@ class SupaBaseData {
   }
 
   /// Insert user job [using user is ]
-  Future<void> insertJob({
+  Future<AuthResponse> insertJob({
     required String userId,
     required JobModel job,
   }) async {
-    await _instance.from('pastWork').insert({
+    return await _instance.from('pastWork').insert({
       'user_id': userId,
       'job_title': job.jobTitle,
       'description': job.description,
@@ -103,7 +108,7 @@ class SupaBaseData {
 
   /// update user information
   Future<void> updateUser({required String id, required String image}) async {
-    await _instance.from('users').update({"image_id": image}).eq('id', id);
+    await _instance.from('users').update({"imageId": image}).eq('id', id);
   }
 
   Future<void> updateUserStatus({required bool value}) async {
@@ -119,6 +124,7 @@ class SupaBaseData {
         .from('experiences')
         .select()
         .eq('user_id', userId);
+    debugPrint(response.toString());
     return response.map((e) => Experience.fromMap(e)).toList();
   }
 
@@ -174,5 +180,8 @@ class SupaBaseData {
               .toList(),
         );
     return response;
+  }
+  Future<void> sign_out()async{
+    await _instance.auth.signOut();
   }
 }

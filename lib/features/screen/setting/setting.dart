@@ -228,6 +228,25 @@ class Setting extends StatelessWidget {
                     );
                   },
                 ),
+                Consumer<ControllerSetting>(
+                  builder: (context, provider, child) {
+                    return InkWell(
+                      onTap: () {
+                        provider.signout();
+
+                      },
+                      child: ListTile(
+                        leading: Icon(FontAwesome.trash_can, color: Colors.red),
+                        title: Text(
+                          s.DeleteAccount,
+                          style: theme.textTheme.titleMedium!.copyWith(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

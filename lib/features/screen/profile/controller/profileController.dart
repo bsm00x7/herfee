@@ -28,8 +28,8 @@ class ProfileController with ChangeNotifier {
     notifyListeners();
   }
   Future<UserModel> getUser() async {
-    return  await SupaBaseData().user();
-
+    final response =  await SupaBaseData().user();
+    return response;
   }
 
   void pickerFromCamera({required BuildContext context }) async{

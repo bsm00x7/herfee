@@ -61,7 +61,7 @@ class UserModel {
       'userName': this.userName,
       'jobe': this.jobe,
       'rating': this.rating,
-      'reviwes': this.reviews,
+      'reviews': this.reviews,
       'about': this.about,
       'pastWork': this.pastWork,
       'experience': this.experience,

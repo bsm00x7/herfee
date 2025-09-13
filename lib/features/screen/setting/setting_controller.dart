@@ -32,4 +32,8 @@ class ControllerSetting with ChangeNotifier {
     final String _currentUserId =  SupaBaseData().currentLoginUser;
     await SupaBaseData().deleterUser(id: _currentUserId,context: context);
   }
+
+  void signout() {
+    SupaBaseData().sign_out();
+  }
 }
