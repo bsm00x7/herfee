@@ -107,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "ResendEmail": MessageLookupByLibrary.simpleMessage("Resend Email"),
+    "Search": MessageLookupByLibrary.simpleMessage("Search"),
     "SearchForServices": MessageLookupByLibrary.simpleMessage(
       "Search For Services",
     ),

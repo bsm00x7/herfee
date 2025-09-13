@@ -266,139 +266,145 @@ final ThemeData darkTheme = ThemeData(
 
   // Dark Search Bar with blue accents
   searchBarTheme: SearchBarThemeData(
-    // Hint text styling - placeholder text for dark theme
+    // Dark mode hint text with modern contrast ratios
     hintStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
-          fontSize: 16,
-          color: Color(0xFF64748B), // Slate-500 - visible on dark background
-          letterSpacing: 0.1,
+          fontSize: 15,
+          color: Color(0xFF9CA3AF), // Neutral-400 for good dark mode contrast
+          letterSpacing: -0.01,
+          height: 1.4,
         );
       }
       return const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Color(0xFF94A3B8), // Lighter gray hint on blue background
-        letterSpacing: 0.1,
+        fontSize: 15,
+        color: Color(0xFF6B7280), // Darker neutral-500 for subtle hint
+        letterSpacing: -0.01,
+        height: 1.4,
       );
     }),
 
-    // Input text styling - actual typed text for dark theme
+    // High contrast input text for dark mode readability
     textStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
-          fontSize: 16,
-          color: Color(0xFFF8FAFC), // Light text on dark background
-          letterSpacing: 0.1,
+          fontSize: 15,
+          color: Color(0xFFF9FAFB), // Near-white for maximum contrast
+          letterSpacing: -0.01,
+          height: 1.4,
         );
       }
       return const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
-        fontSize: 16,
-        color: Color(0xFFE2E8F0), // Slightly dimmer white on blue
-        letterSpacing: 0.1,
+        fontSize: 15,
+        color: Color(0xFFE5E7EB), // Neutral-200 for readable text
+        letterSpacing: -0.01,
+        height: 1.4,
       );
     }),
 
-    // Enhanced padding for better touch target
+    // Consistent modern padding
     padding: const WidgetStatePropertyAll(
-      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     ),
 
-    // Subtle elevation for depth in dark mode
+    // Enhanced elevation for dark mode depth perception
     elevation: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return 6.0; // Higher elevation for dark mode depth
+        return 12.0; // Higher elevation in dark mode for better definition
       }
       if (states.contains(WidgetState.hovered)) {
-        return 3.0; // Noticeable elevation on hover
+        return 6.0;
       }
-      return 2.0; // Default elevation for dark surfaces
+      return 2.0; // Slight default elevation for dark surfaces
     }),
 
-    // Dark theme background colors with blue accents
+    // Dark mode backgrounds with modern carbon aesthetics
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF1E293B); // Dark slate when focused
+        return const Color(0xFF1F2937); // Neutral-800 for focused state
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF3B82F6); // Brighter blue on hover
+        return const Color(0xFF374151); // Neutral-700 on hover
       }
       if (states.contains(WidgetState.disabled)) {
-        return const Color(0xFF374151); // Dark gray when disabled
+        return const Color(0xFF111827); // Very dark neutral-900
       }
-      return const Color(0xFF2563EB); // Default blue (same as light theme)
+      return const Color(0xFF0F172A); // Rich dark slate-900 default
     }),
 
-    // Enhanced border for dark theme visibility
+    // Vibrant borders that glow in dark mode
     side: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const BorderSide(
-          color: Color(0xFF60A5FA), // Bright blue border when focused
-          width: 2.5,
+          color: Color(0xFF8B5CF6), // Bright purple-500 for dark mode
+          width: 2.0,
         );
       }
       if (states.contains(WidgetState.hovered)) {
         return const BorderSide(
-          color: Color(0xFF3B82F6), // Medium blue on hover
+          color: Color(0xFF06B6D4), // Cyan-500 accent
           width: 1.5,
         );
       }
       if (states.contains(WidgetState.error)) {
         return const BorderSide(
-          color: Color(0xFFF87171), // Light red for errors in dark mode
-          width: 2,
+          color: Color(0xFFF97316), // Warm orange-500 for dark mode errors
+          width: 2.0,
         );
       }
       return const BorderSide(
-        color: Color(0xFF1E40AF), // Darker blue for subtle outline
-        width: 1,
+        color: Color(0xFF4B5563), // Neutral-600 for subtle dark outline
+        width: 1.0,
       );
     }),
 
-    // Smooth rounded corners
+    // Consistent modern radius system
     shape: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16), // More rounded when focused
+          borderRadius: BorderRadius.circular(20),
         );
       }
       return RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12), // Default rounded corners
+        borderRadius: BorderRadius.circular(16),
       );
     }),
 
-    // Dark theme shadow colors for better depth
+    // Dark mode shadows with neon glow effects
     shadowColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF3B82F6).withValues(alpha: 0.3); // Blue glow when focused
+        return const Color(0xFF8B5CF6).withOpacity(0.4); // Purple glow
       }
-      return const Color(0xFF000000).withValues(alpha: 0.4); // Stronger shadow for dark mode
+      return const Color(0xFF000000).withOpacity(0.3); // Deeper shadows for dark mode
     }),
 
-    // Surface tint for Material 3 dark design
-    surfaceTintColor: const WidgetStatePropertyAll(Color(0xFF60A5FA)),
+    // Modern surface tint with gradient influence
+    surfaceTintColor: const WidgetStatePropertyAll(Color(0xFF06B6D4)),
 
-    // Overlay color for press states in dark mode
+    // Dark mode interaction overlays
     overlayColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.pressed)) {
-        return const Color(0xFF60A5FA).withValues(alpha: 0.15); // Brighter overlay for dark mode
+        return const Color(0xFF8B5CF6).withOpacity(0.15);
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF3B82F6).withValues(alpha: 0.1);
+        return const Color(0xFF06B6D4).withOpacity(0.08);
       }
       return Colors.transparent;
     }),
 
-
-
-
+    // Consistent constraints
+    constraints: const BoxConstraints(
+      minHeight: 52,
+      maxHeight: 52,
+    ),
   ),
 
   // Dark Card Theme

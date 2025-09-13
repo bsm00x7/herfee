@@ -14,7 +14,7 @@ class NavigatorButtom extends StatefulWidget {
 }
 
 class _NavigatorButtomState extends State<NavigatorButtom> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   void _navScreen(int index , BuildContext context){
     setState(() {
       _selectedIndex = index;

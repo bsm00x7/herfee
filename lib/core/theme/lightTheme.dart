@@ -266,135 +266,145 @@ final ThemeData lightTheme = ThemeData(
 
   // Light Search Bar with blue accents
   searchBarTheme: SearchBarThemeData(
-    // Hint text styling - placeholder text for light theme
+    // Modern hint text with dynamic opacity
     hintStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
-          fontSize: 16,
-          color: Color(0xFF94A3B8), // Slate-400 - visible on light background
-          letterSpacing: 0.1,
+          fontSize: 18,
+          color: Color(0xFF6B7280),
+          letterSpacing: -0.01,
+          height: 1.4,
         );
       }
       return const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
-        fontSize: 16,
-        color: Color(0xFFCBD5E1), // Lighter gray hint
-        letterSpacing: 0.1,
+        fontSize: 15,
+        color: Color(0xFF9CA3AF), // Lighter neutral-400
+        letterSpacing: -0.01,
+        height: 1.4,
       );
     }),
 
-    // Input text styling - actual typed text for light theme
+    // Input text with modern typography
     textStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
-          fontSize: 16,
-          color: Color(0xFF0F172A), // Dark text on light background
-          letterSpacing: 0.1,
+          fontSize: 18,
+          color: Color(0xFF111827),
+          letterSpacing: -0.01,
+          height: 1.4,
         );
       }
       return const TextStyle(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
-        fontSize: 16,
-        color: Color(0xFF1E293B), // Slightly lighter text
-        letterSpacing: 0.1,
+        fontSize: 15,
+        color: Color(0xFF1F2937), // Neutral-800
+        letterSpacing: -0.01,
+        height: 1.4,
       );
     }),
 
-    // Enhanced padding for better touch target
+    // Generous padding for modern touch targets
     padding: const WidgetStatePropertyAll(
-      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     ),
 
-    // Subtle elevation for depth in light mode
+
     elevation: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return 4.0; // Slightly lower elevation for light mode
+        return 8.0; // More pronounced depth when active
       }
       if (states.contains(WidgetState.hovered)) {
-        return 2.0; // Noticeable elevation on hover
+        return 4.0;
       }
-      return 1.0; // Default elevation for light surfaces
+      return 0.0; // Flat design by default
     }),
 
-    // Light theme background colors with blue accents
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFFF1F5F9); // Light slate when focused
+        return const Color(0xFFFFFFFF); // Pure white when focused
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFFDBEAFE); // Light blue on hover
+        return const Color(0xFFF9FAFB); // Subtle warm gray
       }
       if (states.contains(WidgetState.disabled)) {
-        return const Color(0xFFE2E8F0); // Light gray when disabled
+        return const Color(0xFFF3F4F6); // Modern disabled state
       }
-      return const Color(0xFFFFFFFF); // Pure white default
+      return Colors.grey.withValues(alpha: 0.2); // Off-white default for softer appearance
     }),
 
-    // Enhanced border for light theme visibility
-    side: WidgetStateProperty.resolveWith((states) {
+    // Modern border system with vibrant accents
+    side: WidgetStateProperty.resolveWith((states)
+    {
       if (states.contains(WidgetState.focused)) {
         return const BorderSide(
-          color: Color(0xFF2563EB), // Bright blue border when focused
-          width: 2,
+          color: Colors.blueGrey, // Modern indigo-500
+          width: 1.5,
         );
       }
       if (states.contains(WidgetState.hovered)) {
         return const BorderSide(
-          color: Color(0xFF3B82F6), // Medium blue on hover
+          color: Color(0xFF8B5CF6), // Purple accent
           width: 1.5,
         );
       }
       if (states.contains(WidgetState.error)) {
         return const BorderSide(
-          color: Color(0xFFEF4444), // Red for errors in light mode
-          width: 2,
+          color: Colors.red, // Modern amber warning
+          width: 2.0,
         );
       }
       return const BorderSide(
-        color: Color(0xFFCBD5E1), // Subtle gray for outline
-        width: 1,
+        color: Colors.black45, // Neutral-200 for subtle outline
+        width: 1.8,
       );
     }),
 
-    // Smooth rounded corners
+    // Modern rounded corners with dynamic sizing
     shape: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16), // More rounded when focused
+          borderRadius: BorderRadius.circular(20), // More organic rounded shape
         );
       }
       return RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12), // Default rounded corners
+        borderRadius: BorderRadius.circular(16), // Modern standard radius
       );
     }),
 
-    // Light theme shadow colors for depth
+    // Contemporary shadow colors with colored tints
     shadowColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
-        return const Color(0xFF2563EB).withValues(alpha: 0.2); // Blue glow when focused
+        return const Color(0xFF6366F1).withOpacity(0.25); // Colored shadow glow
       }
-      return const Color(0xFF000000).withValues(alpha: 0.1); // Subtle shadow for light mode
+      return const Color(0xFF000000).withOpacity(0.08); // Softer default shadow
     }),
 
-    // Surface tint for Material 3 light design
-    surfaceTintColor: const WidgetStatePropertyAll(Color(0xFF2563EB)),
+    // Modern surface tint with gradient influence
+    surfaceTintColor: const WidgetStatePropertyAll(Color(0xFF8B5CF6)),
 
-    // Overlay color for press states in light mode
+    // Subtle interaction feedback
     overlayColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.pressed)) {
-        return const Color(0xFF2563EB).withValues(alpha: 0.1); // Light overlay for light mode
+        return const Color(0xFF6366F1).withOpacity(0.08);
       }
       if (states.contains(WidgetState.hovered)) {
-        return const Color(0xFF3B82F6).withValues(alpha: 0.05);
+        return const Color(0xFF8B5CF6).withOpacity(0.04);
       }
       return Colors.transparent;
     }),
+
+    // Modern constraints for better responsive design
+    constraints: const BoxConstraints(
+      minHeight: 52, // Modern minimum touch target
+      maxHeight: 52,
+    ),
   ),
 
   // Light Card Theme

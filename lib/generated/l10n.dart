@@ -568,6 +568,11 @@ class S {
   String get Confirm {
     return Intl.message('Confirm', name: 'Confirm', desc: '', args: []);
   }
+
+  /// `Search`
+  String get Search {
+    return Intl.message('Search', name: 'Search', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
