@@ -22,7 +22,6 @@ class ProfileInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final s = S.of(context);
-    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -234,7 +233,7 @@ class ProfileInfo extends StatelessWidget {
                           if (user.experience.isNotEmpty) ...[
                             HeaderTitle(
                               theme: theme,
-                              title: 'Experience',
+                              title: s.Experience,
                               icon: FontAwesomeIcons.briefcase,
                             ),
                             const SizedBox(height: 16),
@@ -251,7 +250,7 @@ class ProfileInfo extends StatelessWidget {
                           if (user.pastWork.isNotEmpty) ...[
                             HeaderTitle(
                               theme: theme,
-                              title: 'Past Work',
+                              title: s.PostWork,
                               icon: FontAwesomeIcons.folderOpen,
                             ),
                             const SizedBox(height: 16),
@@ -272,10 +271,11 @@ class ProfileInfo extends StatelessWidget {
             ),
           ),
           Positioned(
-              bottom: 50,
-              left: 0,
-              right: 0,
-              child: BookingButton(user: user,)),
+            bottom: 50,
+            left: 0,
+            right: 0,
+            child: BookingButton(user: user),
+          ),
         ],
       ),
     );

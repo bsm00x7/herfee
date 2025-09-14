@@ -68,7 +68,9 @@
   "deletingAccount":   "Are You sure For \nDeleting your Account ?",
   "Confirm": "Confirm",
   "Search":   "Search",
-  "Logout":"Log Out"
+  "Logout":"Log Out",
+  "ClikeToContact": "Clike Tp Contact",
+  "Experience":"Experience"
 
 
 }

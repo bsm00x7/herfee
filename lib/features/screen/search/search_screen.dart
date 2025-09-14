@@ -3,19 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/core/utils/loding/loding_indicator.dart';
 import 'package:herfee/features/screen/search/controller/controller_search.dart';
-import 'package:herfee/service/model/user_model.dart';
 import 'package:provider/provider.dart';
-import 'package:redacted/redacted.dart';
 import '../../../generated/l10n.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+  final String jobSerche;
+  const SearchScreen({super.key, this.jobSerche = ""});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final s = S.of(context);
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -91,18 +89,22 @@ class SearchScreen extends StatelessWidget {
                               onFieldSubmitted,
                             ) {
                               return TextField(
-                                onSubmitted: (String option)async{
-                                      value.setOptionSelected(true);
+                                onSubmitted: (String option) async {
+                                  value.setOptionSelected(true);
                                   value.setLoading(true);
                                   await value.findUserWithJobe(option: option);
                                   value.setLoading(false);
                                 },
+                                autofocus: jobSerche.isEmpty ? false : true,
                                 cursorColor: theme.colorScheme.primary,
-                                controller: textEditingController,
+                                controller: jobSerche.isEmpty
+                                    ? textEditingController
+                                    : TextEditingController(text: jobSerche),
                                 focusNode: focusNode,
                                 onTapOutside: (event) {
                                   FocusManager.instance.primaryFocus?.unfocus();
                                 },
+
                                 maxLines: 1,
                                 style: theme.textTheme.bodyLarge,
                                 decoration: InputDecoration(
@@ -188,7 +190,7 @@ class SearchScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Container(
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceVariant
+                                color: theme.colorScheme.surfaceContainerHighest
                                     .withValues(alpha: 0.3),
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -198,7 +200,9 @@ class SearchScreen extends StatelessWidget {
                                     flex: 2,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceVariant
+                                        color: theme
+                                            .colorScheme
+                                            .surfaceContainerHighest
                                             .withValues(alpha: 0.5),
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(20),
@@ -227,7 +231,7 @@ class SearchScreen extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   color: theme
                                                       .colorScheme
-                                                      .surfaceVariant
+                                                      .surfaceContainerHighest
                                                       .withValues(alpha: 0.5),
                                                   borderRadius:
                                                       BorderRadius.circular(4),
@@ -240,7 +244,7 @@ class SearchScreen extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   color: theme
                                                       .colorScheme
-                                                      .surfaceVariant
+                                                      .surfaceContainerHighest
                                                       .withValues(alpha: 0.5),
                                                   borderRadius:
                                                       BorderRadius.circular(8),
@@ -254,7 +258,7 @@ class SearchScreen extends StatelessWidget {
                                             decoration: BoxDecoration(
                                               color: theme
                                                   .colorScheme
-                                                  .surfaceVariant
+                                                  .surfaceContainerHighest
                                                   .withValues(alpha: 0.5),
                                               borderRadius:
                                                   BorderRadius.circular(4),

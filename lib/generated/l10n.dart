@@ -573,6 +573,26 @@ class S {
   String get Search {
     return Intl.message('Search', name: 'Search', desc: '', args: []);
   }
+
+  /// `Log Out`
+  String get Logout {
+    return Intl.message('Log Out', name: 'Logout', desc: '', args: []);
+  }
+
+  /// `Clike Tp Contact`
+  String get ClikeToContact {
+    return Intl.message(
+      'Clike Tp Contact',
+      name: 'ClikeToContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experience`
+  String get Experience {
+    return Intl.message('Experience', name: 'Experience', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

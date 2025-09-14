@@ -7,7 +7,7 @@ import '../../../../service/model/user_model.dart';
 import '../../chat/conatct_user.dart';
 
 class BookingButton extends StatelessWidget {
-  final UserModel  user;
+  final UserModel user;
   const BookingButton({super.key, required this.user});
 
   @override
@@ -18,7 +18,7 @@ class BookingButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: FloatingActionButton.extended(
         elevation: 1,
-        onPressed: () async{
+        onPressed: () async {
           await showDialog(
             context: context,
             barrierDismissible: false,
@@ -28,18 +28,30 @@ class BookingButton extends StatelessWidget {
                 repeat: false,
                 onLoaded: (composition) async {
                   await Future.delayed(composition.duration);
-                  Navigator.of(context).pop();
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
                 },
               ),
             ),
           );
-         Navigator.push(context, MaterialPageRoute(builder: (context) {
-           return ContactUser(user: user);
-         },));
+          if (context.mounted) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return ContactUser(user: user);
+                },
+              ),
+            );
+          }
         },
         foregroundColor: theme.colorScheme.onSecondary,
         backgroundColor: theme.colorScheme.primary,
-        label:  Text("Click to Contact ${user.userName}",style: theme.textTheme.titleMedium,),
+        label: Text(
+          " ${s.ClikeToContact} ${user.userName}",
+          style: theme.textTheme.titleMedium,
+        ),
       ),
     );
   }

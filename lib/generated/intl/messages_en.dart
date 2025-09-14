@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
+    "ClikeToContact": MessageLookupByLibrary.simpleMessage("Clike Tp Contact"),
     "Confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "ConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Confirm Your Email",
@@ -55,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "EnterYourPassword": MessageLookupByLibrary.simpleMessage(
       "Enter your password",
     ),
+    "Experience": MessageLookupByLibrary.simpleMessage("Experience"),
     "Gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "GalleryPermissionPermanentlyDenied": MessageLookupByLibrary.simpleMessage(
       "Gallery permission permanently denied. Please enable it in settings.",
@@ -62,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ImagePickError": MessageLookupByLibrary.simpleMessage(
       "Failed to pick image. Please try again.",
     ),
+    "Logout": MessageLookupByLibrary.simpleMessage("Log Out"),
     "Network": MessageLookupByLibrary.simpleMessage(
       "Network error. Please check your connection and try again.",
     ),
