@@ -67,7 +67,8 @@
   "DeleteAccount" : "Delete Account",
   "deletingAccount":   "Are You sure For \nDeleting your Account ?",
   "Confirm": "Confirm",
-  "Search":   "Search"
+  "Search":   "Search",
+  "Logout":"Log Out"
 
 
 }

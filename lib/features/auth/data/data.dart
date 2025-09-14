@@ -65,9 +65,9 @@ class SupaBaseData {
       'rating': user["rating"],
       'reviews': user['reviews'],
       'about': user['about'],
-      'isActive':user['isActive'],
-      'verifer_account':user['verifer_account'],
-      "role":user["role"]
+      'isActive': user['isActive'],
+      'verifer_account': user['verifer_account'],
+      "role": user["role"],
     });
   }
 
@@ -97,8 +97,16 @@ class SupaBaseData {
   }
 
   /// deleter  user from data base
-  Future<void> deleterUser({required String id, required BuildContext context}) async {
-    await _instance.auth.admin.deleteUser(id).onError((error, stackTrace) => CustomErrorWidget.showError(context, "Try In Anthor time "),);
+  Future<void> deleterUser({
+    required String id,
+    required BuildContext context,
+  }) async {
+    await _instance.auth.admin
+        .deleteUser(id)
+        .onError(
+          (error, stackTrace) =>
+              CustomErrorWidget.showError(context, "Try In Anthor time "),
+        );
     await _instance.from('users').delete().eq('id', id);
     await _instance.from('experiences').delete().eq('user_id', id);
     await _instance.from('pastWork').delete().eq('user_id', id);
@@ -181,7 +189,27 @@ class SupaBaseData {
         );
     return response;
   }
-  Future<void> sign_out()async{
+
+  Future<void> sign_out() async {
     await _instance.auth.signOut();
+  }
+
+  Future<List<String>> listOfJob() async {
+    final response = await _instance
+        .from('pastWork')
+        .select("job_title")
+        .range(0, 4);
+    return response.map((e) => e["job_title"] as String).toList();
+  }
+
+  Future<List<UserModel>> listOfUserFindWithJob({required String job}) async {
+    final response = await _instance
+        .from('users')
+        .select()
+        .eq("jobe", job)
+        .neq("id", currentLoginUser)
+        .range(0, 10)
+        .order("reviews", ascending: false);
+    return response.map((e) => UserModel.fromMap(e)).toList();
   }
 }

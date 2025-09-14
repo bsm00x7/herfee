@@ -52,10 +52,7 @@ GoRouter createRouter(BuildContext context) {
     routes: <RouteBase>[
       GoRoute(path: '/', builder: (context, state) => NavigatorButtom()),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-      GoRoute(
-        path: '/search',
-        builder: (context, state) => const SearchScreen(),
-      ),
+      GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
       GoRoute(
         path: '/postTask',
         builder: (context, state) => const AddTaskScreen(),

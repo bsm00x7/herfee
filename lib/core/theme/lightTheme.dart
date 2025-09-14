@@ -13,19 +13,16 @@ final ThemeData lightTheme = ThemeData(
     primaryContainer: Color(0xFFBFDBFE), // Blue-100
     onPrimary: Color(0xFFFFFFFF), // White text on blue
     onPrimaryContainer: Color(0xFF1E3A8A), // Blue-800
-
     // Secondary Blues - Sky variants
     secondary: Color(0xFF0284C7), // Sky-600
     secondaryContainer: Color(0xFFB2EBF2), // Sky-100
     onSecondary: Color(0xFFFFFFFF),
     onSecondaryContainer: Color(0xFF01579B), // Sky-800
-
     // Tertiary - Soft blue
     tertiary: Color(0xFF3B82F6), // Blue-500
     tertiaryContainer: Color(0xFFDBEAFE), // Blue-100
     onTertiary: Color(0xFFFFFFFF),
     onTertiaryContainer: Color(0xFF1E40AF), // Blue-800
-
     // Light Surfaces with subtle blue tints
     surface: Color(0xFFF8FAFC), // Slate-50
     surfaceContainer: Color(0xFFE2E8F0), // Slate-100
@@ -35,17 +32,14 @@ final ThemeData lightTheme = ThemeData(
     surfaceContainerLowest: Color(0xFFFFFFFF), // Pure white
     onSurface: Color(0xFF0F172A), // Slate-900
     onSurfaceVariant: Color(0xFF475569), // Slate-600
-
     // Error colors for light mode
     error: Color(0xFFEF4444), // Red-500
     errorContainer: Color(0xFFFFB4AB), // Red-200
     onError: Color(0xFFFFFFFF),
     onErrorContainer: Color(0xFFB91C1C), // Red-800
-
     // Outline and borders - subtle in light mode
     outline: Color(0xFF94A3B8), // Slate-400
     outlineVariant: Color(0xFFCBD5E1), // Slate-200
-
     // Inverse colors
     inverseSurface: Color(0xFF0F172A), // Slate-900
     onInverseSurface: Color(0xFFF8FAFC), // Slate-50
@@ -54,7 +48,6 @@ final ThemeData lightTheme = ThemeData(
 
   // Light scaffold with subtle blue tint
   scaffoldBackgroundColor: const Color(0xFFF1F5F9), // Slate-25
-
   // Light AppBar with blue accents
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xFFF8FAFC),
@@ -70,10 +63,7 @@ final ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w600,
       letterSpacing: -0.2,
     ),
-    iconTheme: IconThemeData(
-      color: Color(0xFF2563EB),
-      size: 24,
-    ),
+    iconTheme: IconThemeData(color: Color(0xFF2563EB), size: 24),
   ),
 
   // Light Bottom Navigation with blue accents
@@ -273,7 +263,7 @@ final ThemeData lightTheme = ThemeData(
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400,
           fontSize: 18,
-          color: Color(0xFF6B7280),
+          color: Colors.blueAccent,
           letterSpacing: -0.01,
           height: 1.4,
         );
@@ -282,7 +272,7 @@ final ThemeData lightTheme = ThemeData(
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
         fontSize: 15,
-        color: Color(0xFF9CA3AF), // Lighter neutral-400
+        color: Color(0xFF2563EB), // Lighter neutral-400
         letterSpacing: -0.01,
         height: 1.4,
       );
@@ -315,7 +305,6 @@ final ThemeData lightTheme = ThemeData(
       EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     ),
 
-
     elevation: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return 8.0; // More pronounced depth when active
@@ -336,12 +325,13 @@ final ThemeData lightTheme = ThemeData(
       if (states.contains(WidgetState.disabled)) {
         return const Color(0xFFF3F4F6); // Modern disabled state
       }
-      return Colors.grey.withValues(alpha: 0.2); // Off-white default for softer appearance
+      return Colors.grey.withValues(
+        alpha: 0.2,
+      ); // Off-white default for softer appearance
     }),
 
     // Modern border system with vibrant accents
-    side: WidgetStateProperty.resolveWith((states)
-    {
+    side: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const BorderSide(
           color: Colors.blueGrey, // Modern indigo-500

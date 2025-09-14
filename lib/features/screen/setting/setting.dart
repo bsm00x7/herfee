@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
 import 'package:herfee/features/screen/setting/setting_controller.dart';
-import 'package:herfee/features/screen/sign_up/signUp_screen.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import '../../../generated/assets.dart';
@@ -197,13 +196,13 @@ class Setting extends StatelessWidget {
                                           child: Text(s.Cancel),
                                         ),
                                         ElevatedButton(
-                                          onPressed: () async{
-                                            await provider.deleterCurrentUser(context);
-                                            if (context.mounted){
+                                          onPressed: () async {
+                                            await provider.deleterCurrentUser(
+                                              context,
+                                            );
+                                            if (context.mounted) {
                                               Navigator.pop(context);
-
                                             }
-
                                           },
                                           child: Text(s.Confirm),
                                         ),
@@ -217,7 +216,10 @@ class Setting extends StatelessWidget {
                         );
                       },
                       child: ListTile(
-                        leading: Icon(FontAwesome.trash_can, color: Colors.red),
+                        leading: Icon(
+                          FontAwesome.right_from_bracket_solid,
+                          color: Colors.blueAccent,
+                        ),
                         title: Text(
                           s.DeleteAccount,
                           style: theme.textTheme.titleMedium!.copyWith(
@@ -233,7 +235,6 @@ class Setting extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         provider.signout();
-
                       },
                       child: ListTile(
                         leading: Icon(FontAwesome.trash_can, color: Colors.red),
