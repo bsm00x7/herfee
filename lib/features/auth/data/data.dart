@@ -56,7 +56,6 @@ class SupaBaseData {
   Future<AuthResponse> insertToDataBase({
     required Map<String, dynamic> user,
   }) async {
-    debugPrint(user.toString());
     return await _instance.from('users').insert({
       'id': user['id'],
       'imageId': user['imageId'],
@@ -84,13 +83,10 @@ class SupaBaseData {
   }
 
   /// Insert user job [using user is ]
-  Future<AuthResponse> insertJob({
-    required String userId,
-    required JobModel job,
-  }) async {
+  Future<void> insertJob({required JobModel job}) async {
     return await _instance.from('pastWork').insert({
-      'user_id': userId,
-      'job_title': job.jobTitle,
+      'user_id': currentLoginUser,
+      'job_title': job.job_title,
       'description': job.description,
       'imageJob': job.imageJob,
     });
@@ -132,7 +128,6 @@ class SupaBaseData {
         .from('experiences')
         .select()
         .eq('user_id', userId);
-    debugPrint(response.toString());
     return response.map((e) => Experience.fromMap(e)).toList();
   }
 
@@ -203,13 +198,21 @@ class SupaBaseData {
   }
 
   Future<List<UserModel>> listOfUserFindWithJob({required String job}) async {
+    final listOfUserWithJobeTileFind = await _instance
+        .from("pastWork")
+        .select("user_id")
+        .eq("job_title", job.trim().toLowerCase());
+    if (listOfUserWithJobeTileFind.isEmpty) return [];
+    final List<String> userIds = listOfUserWithJobeTileFind
+        .map((r) => r['user_id'] as String)
+        .where((id) => id != currentLoginUser)
+        .toSet()
+        .toList();
+    if (userIds.isEmpty) return [];
     final response = await _instance
         .from('users')
         .select()
-        .eq("jobe", job)
-        .neq("id", currentLoginUser)
-        .range(0, 10)
-        .order("reviews", ascending: false);
+        .inFilter('id', userIds);
     return response.map((e) => UserModel.fromMap(e)).toList();
   }
 }
