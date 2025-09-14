@@ -3,9 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../chat/chat_screen.dart';
 import '../home/home_screen.dart';
-import '../post_task_screen.dart';
+import '../add_post/post_task_screen.dart';
 import '../profile/profile_screen.dart';
 import '../search/search_screen.dart';
+
 class NavigatorButtom extends StatefulWidget {
   const NavigatorButtom({super.key});
 
@@ -14,21 +15,22 @@ class NavigatorButtom extends StatefulWidget {
 }
 
 class _NavigatorButtomState extends State<NavigatorButtom> {
-  int _selectedIndex = 1;
-  void _navScreen(int index , BuildContext context){
+  int _selectedIndex = 2;
+  void _navScreen(int index, BuildContext context) {
     setState(() {
       _selectedIndex = index;
     });
   }
-  Widget screen (int index ){
-    switch(index){
+
+  Widget screen(int index) {
+    switch (index) {
       case 0:
         return HomeScreen();
       case 1:
         return SearchScreen();
       case 2:
-        return AddTaskScreen();
-        case 3:
+        return PostScreen();
+      case 3:
         return MessageScreen();
       case 4:
         return ProfileScreen();
@@ -48,15 +50,29 @@ class _NavigatorButtomState extends State<NavigatorButtom> {
         onTap: (index) => _navScreen(index, context),
         type: BottomNavigationBarType.fixed,
         items: [
-        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.house) , label: 'Home' ,),
-        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.magnifyingGlass) , label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.circlePlus) , label: 'Post Task'),
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.message) , label: 'Messages'),
-        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.user) , label: 'Profile'),
-      ],
-
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.house),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.magnifyingGlass),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.circlePlus),
+            label: 'Post Job',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.message),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.user),
+            label: 'Profile',
+          ),
+        ],
       ),
-      body:SafeArea(child: screen(_selectedIndex)),
+      body: SafeArea(child: screen(_selectedIndex)),
     );
   }
 }

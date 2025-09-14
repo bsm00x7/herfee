@@ -7,7 +7,7 @@ import '../../features/screen/chat/chat_screen.dart';
 import '../../features/screen/forgot_password_screen/screen_otp.dart';
 import '../../features/screen/home/home_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
-import '../../features/screen/post_task_screen.dart';
+import '../../features/screen/add_post/post_task_screen.dart';
 import '../../features/screen/profile/profile_info.dart';
 import '../../features/screen/profile/profile_screen.dart';
 import '../../features/screen/search/search_screen.dart';
@@ -55,7 +55,7 @@ GoRouter createRouter(BuildContext context) {
       GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
       GoRoute(
         path: '/postTask',
-        builder: (context, state) => const AddTaskScreen(),
+        builder: (context, state) => const PostScreen(),
       ),
       GoRoute(
         path: '/messages',

@@ -95,7 +95,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           'Loading Profile...',
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.7,
+                            ),
                           ),
                         ),
                       ],
@@ -122,7 +124,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: theme.colorScheme.error.withValues(alpha: 0.1),
+                              color: theme.colorScheme.error.withValues(
+                                alpha: 0.1,
+                              ),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
@@ -143,7 +147,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Text(
                             'Please try again later',
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onErrorContainer.withValues(alpha: 0.8),
+                              color: theme.colorScheme.onErrorContainer
+                                  .withValues(alpha: 0.8),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -175,7 +180,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () => _showImagePicker(context, theme, s, size),
+                                onTap: () =>
+                                    _showImagePicker(context, theme, s, size),
                                 child: Consumer<ProfileController>(
                                   builder: (context, provider, child) {
                                     return Container(
@@ -183,13 +189,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         shape: BoxShape.circle,
                                         gradient: LinearGradient(
                                           colors: [
-                                            theme.colorScheme.primary.withValues(alpha: 0.3),
-                                            theme.colorScheme.secondary.withValues(alpha: 0.3),
+                                            theme.colorScheme.primary
+                                                .withValues(alpha: 0.3),
+                                            theme.colorScheme.secondary
+                                                .withValues(alpha: 0.3),
                                           ],
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                                            color: theme.colorScheme.primary
+                                                .withValues(alpha: 0.2),
                                             blurRadius: 20,
                                             offset: const Offset(0, 8),
                                           ),
@@ -200,16 +209,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         children: [
                                           CircleAvatar(
                                             radius: 64,
-                                            backgroundColor: theme.colorScheme.surfaceContainer,
-                                            backgroundImage: !provider.haveImage && user.imageId.isNotEmpty
+                                            backgroundColor: theme
+                                                .colorScheme
+                                                .surfaceContainer,
+                                            backgroundImage:
+                                                !provider.haveImage &&
+                                                    user.imageId.isNotEmpty
                                                 ? NetworkImage(user.imageId)
                                                 : null,
-                                            child: !provider.haveImage && user.imageId.isEmpty
+                                            child:
+                                                !provider.haveImage &&
+                                                    user.imageId.isEmpty
                                                 ? Icon(
-                                              Icons.person,
-                                              size: 64,
-                                              color: theme.colorScheme.onSurfaceVariant,
-                                            )
+                                                    Icons.person,
+                                                    size: 64,
+                                                    color: theme
+                                                        .colorScheme
+                                                        .onSurfaceVariant,
+                                                  )
                                                 : null,
                                           ),
                                           Positioned(
@@ -218,16 +235,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             child: Container(
                                               padding: const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
-                                                color: theme.colorScheme.primary,
+                                                color:
+                                                    theme.colorScheme.primary,
                                                 shape: BoxShape.circle,
                                                 border: Border.all(
-                                                  color: theme.colorScheme.surface,
+                                                  color:
+                                                      theme.colorScheme.surface,
                                                   width: 2,
                                                 ),
                                               ),
                                               child: Icon(
                                                 Icons.camera_alt_rounded,
-                                                color: theme.colorScheme.onPrimary,
+                                                color:
+                                                    theme.colorScheme.onPrimary,
                                                 size: 16,
                                               ),
                                             ),
@@ -247,10 +267,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Flexible(
                                     child: Text(
                                       user.userName,
-                                      style: theme.textTheme.headlineSmall?.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        color: theme.colorScheme.onSurface,
-                                      ),
+                                      style: theme.textTheme.headlineSmall
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: theme.colorScheme.onSurface,
+                                          ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -265,16 +286,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(height: 8),
 
                               // Job Title with Enhanced Styling
-                              JobTitle(
-                                theme: theme,
-                                jobName: user.jobe,
-                              ),
+                              JobTitle(theme: theme, jobName: user.jobe),
                               const SizedBox(height: 8),
 
-                              JobTitle(
-                                theme: theme,
-                                jobName: user.role,
-                              ),
+                              JobTitle(theme: theme, jobName: user.role),
                               const SizedBox(height: 20),
 
                               // Enhanced Rating Card
@@ -309,7 +324,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     user.about,
                                     style: theme.textTheme.bodyLarge?.copyWith(
                                       height: 1.6,
-                                      color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.8),
                                     ),
                                   ),
                                 ),
@@ -325,7 +341,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(height: 16),
                                 ...user.experience.map(
-                                      (exp) => Padding(
+                                  (exp) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: ExperienceCard(
                                       theme: theme,
@@ -345,12 +361,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(height: 16),
                                 ...user.pastWork.map(
-                                      (job) => Padding(
+                                  (job) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
-                                    child: WorkCard(
-                                      theme: theme,
-                                      job: job,
-                                    ),
+                                    child: WorkCard(theme: theme, job: job),
                                   ),
                                 ),
                                 const SizedBox(height: 32),
@@ -409,9 +422,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _showImagePicker(BuildContext context, ThemeData theme, dynamic s, Size size) {
+  void _showImagePicker(
+    BuildContext context,
+    ThemeData theme,
+    dynamic s,
+    Size size,
+  ) {
     // Get the provider instance before showing the modal to avoid context issues
-    final profileController = Provider.of<ProfileController>(context, listen: false);
+    final profileController = Provider.of<ProfileController>(
+      context,
+      listen: false,
+    );
 
     showModalBottomSheet(
       showDragHandle: true,
@@ -471,7 +492,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   margin: const EdgeInsets.only(bottom: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                   ),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
@@ -479,7 +502,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pop(modalContext);
                       // Use the provider instance we got before showing the modal
                       try {
-                         profileController.pickerFromCamera(context: context);
+                        profileController.pickerFromCamera(
+                          context: context,
+                          haveImage: profileController.haveImage,
+                        );
                       } catch (e) {
                         // Handle error if needed
                         debugPrint('Error picking image from camera: $e');
@@ -494,7 +520,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       }
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       child: Row(
                         children: [
                           Container(
@@ -523,7 +552,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Text(
                                   'Take a new photo',
                                   style: theme.textTheme.bodySmall?.copyWith(
-                                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                    color: theme.colorScheme.onSurface
+                                        .withValues(alpha: 0.6),
                                   ),
                                 ),
                               ],
@@ -532,7 +562,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.4,
+                            ),
                           ),
                         ],
                       ),
@@ -544,7 +576,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                   ),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
@@ -552,7 +586,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pop(modalContext);
                       // Add gallery picker functionality using the same profileController instance
                       try {
-                         profileController.pickerFromCamera(context: context);
+                        profileController.pickerFromGallery(
+                          context: context,
+                          haveImage: profileController.haveImage,
+                        );
                       } catch (e) {
                         // Handle error if needed
                         debugPrint('Error picking image from gallery: $e');
@@ -567,7 +604,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       }
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       child: Row(
                         children: [
                           Container(
@@ -596,7 +636,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Text(
                                   'Choose from existing photos',
                                   style: theme.textTheme.bodySmall?.copyWith(
-                                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                    color: theme.colorScheme.onSurface
+                                        .withValues(alpha: 0.6),
                                   ),
                                 ),
                               ],
@@ -605,7 +646,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Icon(
                             Icons.arrow_forward_ios,
                             size: 16,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.4,
+                            ),
                           ),
                         ],
                       ),
