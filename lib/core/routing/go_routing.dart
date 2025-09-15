@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/features/screen/forgot_password_screen/forgot_password_screen.dart';
+import 'package:herfee/service/model/job_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/screen/chat/chat_screen.dart';
@@ -58,14 +59,17 @@ GoRouter createRouter(BuildContext context) {
         builder: (context, state) => const PostScreen(),
       ),
       GoRoute(
-        path: '/messages',
-        builder: (context, state) => const MessageScreen(),
-      ),
-      GoRoute(
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(path: '/settings', builder: (context, state) => const Setting()),
+      GoRoute(
+        path: '/post',
+        builder: (context, state) {
+          final JobModel? jobToEdit = state.extra as JobModel?;
+          return PostScreen(jobToEdit: jobToEdit);
+        },
+      ),
       // Assuming Setting is SettingsScreen
       GoRoute(
         path: '/profileInfo',

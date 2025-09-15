@@ -125,39 +125,32 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                           if (response == true) {
                             final user = AuthNotifier().user;
                             if (user != null) {
-
-                             final responseInsert =await SupaBaseData().insertToDataBase(
-                                user: UserModel(
-                                  id: user.id,
-                                  imageId: '',
-                                  userName: widget.fullName,
-                                  jobe: widget.job,
-                                  rating: '0',
-                                    reviews: '0',
-                                  about: widget.about,
-                                  isActive: true, role: 'user', verifer_account: false
-                                ).toMap(),
-                              );
-                             if (responseInsert.user != null){
-                               await SupaBaseData().insertJob(
-                                   userId: user.id,
-                                   job: JobModel(
-                                       imageJob: '', jobTitle: widget.job,
-                                       description:''));
-                             }else{
-                               debugPrint(responseInsert.session!.user.toString());
-                             }
-
-                              }
-
-                            provider.resetControllers(); // Reset controllers after successful OTP
-                              context.go('/'); // Navigate to home using GoRouter
-                              CustomSuccessWidget.showSuccess(
-                                context,
-                                s.SuccessSignup,
-                              );
+                              final responseInsert = await SupaBaseData()
+                                  .insertToDataBase(
+                                    user: UserModel(
+                                      id: user.id,
+                                      imageId: '',
+                                      userName: widget.fullName,
+                                      jobe: widget.job,
+                                      rating: '0',
+                                      reviews: '0',
+                                      about: widget.about,
+                                      isActive: true,
+                                      role: 'user',
+                                      verifer_account: false,
+                                    ).toMap(),
+                                  );
                             }
-                          },
+
+                            provider
+                                .resetControllers(); // Reset controllers after successful OTP
+                            context.go('/'); // Navigate to home using GoRouter
+                            CustomSuccessWidget.showSuccess(
+                              context,
+                              s.SuccessSignup,
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(height: 100),
                       Row(
@@ -166,20 +159,20 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                             child: ElevatedButton(
                               onPressed: _canResend && !provider.isResendEmail
                                   ? () {
-                                provider.onResendEmail(context);
-                                _startTimer(); // Restart timer after resending
-                              }
+                                      provider.onResendEmail(context);
+                                      _startTimer(); // Restart timer after resending
+                                    }
                                   : null,
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(0, 48),
                               ),
                               child: provider.isResendEmail
                                   ? CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
-                                ),
-                                strokeWidth: 2,
-                              )
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                      strokeWidth: 2,
+                                    )
                                   : _canResend
                                   ? Text(s.ResendEmail)
                                   : Text('Resend in $_countdown s'),

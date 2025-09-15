@@ -44,11 +44,13 @@ class ProfileController with ChangeNotifier {
           await Storage().uploadAvatar(
             id: userId,
             image: File(imageFromCamera.path),
+            table: 'avatars',
           );
         } else {
           await Storage().updateAvatar(
             id: userId,
             image: File(imageFromCamera.path),
+            table: 'avatars',
           );
         }
       },
@@ -66,11 +68,13 @@ class ProfileController with ChangeNotifier {
           await Storage().uploadAvatar(
             id: userId,
             image: File(imageFromGallery.path),
+            table: 'avatars',
           );
         } else {
           await Storage().updateAvatar(
             id: userId,
             image: File(imageFromGallery.path),
+            table: 'avatars',
           );
         }
       },
@@ -78,7 +82,7 @@ class ProfileController with ChangeNotifier {
   }
 
   Future<void> isExistsImage() async {
-    final response = await Storage().existsImage(id: userId);
+    final response = await Storage().existsImage(id: userId, table: 'avatars');
     if (response == true) {
       setImage(true);
     } else {

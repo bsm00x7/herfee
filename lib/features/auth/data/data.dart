@@ -23,7 +23,7 @@ class SupaBaseData {
     var userData = UserModel.fromMap(response);
     if (userData.imageId.isEmpty) {
       String? imageUrl;
-      imageUrl = await Storage().getUrlImage(id: userData.id);
+      imageUrl = await Storage().getUrlImage(id: userData.id, table: 'avatars');
       if (imageUrl != null) {
         SupaBaseData().updateUser(
           id: id.isEmpty ? currentLoginUser : id,
@@ -31,6 +31,31 @@ class SupaBaseData {
         );
       }
       userData = userData.copyWith(imageId: imageUrl);
+    }
+
+    /// Get user job posts
+    Future<List<JobModel>> getUserJobPosts({String userId = ''}) async {
+      final targetUserId = userId.isEmpty ? currentLoginUser : userId;
+      final response = await _instance
+          .from('job_posts')
+          .select()
+          .eq('user_id', targetUserId)
+          .eq('is_active', true)
+          .order('created_at', ascending: false);
+
+      return response
+          .map(
+            (e) => JobModel.fromMap({
+              "title": e["job_title"],
+              "description": e["description"],
+              "imageJob": e["imageJob"],
+              "id": e["id"],
+              "user_id": e["user_id"],
+              "created_at": e["created_at"],
+              "is_active": e["is_active"],
+            }),
+          )
+          .toList();
     }
 
     // Fetch additional user data in parallel for better performance
@@ -83,13 +108,18 @@ class SupaBaseData {
   }
 
   /// Insert user job [using user is ]
-  Future<void> insertJob({required JobModel job}) async {
-    return await _instance.from('pastWork').insert({
+  Future<void> insertJobPost({required JobModel job}) async {
+    final jobData = {
+      'id': job.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
       'user_id': currentLoginUser,
       'job_title': job.job_title,
       'description': job.description,
       'imageJob': job.imageJob,
-    });
+      'created_at': DateTime.now().toIso8601String(),
+      'is_active': true,
+    };
+
+    await _instance.from('job_posts').insert(jobData);
   }
 
   /// deleter  user from data base
@@ -105,7 +135,7 @@ class SupaBaseData {
         );
     await _instance.from('users').delete().eq('id', id);
     await _instance.from('experiences').delete().eq('user_id', id);
-    await _instance.from('pastWork').delete().eq('user_id', id);
+    await _instance.from('job_posts').delete().eq('user_id', id);
     await _instance.from('messages').delete().eq('sendId', id);
     await _instance.from('messages').delete().eq('recvId', id);
   }
@@ -134,7 +164,7 @@ class SupaBaseData {
   /// Get user job from data base <<<<[using user id ]>>>>>>>>
   Future<List<JobModel>> getJob({required String userId}) async {
     final response = await _instance
-        .from('pastWork')
+        .from('job_posts')
         .select()
         .eq('user_id', userId);
     return response.map((e) {
@@ -191,15 +221,61 @@ class SupaBaseData {
 
   Future<List<String>> listOfJob() async {
     final response = await _instance
-        .from('pastWork')
+        .from('job_posts')
         .select("job_title")
         .range(0, 4);
     return response.map((e) => e["job_title"] as String).toList();
   }
 
+  /// Get all job posts
+  Future<List<JobModel>> getAllJobPosts() async {
+    final response = await _instance
+        .from('job_posts')
+        .select()
+        .eq('is_active', true)
+        .order('created_at', ascending: false);
+
+    return response
+        .map(
+          (e) => JobModel.fromMap({
+            "title": e["job_title"],
+            "description": e["description"],
+            "imageJob": e["imageJob"],
+            "id": e["id"],
+            "user_id": e["user_id"],
+            "created_at": e["created_at"],
+            "is_active": e["is_active"],
+          }),
+        )
+        .toList();
+  }
+
+  /// Update job post
+  Future<void> updateJobPost({
+    required String jobId,
+    required JobModel job,
+  }) async {
+    await _instance
+        .from('job_posts')
+        .update({
+          'job_title': job.job_title,
+          'description': job.description,
+          'imageJob': job.imageJob,
+        })
+        .eq('id', jobId);
+  }
+
+  /// Delete job post
+  Future<void> deleteJobPost({required String jobId}) async {
+    await _instance
+        .from('job_posts')
+        .update({'is_active': false})
+        .eq('id', jobId);
+  }
+
   Future<List<UserModel>> listOfUserFindWithJob({required String job}) async {
     final listOfUserWithJobeTileFind = await _instance
-        .from("pastWork")
+        .from("job_posts")
         .select("user_id")
         .eq("job_title", job.trim().toLowerCase());
     if (listOfUserWithJobeTileFind.isEmpty) return [];

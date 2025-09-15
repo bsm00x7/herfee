@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => HomeController(),
           ),
           ChangeNotifierProvider(create: (_) => AuthNotifier()),
+
           ChangeNotifierProvider(create: (_) => SignUpController()),
         ],
         child: Consumer<LangController>(

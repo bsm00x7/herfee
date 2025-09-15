@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:herfee/service/model/job_model.dart';
 
-class WorkCard extends StatelessWidget{
+class WorkCard extends StatelessWidget {
   final ThemeData theme;
   final JobModel job;
-  const WorkCard({super.key , required this.theme , required  this.job});
+  const WorkCard({super.key, required this.theme, required this.job});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class WorkCard extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  job.jobTitle,
+                  job.job_title,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: theme.colorScheme.onSurface,
@@ -58,7 +57,5 @@ class WorkCard extends StatelessWidget{
         ],
       ),
     );
-
   }
-
 }

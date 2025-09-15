@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     MaterialPageRoute(
                                       builder: (context) {
                                         return SearchScreen(
-                                          jobSerche: job.jobTitle,
+                                          jobSerche: job.job_title,
                                         );
                                       },
                                     ),
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           horizontal: 20,
                                         ),
                                         child: Text(
-                                          job.jobTitle.capitalize(),
+                                          job.job_title.capitalize(),
                                           style: theme.textTheme.titleMedium,
                                           maxLines: 1,
 

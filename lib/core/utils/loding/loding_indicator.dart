@@ -12,9 +12,7 @@ class LoadingIndicator {
           barrierDismissible: false,
           barrierColor: Colors.black.withValues(alpha: 0.3),
           builder: (_) => const Center(
-            child: CircularProgressIndicator(
-              color: Colors.deepPurple,
-            ),
+            child: CircularProgressIndicator(color: Colors.blueAccent),
           ),
         );
       }
