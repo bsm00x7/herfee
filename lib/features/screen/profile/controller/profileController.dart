@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:herfee/features/auth/domain/auth.dart';
+import 'package:herfee/service/model/job_model.dart';
 import 'package:herfee/service/model/user_model.dart';
 
 import '../../../../generated/l10n.dart';

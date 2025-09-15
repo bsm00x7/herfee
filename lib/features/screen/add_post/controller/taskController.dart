@@ -127,13 +127,10 @@ class TaskController with ChangeNotifier {
 
       // Upload new image if selected
       if (_selectedImage != null) {
-        imageUrl = await Storage().uploadJobImage(
+        await Storage().updateJobImage(
           jobId: jobId,
           image: File(_selectedImage!.path),
         );
-        if (imageUrl == null) {
-          throw Exception('Failed to upload image');
-        }
       }
 
       // Create updated job object

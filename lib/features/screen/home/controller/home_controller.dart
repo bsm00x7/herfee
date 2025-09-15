@@ -13,12 +13,36 @@ class HomeController extends ChangeNotifier {
   }
 
   List<JobModel> job = [
-    JobModel(imageJob: "assets/image/Plumbing.png", job_title: 'Plumbing'),
-    JobModel(imageJob: "assets/image/Electrical.png", job_title: 'Electrical'),
-    JobModel(imageJob: "assets/image/Cleaning.png", job_title: 'Cleaning'),
-    JobModel(imageJob: "assets/image/HandyMan.png", job_title: 'HandyMan'),
-    JobModel(imageJob: "assets/image/Painting.png", job_title: 'Painting'),
-    JobModel(imageJob: "assets/image/Plumbing.png", job_title: 'Plumbing'),
+    JobModel(
+      imageJob: "assets/image/Plumbing.png",
+      job_title: 'Plumbing',
+      id: "",
+    ),
+    JobModel(
+      imageJob: "assets/image/Electrical.png",
+      job_title: 'Electrical',
+      id: "",
+    ),
+    JobModel(
+      imageJob: "assets/image/Cleaning.png",
+      job_title: 'Cleaning',
+      id: "",
+    ),
+    JobModel(
+      imageJob: "assets/image/HandyMan.png",
+      job_title: 'HandyMan',
+      id: "",
+    ),
+    JobModel(
+      imageJob: "assets/image/Painting.png",
+      job_title: 'Painting',
+      id: "",
+    ),
+    JobModel(
+      imageJob: "assets/image/Plumbing.png",
+      job_title: 'Plumbing',
+      id: "",
+    ),
   ];
   Future<UserModel> goToProfile(String userId) async {
     var userData = await SupaBaseData().user(userId);

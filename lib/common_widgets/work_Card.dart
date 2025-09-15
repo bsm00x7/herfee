@@ -5,7 +5,15 @@ import 'package:herfee/service/model/job_model.dart';
 class WorkCard extends StatelessWidget {
   final ThemeData theme;
   final JobModel job;
-  const WorkCard({super.key, required this.theme, required this.job});
+  final void Function()? onTap;
+  final bool edit;
+  const WorkCard({
+    super.key,
+    required this.theme,
+    required this.job,
+    this.onTap,
+    this.edit = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +62,26 @@ class WorkCard extends StatelessWidget {
               ],
             ),
           ),
+          if (edit == true)
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () => onTap!(),
+
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.tertiaryContainer,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: FaIcon(
+                    FontAwesomeIcons.penToSquare,
+                    color: theme.colorScheme.onTertiaryContainer,
+                    size: 16,
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

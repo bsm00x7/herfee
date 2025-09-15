@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
 import 'package:herfee/service/model/user_model.dart';
 import '../../../common_widgets/experience_card.dart';
@@ -356,14 +357,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               if (user.pastWork.isNotEmpty) ...[
                                 HeaderTitle(
                                   theme: theme,
-                                  title: 'Past Work',
+                                  title: 'POst Work',
                                   icon: FontAwesomeIcons.folderOpen,
                                 ),
                                 const SizedBox(height: 16),
                                 ...user.pastWork.map(
                                   (job) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
-                                    child: WorkCard(theme: theme, job: job),
+                                    child: Consumer<ProfileController>(
+                                      builder: (context, provider, child) {
+                                        return WorkCard(
+                                          theme: theme,
+                                          job: job,
+                                          onTap:
+                                              () => // Navigate to edit existing post
+                                              context.push(
+                                                '/post',
+                                                extra: job,
+                                              ),
+                                          edit: true,
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 32),
@@ -591,7 +606,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           haveImage: profileController.haveImage,
                         );
                       } catch (e) {
-                        // Handle error if needed
                         debugPrint('Error picking image from gallery: $e');
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(

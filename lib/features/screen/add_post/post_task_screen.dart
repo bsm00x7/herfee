@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
 import 'package:herfee/core/utils/picker_image_gallery_camera/picker.dart';
+import 'package:herfee/features/auth/data/data.dart';
 import 'package:herfee/features/screen/add_post/controller/taskController.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
@@ -125,16 +125,15 @@ class PostScreen extends StatelessWidget {
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: theme.colorScheme.primaryContainer
-                                      .withOpacity(0.6),
+                                      .withValues(alpha: 0.6),
                                   borderRadius: BorderRadius.circular(18),
                                 ),
-                                child: // Simple alternative without DottedBorder
-                                Container(
+                                child: Container(
                                   height: size.height * 0.4,
                                   width: size.width,
                                   decoration: BoxDecoration(
                                     color: theme.colorScheme.primaryContainer
-                                        .withOpacity(0.6),
+                                        .withValues(alpha: 0.6),
                                     borderRadius: BorderRadius.circular(18),
                                     border: Border.all(
                                       color: theme.colorScheme.primary,
@@ -163,11 +162,12 @@ class PostScreen extends StatelessWidget {
                                     : () async {
                                         bool success;
                                         if (isEditing) {
-                                          success = await controller
-                                              .updateJobPost(
-                                                context,
-                                                jobToEdit!.id!,
+                                          final String? id =
+                                              await SupaBaseData().jobId(
+                                                job: jobToEdit!,
                                               );
+                                          success = await controller
+                                              .updateJobPost(context, id!);
                                         } else {
                                           success = await controller
                                               .createJobPost(context);
@@ -252,7 +252,7 @@ class PostScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.8),
+                  color: Colors.red.withValues(alpha: 0.8),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.close, color: Colors.white, size: 20),
@@ -296,7 +296,7 @@ class PostScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.8),
+                color: theme.colorScheme.primary.withValues(alpha: 0.8),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.edit, color: Colors.white, size: 20),
@@ -327,7 +327,7 @@ class PostScreen extends StatelessWidget {
         Text(
           "Choose from camera or gallery",
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.6),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -352,7 +352,7 @@ class PostScreen extends StatelessWidget {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.outline.withOpacity(0.3),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

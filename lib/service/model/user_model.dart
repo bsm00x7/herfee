@@ -7,10 +7,7 @@ class Experience {
   Experience({required this.title, required this.periode});
 
   Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'periode': periode,
-    };
+    return {'title': title, 'periode': periode};
   }
 
   factory Experience.fromMap(Map<String, dynamic> map) {
@@ -23,7 +20,7 @@ class Experience {
 
 class UserModel {
   final String id;
-   final String imageId;
+  final String imageId;
   final String userName;
   final String jobe;
   final String rating;
@@ -44,40 +41,44 @@ class UserModel {
     required this.rating,
     required this.reviews,
     required this.about,
-    List<JobModel>? pastWork ,
+    List<JobModel>? pastWork,
     List<Experience>? experience,
     required this.isActive,
-     this.verifer_account =false,
+    this.verifer_account = false,
     required this.role,
-
-
-  })  : pastWork = pastWork ?? [],
-        experience = experience ?? [];
+  }) : pastWork = pastWork ?? [],
+       experience = experience ?? [];
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.id,
-      'imageId': this.imageId,
-      'userName': this.userName,
-      'jobe': this.jobe,
-      'rating': this.rating,
-      'reviews': this.reviews,
-      'about': this.about,
-      'pastWork': this.pastWork,
-      'experience': this.experience,
-      'isActive': this.isActive,
-      'verifer_account': this.verifer_account,
-      'role': this.role,
+      'id': id,
+      'imageId': imageId,
+      'userName': userName,
+      'jobe': jobe,
+      'rating': rating,
+      'reviews': reviews,
+      'about': about,
+      'pastWork': pastWork,
+      'experience': experience,
+      'isActive': isActive,
+      'verifer_account': verifer_account,
+      'role': role,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    List<T> parseList<T>(dynamic listData, T Function(Map<String, dynamic>) fromMap) {
+    List<T> parseList<T>(
+      dynamic listData,
+      T Function(Map<String, dynamic>) fromMap,
+    ) {
       if (listData is List) {
-        return listData.map((item) => fromMap(item as Map<String, dynamic>)).toList();
+        return listData
+            .map((item) => fromMap(item as Map<String, dynamic>))
+            .toList();
       }
       return []; // Return empty list if data is null or not a list
     }
+
     return UserModel(
       id: map['id'] as String,
       imageId: map['imageId'] as String,
@@ -87,10 +88,14 @@ class UserModel {
       reviews: map['reviews'] as String,
       about: map['about'] as String,
       pastWork: map.containsKey('pastWork') && map['pastWork'] != null
-          ? (map['pastWork'] as List).map((i) => JobModel.fromMap(i as Map<String, dynamic>)).toList()
+          ? (map['pastWork'] as List)
+                .map((i) => JobModel.fromMap(i as Map<String, dynamic>))
+                .toList()
           : [],
       experience: map.containsKey('experience') && map['experience'] != null
-          ? (map['experience'] as List).map((i) => Experience.fromMap(i as Map<String, dynamic>)).toList()
+          ? (map['experience'] as List)
+                .map((i) => Experience.fromMap(i as Map<String, dynamic>))
+                .toList()
           : [],
       isActive: map['isActive'] as bool,
       verifer_account: map['verifer_account'] as bool,
@@ -127,5 +132,4 @@ class UserModel {
       role: role ?? this.role,
     );
   }
-
 }

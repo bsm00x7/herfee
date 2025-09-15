@@ -291,4 +291,15 @@ class SupaBaseData {
         .inFilter('id', userIds);
     return response.map((e) => UserModel.fromMap(e)).toList();
   }
+
+  Future<String?> jobId({required JobModel job}) async {
+    final response = await _instance
+        .from("job_posts")
+        .select()
+        .eq("user_id", currentLoginUser)
+        .eq("job_title", job.job_title)
+        .eq("description", job.description);
+
+    return response.map((e) => JobModel.fromMap(e)).toList()[0].id;
+  }
 }
