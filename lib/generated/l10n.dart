@@ -104,9 +104,9 @@ class S {
     return Intl.message('About', name: 'About', desc: '', args: []);
   }
 
-  /// `Past Work`
+  /// `Post Work`
   String get PostWork {
-    return Intl.message('Past Work', name: 'PostWork', desc: '', args: []);
+    return Intl.message('Post Work', name: 'PostWork', desc: '', args: []);
   }
 
   /// `Profile`

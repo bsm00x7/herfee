@@ -104,7 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please Enter Your Password",
     ),
     "PopularServices": MessageLookupByLibrary.simpleMessage("Popular Services"),
-    "PostWork": MessageLookupByLibrary.simpleMessage("Past Work"),
+    "PostWork": MessageLookupByLibrary.simpleMessage("Post Work"),
     "ProfessionalDetails": MessageLookupByLibrary.simpleMessage(
       "Professional Details",
     ),

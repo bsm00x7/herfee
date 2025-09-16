@@ -6,7 +6,7 @@
   "featuredProfessionals": "Featured Professionals",
   "ProfessionalDetails" : "Professional Details",
   "About" : "About",
-  "PostWork": "Past Work",
+  "PostWork": "Post Work",
   "Profile": "Profile",
   "SignIn": "SignIn ",
   "Email": "Email",
@@ -41,13 +41,6 @@
   "ConfirmationCode": "We\/'ve sent a confirmation Code to:",
   "ResendEmail": "Resend Email",
   "SuccessSignup": "Success Signup",
-
-
-
-
-
-
-
   "Camera": "Camera",
   "Gallery": "Gallery",
   "PermissionDenied": "Permission denied",

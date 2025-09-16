@@ -6,6 +6,7 @@ class WorkCard extends StatelessWidget {
   final ThemeData theme;
   final JobModel job;
   final void Function()? onTap;
+  final void Function()? onDelete;
   final bool edit;
   const WorkCard({
     super.key,
@@ -13,6 +14,7 @@ class WorkCard extends StatelessWidget {
     required this.job,
     this.onTap,
     this.edit = false,
+    this.onDelete,
   });
 
   @override
@@ -62,26 +64,46 @@ class WorkCard extends StatelessWidget {
               ],
             ),
           ),
-          if (edit == true)
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () => onTap!(),
+          if (edit == true) SizedBox(width: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () => onTap!(),
 
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.tertiaryContainer,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: FaIcon(
-                    FontAwesomeIcons.penToSquare,
-                    color: theme.colorScheme.onTertiaryContainer,
-                    size: 16,
-                  ),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.tertiaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: FaIcon(
+                  FontAwesomeIcons.penToSquare,
+                  color: theme.colorScheme.onTertiaryContainer,
+                  size: 16,
                 ),
               ),
             ),
+          ),
+          SizedBox(width: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () => onDelete!(),
+
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.tertiaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: FaIcon(
+                  FontAwesomeIcons.deleteLeft,
+                  color: theme.colorScheme.error,
+                  size: 16,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

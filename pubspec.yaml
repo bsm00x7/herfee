@@ -30,6 +30,7 @@ dependencies:
   standard_searchbar: ^2.1.1
   redacted: ^1.0.13
   dotted_border: ^3.1.0
+  url_launcher: ^6.3.2
 
 
 

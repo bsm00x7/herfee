@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/features/screen/forgot_password_screen/forgot_password_screen.dart';
+import 'package:herfee/features/screen/profile/contactUsScreen.dart';
 import 'package:herfee/service/model/job_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../features/screen/chat/chat_screen.dart';
 import '../../features/screen/forgot_password_screen/screen_otp.dart';
 import '../../features/screen/home/home_screen.dart';
 import '../../features/screen/navigator_buttom/navigator_buttom.dart';
@@ -63,6 +62,10 @@ GoRouter createRouter(BuildContext context) {
         builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(path: '/settings', builder: (context, state) => const Setting()),
+      GoRoute(
+        path: '/contact',
+        builder: (context, state) => const ContactUsScreen(),
+      ),
       GoRoute(
         path: '/post',
         builder: (context, state) {

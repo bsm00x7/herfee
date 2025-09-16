@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:herfee/core/utils/error/error.dart';
 import 'package:herfee/features/auth/domain/auth.dart';
 import 'package:herfee/service/model/job_model.dart';
 import 'package:herfee/service/model/user_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../auth/data/data.dart';
@@ -89,5 +91,31 @@ class ProfileController with ChangeNotifier {
     } else {
       setImage(false);
     }
+  }
+
+  void deleterJob({
+    required JobModel job,
+    required BuildContext context,
+  }) async {
+    final String? idjob = await SupaBaseData().jobId(job: job);
+    debugPrint(idjob);
+    if (idjob == null) {
+      if (context.mounted) {
+        CustomErrorWidget.showError(context, "Try Again ");
+      }
+
+      return;
+    }
+    try {
+      setLoading(true);
+
+      await SupaBaseData().deleteJobPost(jobId: idjob);
+      setLoading(false);
+    } on AuthException catch (e) {
+      if (context.mounted) {
+        CustomErrorWidget.showError(context, e.message);
+      }
+    }
+    notifyListeners();
   }
 }

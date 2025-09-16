@@ -33,31 +33,6 @@ class SupaBaseData {
       userData = userData.copyWith(imageId: imageUrl);
     }
 
-    /// Get user job posts
-    Future<List<JobModel>> getUserJobPosts({String userId = ''}) async {
-      final targetUserId = userId.isEmpty ? currentLoginUser : userId;
-      final response = await _instance
-          .from('job_posts')
-          .select()
-          .eq('user_id', targetUserId)
-          .eq('is_active', true)
-          .order('created_at', ascending: false);
-
-      return response
-          .map(
-            (e) => JobModel.fromMap({
-              "title": e["job_title"],
-              "description": e["description"],
-              "imageJob": e["imageJob"],
-              "id": e["id"],
-              "user_id": e["user_id"],
-              "created_at": e["created_at"],
-              "is_active": e["is_active"],
-            }),
-          )
-          .toList();
-    }
-
     // Fetch additional user data in parallel for better performance
     final results = await Future.wait([
       SupaBaseData().getExperience(userId: id.isEmpty ? currentLoginUser : id),
@@ -93,6 +68,31 @@ class SupaBaseData {
       'verifer_account': user['verifer_account'],
       "role": user["role"],
     });
+  }
+
+  /// Get user job posts
+  Future<List<JobModel>> getUserJobPosts({String userId = ''}) async {
+    final targetUserId = userId.isEmpty ? currentLoginUser : userId;
+    final response = await _instance
+        .from('job_posts')
+        .select()
+        .eq('user_id', targetUserId)
+        .eq('is_active', true)
+        .order('created_at', ascending: false);
+
+    return response
+        .map(
+          (e) => JobModel.fromMap({
+            "title": e["job_title"],
+            "description": e["description"],
+            "imageJob": e["imageJob"],
+            "id": e["id"],
+            "user_id": e["user_id"],
+            "created_at": e["created_at"],
+            "is_active": e["is_active"],
+          }),
+        )
+        .toList();
   }
 
   /// insert experience to database [using  user id ]
@@ -267,10 +267,7 @@ class SupaBaseData {
 
   /// Delete job post
   Future<void> deleteJobPost({required String jobId}) async {
-    await _instance
-        .from('job_posts')
-        .update({'is_active': false})
-        .eq('id', jobId);
+    await _instance.from('job_posts').delete().eq('id', jobId);
   }
 
   Future<List<UserModel>> listOfUserFindWithJob({required String job}) async {
@@ -281,7 +278,6 @@ class SupaBaseData {
     if (listOfUserWithJobeTileFind.isEmpty) return [];
     final List<String> userIds = listOfUserWithJobeTileFind
         .map((r) => r['user_id'] as String)
-        .where((id) => id != currentLoginUser)
         .toSet()
         .toList();
     if (userIds.isEmpty) return [];

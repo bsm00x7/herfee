@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/common_widgets/container_decoration.dart';
+import 'package:herfee/core/utils/loding/loding_indicator.dart';
 import 'package:herfee/service/model/user_model.dart';
 import '../../../common_widgets/experience_card.dart';
 import '../../../common_widgets/header_title.dart';
@@ -307,7 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       // Content Sections
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -357,7 +358,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               if (user.pastWork.isNotEmpty) ...[
                                 HeaderTitle(
                                   theme: theme,
-                                  title: 'POst Work',
+                                  title: s.PostWork,
                                   icon: FontAwesomeIcons.folderOpen,
                                 ),
                                 const SizedBox(height: 16),
@@ -376,6 +377,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 extra: job,
                                               ),
                                           edit: true,
+                                          onDelete: () {
+                                            LoadingIndicator.setLoading(
+                                              context,
+                                              provider.isLoading,
+                                            );
+                                            provider.deleterJob(
+                                              job: job,
+                                              context: context,
+                                            );
+                                          },
                                         );
                                       },
                                     ),
@@ -383,9 +394,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(height: 32),
                               ],
+                              HeaderTitle(
+                                theme: theme,
+                                title: 'Contact',
+                                icon: FontAwesomeIcons.addressCard,
+                              ),
+                              const SizedBox(height: 13),
 
-                              // Add bottom padding for last item
-                              const SizedBox(height: 24),
+                              InkWell(
+                                onTap: () {
+                                  context.push("/contact");
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.onSecondary,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  height: 60,
+                                  width: size.width,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 20,
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.addressBook,
+                                          color: Colors.blue,
+                                        ),
+
+                                        Text(
+                                          "Clik To Contact",
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    theme.colorScheme.onSurface,
+                                              ),
+                                        ),
+
+                                        Icon(
+                                          FontAwesomeIcons.arrowRight,
+                                          color: Colors.blue,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 120),
                             ],
                           ),
                         ),

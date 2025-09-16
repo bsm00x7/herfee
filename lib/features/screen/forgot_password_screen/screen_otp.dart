@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:herfee/features/auth/domain/auth.dart';
-import 'package:herfee/service/model/job_model.dart';
 import 'package:herfee/service/model/user_model.dart';
 import '../../auth/data/data.dart';
 import 'package:flutter/material.dart';
