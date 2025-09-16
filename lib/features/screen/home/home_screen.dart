@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:herfee/common_widgets/container_decoration.dart';
 import 'package:herfee/core/utils/loding/loding_indicator.dart';
 import 'package:herfee/service/model/job_model.dart';
 import 'package:herfee/service/model/user_model.dart';
@@ -982,14 +981,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-}
-
-extension on String {
-  String capitalize() {
-    if (isEmpty) {
-      return this;
-    }
-    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }

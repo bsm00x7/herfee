@@ -120,34 +120,39 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                             context,
                             email: widget.email,
                           );
-                          LoadingIndicator.setLoading(context, false);
+                          if (context.mounted) {
+                            LoadingIndicator.setLoading(context, false);
+                          }
+
                           if (response == true) {
                             final user = AuthNotifier().user;
                             if (user != null) {
-                              final responseInsert = await SupaBaseData()
-                                  .insertToDataBase(
-                                    user: UserModel(
-                                      id: user.id,
-                                      imageId: '',
-                                      userName: widget.fullName,
-                                      jobe: widget.job,
-                                      rating: '0',
-                                      reviews: '0',
-                                      about: widget.about,
-                                      isActive: true,
-                                      role: 'user',
-                                      verifer_account: false,
-                                    ).toMap(),
-                                  );
+                              await SupaBaseData().insertToDataBase(
+                                user: UserModel(
+                                  id: user.id,
+                                  imageId: '',
+                                  userName: widget.fullName,
+                                  jobe: widget.job,
+                                  rating: '0',
+                                  reviews: '0',
+                                  about: widget.about,
+                                  isActive: true,
+                                  role: 'user',
+                                  verifer_account: false,
+                                ).toMap(),
+                              );
                             }
-
-                            provider
-                                .resetControllers(); // Reset controllers after successful OTP
-                            context.go('/'); // Navigate to home using GoRouter
-                            CustomSuccessWidget.showSuccess(
-                              context,
-                              s.SuccessSignup,
-                            );
+                            if (context.mounted) {
+                              provider
+                                  .resetControllers(); // Reset controllers after successful OTP
+                              context.go(
+                                '/',
+                              ); // Navigate to home using GoRouter
+                              CustomSuccessWidget.showSuccess(
+                                context,
+                                s.SuccessSignup,
+                              );
+                            }
                           }
                         },
                       ),
