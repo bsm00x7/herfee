@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:herfee/features/screen/forgot_password_screen/forgot_password_screen.dart';
 import 'package:herfee/features/screen/profile/contactUsScreen.dart';
+import 'package:herfee/features/splashScreen/splash_screen.dart';
 import 'package:herfee/service/model/job_model.dart';
 import 'package:provider/provider.dart';
 import '../../features/screen/forgot_password_screen/screen_otp.dart';
@@ -20,8 +21,9 @@ import '../../service/model/user_model.dart';
 
 GoRouter createRouter(BuildContext context) {
   final authNotifier = Provider.of<AuthNotifier>(context, listen: false);
+
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/splashScreen',
     refreshListenable: authNotifier,
     redirect: (BuildContext context, GoRouterState state) {
       final bool isLoggedIn = authNotifier.isLoggedIn;
@@ -50,6 +52,10 @@ GoRouter createRouter(BuildContext context) {
       return null;
     },
     routes: <RouteBase>[
+      GoRoute(
+        path: '/splashScreen',
+        builder: (context, state) => SplashScreen(),
+      ),
       GoRoute(path: '/', builder: (context, state) => NavigatorButtom()),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
       GoRoute(path: '/search', builder: (context, state) => SearchScreen()),

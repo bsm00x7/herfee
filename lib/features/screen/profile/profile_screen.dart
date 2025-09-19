@@ -46,27 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             centerTitle: true,
-            actions: [
-              IconButton(
-                icon: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surface.withValues(alpha: 0.9),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: theme.colorScheme.outline.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.more_vert_rounded,
-                    color: theme.colorScheme.onSurface,
-                    size: 20,
-                  ),
-                ),
-                onPressed: () {},
-              ),
-              const SizedBox(width: 16),
-            ],
           ),
           body: ContainerDecoration(
             theme: theme,
@@ -290,9 +269,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // Job Title with Enhanced Styling
                               JobTitle(theme: theme, jobName: user.jobe),
                               const SizedBox(height: 8),
-
-                              JobTitle(theme: theme, jobName: user.role),
-                              const SizedBox(height: 20),
 
                               // Enhanced Rating Card
                               RatingCard(
@@ -584,8 +560,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           haveImage: profileController.haveImage,
                         );
                       } catch (e) {
-                        // Handle error if needed
-                        debugPrint('Error picking image from camera: $e');
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -668,7 +642,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           haveImage: profileController.haveImage,
                         );
                       } catch (e) {
-                        debugPrint('Error picking image from gallery: $e');
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

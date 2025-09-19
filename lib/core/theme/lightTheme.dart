@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  fontFamily: 'Roboto',
+  fontFamily: 'Open Sans',
 
   // Enhanced Blue & Light Color Scheme
   colorScheme: const ColorScheme.light(
@@ -57,7 +57,7 @@ final ThemeData lightTheme = ThemeData(
     scrolledUnderElevation: 1,
     centerTitle: true,
     titleTextStyle: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       color: Color(0xFF0F172A),
       fontSize: 20,
       fontWeight: FontWeight.w600,
@@ -72,13 +72,13 @@ final ThemeData lightTheme = ThemeData(
     selectedItemColor: Color(0xFF2563EB), // Blue-600
     unselectedItemColor: Color(0xFF64748B), // Slate-500
     selectedLabelStyle: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w600,
       fontSize: 12,
       letterSpacing: 0.1,
     ),
     unselectedLabelStyle: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 12,
       letterSpacing: 0.1,
@@ -95,7 +95,7 @@ final ThemeData lightTheme = ThemeData(
       shadowColor: const Color(0xFF2563EB).withValues(alpha: 0.3),
       elevation: 3,
       textStyle: const TextStyle(
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
         fontWeight: FontWeight.w600,
         fontSize: 16,
         letterSpacing: 0.1,
@@ -110,7 +110,7 @@ final ThemeData lightTheme = ThemeData(
       foregroundColor: const Color(0xFF2563EB),
       side: const BorderSide(color: Color(0xFF2563EB), width: 1.5),
       textStyle: const TextStyle(
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
         fontWeight: FontWeight.w600,
         fontSize: 16,
         letterSpacing: 0.1,
@@ -124,7 +124,7 @@ final ThemeData lightTheme = ThemeData(
     style: TextButton.styleFrom(
       foregroundColor: const Color(0xFF2563EB),
       textStyle: const TextStyle(
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
         fontWeight: FontWeight.w600,
         fontSize: 16,
         letterSpacing: 0.1,
@@ -136,7 +136,7 @@ final ThemeData lightTheme = ThemeData(
   // Enhanced Light Text Theme
   textTheme: const TextTheme(
     displayLarge: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w300,
       fontSize: 36,
       color: Color(0xFF0F172A),
@@ -144,7 +144,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.2,
     ),
     displayMedium: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       fontSize: 32,
       color: Color(0xFF0F172A),
@@ -152,7 +152,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.2,
     ),
     displaySmall: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       fontSize: 28,
       color: Color(0xFF0F172A),
@@ -160,7 +160,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.3,
     ),
     headlineLarge: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 24,
       color: Color(0xFF0F172A),
@@ -168,7 +168,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.3,
     ),
     headlineMedium: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 22,
       color: Color(0xFF0F172A),
@@ -176,7 +176,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.3,
     ),
     headlineSmall: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 20,
       color: Color(0xFF1E293B),
@@ -184,7 +184,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.4,
     ),
     titleLarge: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w600,
       fontSize: 18,
       color: Color(0xFF1E293B),
@@ -192,7 +192,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.4,
     ),
     titleMedium: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w600,
       fontSize: 16,
       color: Color(0xFF475569),
@@ -200,7 +200,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.4,
     ),
     titleSmall: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w600,
       fontSize: 14,
       color: Color(0xFF64748B),
@@ -208,7 +208,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.4,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       fontSize: 16,
       color: Color(0xFF475569),
@@ -216,7 +216,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.5,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       fontSize: 14,
       color: Color(0xFF64748B),
@@ -224,7 +224,7 @@ final ThemeData lightTheme = ThemeData(
       height: 1.5,
     ),
     bodySmall: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       fontSize: 12,
       color: Color(0xFF94A3B8),
@@ -232,21 +232,21 @@ final ThemeData lightTheme = ThemeData(
       height: 1.5,
     ),
     labelLarge: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w600,
       fontSize: 14,
       color: Color(0xFF475569),
       letterSpacing: 0.2,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 12,
       color: Color(0xFF64748B),
       letterSpacing: 0.3,
     ),
     labelSmall: TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 10,
       color: Color(0xFF94A3B8),
@@ -260,7 +260,7 @@ final ThemeData lightTheme = ThemeData(
     hintStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Open Sans',
           fontWeight: FontWeight.w400,
           fontSize: 18,
           color: Colors.blueAccent,
@@ -269,7 +269,7 @@ final ThemeData lightTheme = ThemeData(
         );
       }
       return const TextStyle(
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
         fontWeight: FontWeight.w400,
         fontSize: 15,
         color: Color(0xFF2563EB), // Lighter neutral-400
@@ -282,7 +282,7 @@ final ThemeData lightTheme = ThemeData(
     textStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.focused)) {
         return const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Open Sans',
           fontWeight: FontWeight.w500,
           fontSize: 18,
           color: Color(0xFF111827),
@@ -291,7 +291,7 @@ final ThemeData lightTheme = ThemeData(
         );
       }
       return const TextStyle(
-        fontFamily: 'Roboto',
+        fontFamily: 'Open Sans',
         fontWeight: FontWeight.w500,
         fontSize: 15,
         color: Color(0xFF1F2937), // Neutral-800
@@ -413,7 +413,7 @@ final ThemeData lightTheme = ThemeData(
     selectedColor: const Color(0xFF2563EB),
     disabledColor: const Color(0xFFF1F5F9),
     labelStyle: const TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w500,
       fontSize: 14,
       color: Color(0xFF0F172A),
@@ -444,7 +444,7 @@ final ThemeData lightTheme = ThemeData(
     ),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     hintStyle: const TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.w400,
       color: Color(0xFF94A3B8),
     ),

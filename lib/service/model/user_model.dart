@@ -123,7 +123,7 @@ class UserModel {
       userName: userName ?? this.userName,
       jobe: jobe ?? this.jobe,
       rating: rating ?? this.rating,
-      reviews: reviwes ?? this.reviews,
+      reviews: reviwes ?? reviews,
       about: about ?? this.about,
       pastWork: pastWork ?? this.pastWork,
       experience: experience ?? this.experience,

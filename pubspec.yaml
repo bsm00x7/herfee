@@ -31,6 +31,9 @@ dependencies:
   redacted: ^1.0.13
   dotted_border: ^3.1.0
   url_launcher: ^6.3.2
+  flutter_animate: ^4.5.2
+  animated_text_kit: ^4.2.3
+  flutter_launcher_icons: ^0.14.4
 
 
 
@@ -51,15 +54,16 @@ flutter:
     - assets/image/Flag_of_Tunisia.svg.png
 
   fonts:
-    - family: Roboto
+
+    - family: Open Sans
       fonts:
-        - asset: assets/font/static/Roboto-Light.ttf
+        - asset: assets/font/OpenSans-Light.ttf
           weight: 300
-        - asset: assets/font/static/Roboto-Regular.ttf
+        - asset: assets/font/OpenSans-Regular.ttf
           weight: 400
-        - asset: assets/font/static/Roboto-Medium.ttf
+        - asset: assets/font/OpenSans-Medium.ttf
           weight: 500
-        - asset: assets/font/static/Roboto-Bold.ttf
+        - asset: assets/font/OpenSans-Bold.ttf
           weight: 700
 
 flutter_intl:

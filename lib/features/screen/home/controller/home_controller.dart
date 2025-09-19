@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:herfee/features/auth/data/storge.dart';
 import '../../../../service/model/job_model.dart';
 import '../../../../service/model/user_model.dart';
 import '../../../auth/data/data.dart';
@@ -51,6 +51,27 @@ class HomeController extends ChangeNotifier {
 
   Future<List<UserModel>> listUsers() async {
     final response = await SupaBaseData().listUsers();
-    return response;
+
+    // Use Future.wait to handle all async operations
+    final updatedUsers = await Future.wait(
+      response.map((user) async {
+        final String? image = await Storage().getUrlImage(
+          id: user.id,
+          table: "avatars",
+        );
+        final bool haveImage = await Storage().existsImage(
+          id: user.id,
+          table: "avatars",
+        );
+        // Return the updated user with image URL or original user if no image
+        if (image != null && image.isNotEmpty && haveImage) {
+          return user.copyWith(imageId: image);
+        }
+
+        return user.copyWith(imageId: '');
+      }),
+    );
+
+    return updatedUsers;
   }
 }

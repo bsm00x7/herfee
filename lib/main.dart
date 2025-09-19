@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
         child: Consumer<LangController>(
           builder: (context, provider, child) {
             return MaterialApp.router(
-              locale: Locale(provider.locale ?? "en"),
+              locale: provider.appLocale,
+
               localizationsDelegates: [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,

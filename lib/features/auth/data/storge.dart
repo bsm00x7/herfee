@@ -23,6 +23,9 @@ class Storage {
     required File image,
     required String table,
   }) async {
+    if (await existsImage(id: id, table: table) == true) {
+      await deleterAvatar(id: id);
+    }
     await _instance.client.storage.from(table).upload(id, image);
   }
 

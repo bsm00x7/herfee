@@ -21,16 +21,21 @@ class SupaBaseData {
         .eq('id', id.isEmpty ? currentLoginUser : id)
         .single();
     var userData = UserModel.fromMap(response);
-    if (userData.imageId.isEmpty) {
-      String? imageUrl;
-      imageUrl = await Storage().getUrlImage(id: userData.id, table: 'avatars');
+
+    String? imageUrl;
+    imageUrl = await Storage().getUrlImage(id: userData.id, table: 'avatars');
+    if (imageUrl != userData.imageId) {
       if (imageUrl != null) {
-        SupaBaseData().updateUser(
+        await SupaBaseData().updateUser(
           id: id.isEmpty ? currentLoginUser : id,
           image: imageUrl,
         );
       }
-      userData = userData.copyWith(imageId: imageUrl);
+    }
+    if (imageUrl != userData.imageId) {
+      if (imageUrl != null) {
+        userData = userData.copyWith(imageId: imageUrl);
+      }
     }
 
     // Fetch additional user data in parallel for better performance
@@ -183,7 +188,9 @@ class SupaBaseData {
         .neq('id', Supabase.instance.client.auth.currentUser!.id)
         .order('reviews', ascending: false)
         .range(0, 10);
-    return response.map((e) => UserModel.fromMap(e)).toList();
+    return response.map((e) {
+      return UserModel.fromMap(e);
+    }).toList();
   }
 
   Future<void> sendMessage({required Map<String, dynamic> message}) async {

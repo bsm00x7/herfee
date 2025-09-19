@@ -54,27 +54,6 @@ class ProfileInfo extends StatelessWidget {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface.withValues(alpha: 0.9),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
-                ),
-              ),
-              child: Icon(
-                Icons.more_vert_rounded,
-                color: theme.colorScheme.onSurface,
-                size: 20,
-              ),
-            ),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 16),
-        ],
       ),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
@@ -120,14 +99,10 @@ class ProfileInfo extends StatelessWidget {
                                   radius: 64,
                                   backgroundColor:
                                       theme.colorScheme.surfaceContainer,
+
                                   backgroundImage: user.imageId.isNotEmpty
                                       ? NetworkImage(user.imageId)
                                       : null,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 40,
-                                    color: theme.colorScheme.onSurface,
-                                  ),
                                 ),
                                 Positioned(
                                   bottom: 0,

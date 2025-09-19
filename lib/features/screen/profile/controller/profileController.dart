@@ -18,6 +18,7 @@ class ProfileController with ChangeNotifier {
   bool _haveImage = false;
   bool get haveImage => _haveImage;
   bool get isLoading => _isloading;
+
   final userId = AuthNotifier().user!.id;
   void setImage(bool value) {
     _haveImage = value;
@@ -31,6 +32,7 @@ class ProfileController with ChangeNotifier {
 
   Future<UserModel> getUser() async {
     final response = await SupaBaseData().user();
+
     return response;
   }
 
@@ -56,6 +58,7 @@ class ProfileController with ChangeNotifier {
             table: 'avatars',
           );
         }
+        notifyListeners();
       },
     );
   }
@@ -80,6 +83,7 @@ class ProfileController with ChangeNotifier {
             table: 'avatars',
           );
         }
+        notifyListeners();
       },
     );
   }
