@@ -110,6 +110,20 @@ class _ScreenOtpPageState extends State<ScreenOtp> {
                       ),
                       const SizedBox(height: 32),
                       OtpTextField(
+                        fillColor:
+                            Theme.of(context).textTheme.bodyMedium!.color ??
+                            Colors.blueAccent,
+                        enabledBorderColor: Theme.of(context).primaryColor,
+                        clearText: true,
+                        cursorColor: Theme.of(context).primaryColor,
+                        filled: true,
+                        decoration: InputDecoration(
+                          fillColor: Colors.green,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
                         numberOfFields: 6,
                         borderColor: const Color(0xFF512DA8),
                         showFieldAsBox: true,

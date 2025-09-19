@@ -216,10 +216,7 @@ class Setting extends StatelessWidget {
                         );
                       },
                       child: ListTile(
-                        leading: Icon(
-                          FontAwesome.right_from_bracket_solid,
-                          color: Colors.blueAccent,
-                        ),
+                        leading: Icon(FontAwesome.trash_can, color: Colors.red),
                         title: Text(
                           s.DeleteAccount,
                           style: theme.textTheme.titleMedium!.copyWith(
@@ -237,7 +234,10 @@ class Setting extends StatelessWidget {
                         provider.signout();
                       },
                       child: ListTile(
-                        leading: Icon(FontAwesome.trash_can, color: Colors.red),
+                        leading: Icon(
+                          FontAwesome.right_from_bracket_solid,
+                          color: theme.colorScheme.primary,
+                        ),
                         title: Text(
                           s.DeleteAccount,
                           style: theme.textTheme.titleMedium!.copyWith(

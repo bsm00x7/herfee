@@ -48,8 +48,6 @@ class PickerImageClasse {
       if (context.mounted) {
         CustomErrorWidget.showError(context, s.PermissionDenied);
       }
-
-      openAppSettings();
     } else if (status.isPermanentlyDenied) {
       // The user opted to never again be asked for the permission.
       openAppSettings();

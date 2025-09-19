@@ -20,7 +20,7 @@ Future<void> main() async {
   await Supabase.initialize(
     url: 'https://mshieodmrbgtyjihgrsr.supabase.co',
     anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zaGllb2RtcmJndHlqaWhncnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyNDE4OTksImV4cCI6MjA3MTgxNzg5OX0.RqrZMGYxMSqlfNRf3Ag0ZFQPGgo2a8Yu6EgrPo4Rb7M', // Supabase Public Anon Key
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zaGllb2RtcmJndHlqaWhncnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyNDE4OTksImV4cCI6MjA3MTgxNzg5OX0.RqrZMGYxMSqlfNRf3Ag0ZFQPGgo2a8Yu6EgrPo4Rb7M',
   );
   runApp(MyApp(savedThemeMode: savedThemeMode));
 }

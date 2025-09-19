@@ -131,7 +131,7 @@ class SupaBaseData {
         .deleteUser(id)
         .onError(
           (error, stackTrace) =>
-              CustomErrorWidget.showError(context, "Try In Anthor time "),
+              CustomErrorWidget.showError(context, "Try In Anth or time "),
         );
     await _instance.from('users').delete().eq('id', id);
     await _instance.from('experiences').delete().eq('user_id', id);
@@ -188,31 +188,6 @@ class SupaBaseData {
 
   Future<void> sendMessage({required Map<String, dynamic> message}) async {
     await _instance.from('messages').insert(message);
-  }
-
-  // Stream messages for real-time updates
-  Stream<List<MessageModel>> messageStream({
-    required String currentUserId,
-    required String otherUserId,
-  }) {
-    final response = _instance
-        .from('messages')
-        .stream(primaryKey: ['id'])
-        .inFilter('sendId', [currentUserId, otherUserId])
-        .order('createdAt', ascending: false)
-        .map(
-          (data) => data
-              .where(
-                (json) =>
-                    (json['sendId'] == currentUserId &&
-                        json['recvId'] == otherUserId) ||
-                    (json['sendId'] == otherUserId &&
-                        json['recvId'] == currentUserId),
-              )
-              .map((json) => MessageModel.fromMap(json))
-              .toList(),
-        );
-    return response;
   }
 
   Future<void> sign_out() async {
@@ -297,5 +272,65 @@ class SupaBaseData {
         .eq("description", job.description);
 
     return response.map((e) => JobModel.fromMap(e)).toList()[0].id;
+  }
+
+  // Stream messages for real-time updates
+  Stream<List<MessageModel>> messageStream({
+    required String currentUserId,
+    required String otherUserId,
+  }) {
+    final response = _instance
+        .from('messages')
+        .stream(primaryKey: ['id'])
+        .inFilter('sendId', [currentUserId, otherUserId])
+        .order('createdAt', ascending: false)
+        .map(
+          (data) => data
+              .where(
+                (json) =>
+                    (json['sendId'] == currentUserId &&
+                        json['recvId'] == otherUserId) ||
+                    (json['sendId'] == otherUserId &&
+                        json['recvId'] == currentUserId),
+              )
+              .map((json) => MessageModel.fromMap(json))
+              .toList(),
+        );
+    return response;
+  }
+
+  Future<List<UserModel>> streamMessageUser({required String id}) async {
+    final List<String> sendUserId =
+        (await _instance
+                .from('messages')
+                .select('sendId')
+                .eq('recvId', id)
+                .neq("sendId", id))
+            .map((e) => e['sendId'] as String)
+            .toSet()
+            .toList();
+
+    // Get receivers who received messages FROM current user
+    final List<String> recvUserId =
+        (await _instance
+                .from('messages')
+                .select('recvId')
+                .eq('sendId', id)
+                .neq("recvId", id))
+            .map((e) => e['recvId'] as String)
+            .toSet()
+            .toList();
+    final List<String> listOfUser = {
+      ...sendUserId,
+      ...recvUserId,
+    }.toSet().toList();
+    if (listOfUser.isEmpty) {
+      return [];
+    }
+    final response = await _instance
+        .from('users')
+        .select()
+        .filter("id", 'in', listOfUser);
+    return response.map((data) => UserModel.fromMap(data)).toList();
   }
 }

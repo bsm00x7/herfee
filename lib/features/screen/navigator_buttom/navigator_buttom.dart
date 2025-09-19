@@ -134,7 +134,7 @@ class _NavigatorButtomState extends State<NavigatorButtom>
 
     return Scaffold(
       extendBody: true,
-      body: SafeArea(bottom: false, child: screen(_selectedIndex)),
+      body: SafeArea(bottom: true, child: screen(_selectedIndex)),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(

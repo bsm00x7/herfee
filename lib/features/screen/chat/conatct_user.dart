@@ -41,21 +41,21 @@ class ContactUser extends StatelessWidget {
                         shape: BoxShape.circle,
                         gradient: user.isActive
                             ? LinearGradient(
-                          colors: [
-                            Colors.green.shade400,
-                            Colors.green.shade600,
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )
+                                colors: [
+                                  Colors.green.shade400,
+                                  Colors.green.shade600,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )
                             : null,
                         border: !user.isActive
                             ? Border.all(
-                          color: theme.dividerColor.withValues(
-                            alpha: 0.3,
-                          ),
-                          width: 2,
-                        )
+                                color: theme.dividerColor.withValues(
+                                  alpha: 0.3,
+                                ),
+                                width: 2,
+                              )
                             : null,
                       ),
                       child: CircleAvatar(
@@ -65,23 +65,25 @@ class ContactUser extends StatelessWidget {
                         onBackgroundImageError: (exception, stackTrace) {},
                         child: user.imageId.isEmpty
                             ? Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                theme.colorScheme.primary.withValues(alpha: 0.7),
-                                theme.colorScheme.primary,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.person_rounded,
-                            color: theme.colorScheme.onPrimary,
-                            size: 28,
-                          ),
-                        )
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      theme.colorScheme.primary.withValues(
+                                        alpha: 0.7,
+                                      ),
+                                      theme.colorScheme.primary,
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.person_rounded,
+                                  color: theme.colorScheme.onPrimary,
+                                  size: 28,
+                                ),
+                              )
                             : null,
                       ),
                     ),
@@ -97,7 +99,8 @@ class ContactUser extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.green.shade500,
                             border: Border.all(
-                              color: theme.appBarTheme.backgroundColor ??
+                              color:
+                                  theme.appBarTheme.backgroundColor ??
                                   theme.scaffoldBackgroundColor,
                               width: 2,
                             ),
@@ -150,15 +153,15 @@ class ContactUser extends StatelessWidget {
                           color: user.isActive
                               ? Colors.green.withValues(alpha: 0.15)
                               : theme.colorScheme.outline.withValues(
-                            alpha: 0.1,
-                          ),
+                                  alpha: 0.1,
+                                ),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: user.isActive
                                 ? Colors.green.withValues(alpha: 0.3)
                                 : theme.colorScheme.outline.withValues(
-                              alpha: 0.2,
-                            ),
+                                    alpha: 0.2,
+                                  ),
                             width: 1,
                           ),
                         ),
@@ -173,8 +176,8 @@ class ContactUser extends StatelessWidget {
                                 color: user.isActive
                                     ? Colors.green.shade600
                                     : theme.colorScheme.outline.withValues(
-                                  alpha: 0.6,
-                                ),
+                                        alpha: 0.6,
+                                      ),
                               ),
                             ),
                             const SizedBox(width: 6),
@@ -273,21 +276,21 @@ class ContactUser extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: isDarkMode
                 ? LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                theme.scaffoldBackgroundColor,
-                theme.scaffoldBackgroundColor.withValues(alpha: 0.95),
-              ],
-            )
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      theme.scaffoldBackgroundColor,
+                      theme.scaffoldBackgroundColor.withValues(alpha: 0.95),
+                    ],
+                  )
                 : LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                theme.colorScheme.surface,
-                theme.colorScheme.surface.withValues(alpha: 0.8),
-              ],
-            ),
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      theme.colorScheme.surface,
+                      theme.colorScheme.surface.withValues(alpha: 0.8),
+                    ],
+                  ),
           ),
           child: Column(
             children: [
@@ -302,93 +305,110 @@ class ContactUser extends StatelessWidget {
                         currentUserId: provider.currentLoginUserId,
                         otherUserId: user.id,
                       ),
-                      builder: (context, AsyncSnapshot<List<MessageModel>> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  size: 48,
-                                  color: theme.colorScheme.error,
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  'Error loading messages',
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  '${snapshot.error}',
-                                  style: theme.textTheme.bodySmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-
-                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.chat_bubble_outline,
-                                  size: 48,
-                                  color: theme.colorScheme.outline.withValues(alpha: 0.5),
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  'No messages yet',
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    color: theme.colorScheme.outline,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Start a conversation with ${user.userName}',
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: theme.colorScheme.outline.withValues(alpha: 0.7),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-
-                        final messages = snapshot.data!;
-                        return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: ListView.separated(
-                            reverse: true, // Show latest messages at bottom
-                            itemCount: messages.length,
-                            itemBuilder: (context, index) {
-                              final message = messages[index];
-                              final isFromCurrentUser = message.sendId== provider.currentLoginUserId;
-                              return ContainerMessage(
-                                alignment: isFromCurrentUser
-                                    ? Alignment.centerRight
-                                    : Alignment.centerLeft,
-                                color: isFromCurrentUser
-                                    ? theme.colorScheme.primary
-                                    : theme.colorScheme.surfaceContainerHighest,
-                                size: size,
-                                message: message.content,
+                      builder:
+                          (
+                            context,
+                            AsyncSnapshot<List<MessageModel>> snapshot,
+                          ) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
-                            },
-                            separatorBuilder: (BuildContext context, int index) {
-                              return const SizedBox(height: 8);
-                            },
-                          ),
-                        );
-                      },
+                            }
 
+                            if (snapshot.hasError) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.error_outline,
+                                      size: 48,
+                                      color: theme.colorScheme.error,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Error loading messages',
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '${snapshot.error}',
+                                      style: theme.textTheme.bodySmall,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
+                            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.chat_bubble_outline,
+                                      size: 48,
+                                      color: theme.colorScheme.outline
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'No messages yet',
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            color: theme.colorScheme.outline,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'Start a conversation with ${user.userName}',
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: theme.colorScheme.outline
+                                                .withValues(alpha: 0.7),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
+                            final messages = snapshot.data!;
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: ListView.separated(
+                                reverse: true, // Show latest messages at bottom
+                                itemCount: messages.length,
+                                itemBuilder: (context, index) {
+                                  final message = messages[index];
+                                  final isFromCurrentUser =
+                                      message.sendId ==
+                                      provider.currentLoginUserId;
+                                  return ContainerMessage(
+                                    alignment: isFromCurrentUser
+                                        ? Alignment.centerRight
+                                        : Alignment.centerLeft,
+                                    color: isFromCurrentUser
+                                        ? theme.colorScheme.primary
+                                        : theme
+                                              .colorScheme
+                                              .surfaceContainerHighest,
+                                    size: size,
+                                    message: message.content,
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                      return const SizedBox(height: 8);
+                                    },
+                              ),
+                            );
+                          },
                     );
                   },
                 ),
@@ -442,9 +462,8 @@ class ContactUser extends StatelessWidget {
                                 decoration: InputDecoration(
                                   hintText: 'Type a message...',
                                   hintStyle: TextStyle(
-                                    color: theme.colorScheme.onSurface.withValues(
-                                      alpha: 0.5,
-                                    ),
+                                    color: theme.colorScheme.onSurface
+                                        .withValues(alpha: 0.5),
                                   ),
                                   border: InputBorder.none,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -485,21 +504,21 @@ class ContactUser extends StatelessWidget {
                               onPressed: provider.isLoading
                                   ? null
                                   : () {
-                                provider.sendMessage(recvId: user.id);
-                              },
+                                      provider.sendMessage(recvId: user.id);
+                                    },
                               icon: provider.isLoading
                                   ? SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  color: theme.colorScheme.onPrimary,
-                                  strokeWidth: 2,
-                                ),
-                              )
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        color: theme.colorScheme.onPrimary,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
                                   : Icon(
-                                Icons.send_rounded,
-                                color: theme.colorScheme.onPrimary,
-                              ),
+                                      Icons.send_rounded,
+                                      color: theme.colorScheme.onPrimary,
+                                    ),
                             ),
                           ),
                         ],
@@ -534,9 +553,7 @@ class ContactUser extends StatelessWidget {
                 // Implement block user functionality here
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('${user.userName} has been blocked'),
-                  ),
+                  SnackBar(content: Text('${user.userName} has been blocked')),
                 );
               },
               style: TextButton.styleFrom(
