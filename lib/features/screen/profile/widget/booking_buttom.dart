@@ -46,11 +46,11 @@ class BookingButton extends StatelessWidget {
             );
           }
         },
-        foregroundColor: theme.colorScheme.onSecondary,
+        foregroundColor: Colors.white,
         backgroundColor: theme.colorScheme.primary,
         label: Text(
           " ${s.ClikeToContact} ${user.userName}",
-          style: theme.textTheme.titleMedium,
+          style: theme.textTheme.titleMedium?.copyWith(color: Colors.white),
         ),
       ),
     );

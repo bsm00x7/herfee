@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:herfee/features/auth/data/storge.dart';
 import 'package:herfee/service/model/message_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/utils/error/error.dart';
@@ -21,22 +20,6 @@ class SupaBaseData {
         .eq('id', id.isEmpty ? currentLoginUser : id)
         .single();
     var userData = UserModel.fromMap(response);
-
-    String? imageUrl;
-    imageUrl = await Storage().getUrlImage(id: userData.id, table: 'avatars');
-    if (imageUrl != userData.imageId) {
-      if (imageUrl != null) {
-        await SupaBaseData().updateUser(
-          id: id.isEmpty ? currentLoginUser : id,
-          image: imageUrl,
-        );
-      }
-    }
-    if (imageUrl != userData.imageId) {
-      if (imageUrl != null) {
-        userData = userData.copyWith(imageId: imageUrl);
-      }
-    }
 
     // Fetch additional user data in parallel for better performance
     final results = await Future.wait([

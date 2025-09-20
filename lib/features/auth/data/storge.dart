@@ -55,7 +55,6 @@ class Storage {
       await _instance.client.storage.from('job_images').upload(fileName, image);
       return _instance.client.storage.from('job_images').getPublicUrl(fileName);
     } catch (e) {
-      print('Error uploading job image: $e');
       return null;
     }
   }

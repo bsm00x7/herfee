@@ -579,10 +579,10 @@ class S {
     return Intl.message('Log Out', name: 'Logout', desc: '', args: []);
   }
 
-  /// `Clike Tp Contact`
+  /// `Clike To Contact`
   String get ClikeToContact {
     return Intl.message(
-      'Clike Tp Contact',
+      'Clike To Contact',
       name: 'ClikeToContact',
       desc: '',
       args: [],

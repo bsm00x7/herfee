@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "CheckYourInternet": MessageLookupByLibrary.simpleMessage(
       "Check your internet connection and try again.",
     ),
-    "ClikeToContact": MessageLookupByLibrary.simpleMessage("Clike Tp Contact"),
+    "ClikeToContact": MessageLookupByLibrary.simpleMessage("Clike To Contact"),
     "Confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "ConfirmYourEmail": MessageLookupByLibrary.simpleMessage(
       "Confirm Your Email",
